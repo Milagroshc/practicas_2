@@ -1,0 +1,348 @@
+<script>
+$(document).ready(function() {
+
+
+    var optionSwitch = {
+        'size': 'mini',
+        'onSwitchChange': function(event, state) {
+            event.preventDefault();
+            var estado = 0;
+            var idSistema = $(this).attr("data-idsitema");
+            // alert(idSistema);
+            if (state) {
+                estado = 19;
+
+            } else {
+                estado = 20;
+            }
+            $(this).attr("data-value", estado);
+            var param = {
+                "idSistema": idSistema,
+                "estado": estado
+            };
+            var url = DOMAINSITE + '{{ rutagrupos }}' + '/cambiar-estado';
+            var metodo = "POST";
+            var resp = enviar(url, param, metodo);
+            if (resp["estado"] == "1") {
+            }
+
+            //este es para actualizar el row del estado en modal ***importantisisiisisisimo
+            var row = FooTable.getRow(this);
+            row.val().ESTADO = estado;
+
+            Swal.fire(resp["mensaje"]);
+        }
+    };
+    /********* Esto es para manipular el estado *************/
+    $(".bt-switch input[type='checkbox'], .bt-switch input[type='radio']").bootstrapSwitch();
+
+    var radioswitch = function() {
+        var bt = function() {
+            $(".bt-switch input[type='checkbox']").bootstrapSwitch(optionSwitch);
+        };
+        return {
+            init: function() {
+                //alert("switch");
+                bt()
+            }
+        }
+    }();
+    /****FIN ESTADO****/
+    // inicializando los plugins generales
+    //radioswitch.init();
+
+    /*Insertando codigo para select con buscador*/
+    $(".select2").select2({ allowClear: true, placeholder: "Seleccione una opción" });
+    $(".select2-multiple").select2({ allowClear: true });
+    // $(".select2").val(null).trigger("change");
+    $(".select2modal").select2({ allowClear: true, placeholder: "Seleccione una opción", dropdownParent: $('.modal') });
+    // _____________________________________
+
+
+    (function($, F) {
+
+        // Extend the Row.$create method to add an id attribute to each <tr>.
+        F.Row.extend("$create", function() {
+            // call the original method
+            this._super();
+            // get the current row values
+            var values = this.val();
+            //alert("funciona");
+            console.log(".....jodido.....");
+            console.log(values);
+            // then add whatever attributes are required
+            //this.$el.attr("id", values["your-id-column-name"]);
+            //radioswitch.init();
+            //radioswitch.init();
+        });
+
+
+    })(jQuery, FooTable);
+
+
+
+    (function($, F) {
+
+        // Extend the Columns $create method to add attributes for tooltips.
+        F.Column.extend("$create", function() {
+            // call the original method
+            this._super();
+            // then do what you need to do with the tooltip attributes
+            this.$el.attr({
+                "title": this.title,
+                "data-toggle": "tooltip",
+                "data-placement": "top"
+            });
+            if (this.$el.attr("id") == "estado") {
+                this.$el.attr({ "data-formatter": "estado" });
+            }
+            //alert("columna");
+        });
+
+        F.Cell.extend("$create", function() {
+            // call the original method
+            this._super();
+            // then do what you need to do with the tooltip attributes
+            this.$el.attr({
+                "title": this.title,
+                "data-toggle": "tooltip",
+                "data-placement": "top"
+            });
+            //alert($(this.$el).find('div').html());
+            if (this.$el.attr("data-formatter") == "estado") {
+                this.$el.attr({ "data-formatter": "estado" });
+            }
+            $(this.$el).find(".bt-switch input[type='checkbox']").bootstrapSwitch(optionSwitch);
+
+
+
+            //alert("cell");
+        });
+
+    })(jQuery, FooTable);
+
+
+
+    var initRow = function() {
+        var bt = function() {
+            $(".bt-switch input[type='checkbox']").bootstrapSwitch(optionSwitch);
+        };
+        return {
+            init: function() {
+                //alert("switch");
+                bt()
+            }
+        }
+    }();
+
+    //radioswitch.init();
+
+    // --------------------------
+    // Add & Remove Row
+    // -----------------------------------------------------------------
+    var $modal = $('#editor-modal'),
+        $editor = $('#editor'),
+        $editorTitle = $('#editor-title'),
+        ft = FooTable.init('#footable-addrow', {
+
+            columns: $.get(DOMAINSITE + '{{ rutagrupos }}' + '/get-columna-persona'),
+            rows: $.get(DOMAINSITE + '{{ rutagrupos }}' + '/get-filas-persona'),
+            'on': {
+                'predraw.ft.table': function(e, ft) {
+                    /*
+                     * e: The jQuery.Event object for the event.
+                     * ft: The instance of the plugin raising the event.
+                     */
+                    // all initialized - do stuff here
+                    //alert("Alerta predraw");
+                    //e.preventDefault();
+                },
+                'postinit.ft.table': function(e, ft) {
+                    /*
+                     * e: The jQuery.Event object for the event.
+                     * ft: The instance of the plugin raising the event.
+                     */
+                    // all initialized - do stuff here
+                    //alert("alert posinit");
+
+                }
+            },
+            editing: {
+                "enabled": true,
+                addRow: function() {
+                    $modal.removeData('row');
+                    $editor[0].reset();
+                    $editor.find('#ESTADO').val(null).trigger('change');
+                    $editorTitle.text('Agregar nueva fila');
+                    $modal.modal('show');
+                },
+                editRow: function(row) {
+                    var values = row.val();
+                    console.log("------datos roew");
+                    console.log(values);
+                    $editor.find('#TIPO_SISTEMA').val(values.TIPO_SISTEMA);
+                    $editor.find('#NOMBRE').val(values.NOMBRE);
+                    $editor.find('#NOMBRE_CORTO').val(values.NOMBRE_CORTO);
+                    $editor.find('#ESTADO').val(values.ESTADO).trigger('change');
+                    $editor.find('#RUTA').val(values.RUTA);
+                    $modal.data('row', row);
+                    $editorTitle.text('Editar Fila #' + values.IDSISTEMA);
+                    $modal.modal('show');
+                },
+                deleteRow: function(row) {
+
+
+                    Swal.fire({
+                        title: '¿Estás seguro de eliminar?',
+                        text: "¡No podrás revertir esto!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Si, eliminar!'
+                    }).then((result) => {
+
+                        if (result.value) {
+                            var url = DOMAINSITE + '{{ rutagrupos }}' + '/eliminar-sistema';
+
+                            var metodo = "POST";
+                            var values = row.val();
+                            //alert("ssss");
+                            console.log(values);
+                            var param = { "IDSISTEMA": values.IDSISTEMA };
+                            var resp = enviar(url, param, metodo);
+                            console.log(resp);
+                            if (resp["success"]) {
+                                row.delete();
+                                Swal.fire(
+                                    '¡Eliminado!',
+                                    resp["mensaje"],
+                                    'success'
+                                );
+                            }
+
+
+                        }
+                    });
+                }
+            }
+        }, function(ft) {
+
+            // radioswitch.init();
+            $('body').tooltip({ selector: '[data-toggle="tooltip"]' });
+            //ft.draw();
+
+        }),
+        uid = 10001;
+
+    $editor.on('submit', function(e) {
+        // radioswitch.init(); //se trae la variable para inicializar
+        //ft._preinit();
+        //ft._init();
+        //ft._execute(radioswitch)
+        //ft.init();
+        if (this.checkValidity && !this.checkValidity())
+            return;
+        e.preventDefault();
+
+        var row = $modal.data('row'),
+            values = {
+                TIPO_SISTEMA: $editor.find('#TIPO_SISTEMA').val(),
+                NOMBRE: $editor.find('#NOMBRE').val(),
+                NOMBRE_CORTO: $editor.find('#NOMBRE_CORTO').val(),
+                ESTADO: $editor.find('#ESTADO').val(), // moment($editor.find('#dob').val(), 'YYYY-MM-DD'),
+                RUTA: $editor.find('#RUTA').val()
+            };
+
+
+        if (row instanceof FooTable.Row) {
+
+            values.IDSISTEMA = row.val().IDSISTEMA;
+            row.val(values, false, false);
+
+
+            // Extend the Row.$create method to add an id attribute to each <tr>.
+            console.log(row.createCells()[4].$el);
+            //$(row.createCells()[4].$el).find(".bt-switch input[type='checkbox']").bootstrapSwitch('destroy');
+            $(row.createCells()[4].$el).find(".bt-switch input[type='checkbox']").bootstrapSwitch('destroy', true);
+            $(row.createCells()[4].$el).find(".bt-switch input[type='checkbox']").bootstrapSwitch(optionSwitch);
+            console.log("-------fila row----");
+            console.log(row.val());
+            var param = row;
+
+            var url = DOMAINSITE + '{{ rutagrupos }}' + '/editar-sistema';
+            var metodo = "POST";
+            var resp = enviar(url, values, metodo);
+            console.log(resp);
+            if (resp["success"]) {
+                // $("#guardarTestimonio")[0].reset();
+                // document.getElementById("guardarTestimonio").reset();
+            }
+            Swal.fire(resp["mensaje"]);
+
+        } else {
+            var url = DOMAINSITE + '{{ rutagrupos }}' + '/nuevo-sistema';
+            var metodo = "POST";
+            var resp = enviar(url, values, metodo);
+            console.log(resp);
+            if (resp["success"]) {
+                values.IDSISTEMA = resp["IDSISTEMA"];
+                console.log("guardar sistema");
+                console.log(values);
+                console.log(resp["sistema"]);
+
+                ft.rows.add(resp["sistema"]);
+
+                // radioswitch.init();
+                Swal.fire(resp["mensaje"]);
+
+            }
+        }
+        $modal.modal('hide');
+    });
+    //fin editor submit
+});
+
+//FUNCION PARA MODIFICAR ELJSON DEL FOOTABLE
+function estado(value, options, rowData) {
+    console.log("-------idsistema---");
+    console.log(rowData);
+    if (value) {
+        var estado = "";
+        if (value == 19) {
+            estado = "checked";
+        } else {
+            estado = "";
+        }
+        //alert("ejecta 2");
+        return '<div class="bt-switch"><input type="checkbox" data-value="' + value + '" data-idsitema="' + rowData.IDSISTEMA + '" class="estado-sistema" data-size="mini" ' + estado + ' data-on-color="success" data-off-color="warning" data-on-text="Activo" data-off-text="Inactivo"></div>';
+    }
+    return "";
+}
+
+function accion(value) {
+    var url = DOMAINSITE+"pedidos/mantenimiento-tablas/tabla-modulos/lista-modulos/"+value;
+
+    if (value) {
+        return '<div class="accion"><a href="'+url+'" data-idsitema="' + value + '" class="btn-outline-success add-modulo" data-toggle="tooltip" data-placement="top" title="Agregar Módulos"> <i class=" fas fa-clipboard-list fa-2x"></i> </a>  </div>';
+    }
+    return "";
+}
+//FIN FUNCIONES FOOTABLE
+
+/*FUNCION AJAX PARA REUTILIZAR*/
+function enviar(url, dato, metodo) {
+    var resultado = "";
+    $.ajax({
+        type: metodo,
+        url: url,
+        async: false,
+        data: dato,
+        success: function(data) {
+            resultado = data;
+        }
+    });
+    /*Fin ajax*/
+    return resultado;
+}
+</script>

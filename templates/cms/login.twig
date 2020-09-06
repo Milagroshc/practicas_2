@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" type="image/png" sizes="16x16" href="/plugins/images/favicon.png">
+		<title>Intranet :: Municipalidad De Lima</title>
+		<!-- Bootstrap Core CSS -->
+		<link href="{{ base_url() }}/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="{{ base_url() }}/plugins/bower_components/bootstrap-extension/css/bootstrap-extension.css" rel="stylesheet">
+		<!-- toast CSS -->
+		<link href="{{ base_url() }}/plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
+		<!-- animation CSS -->
+		<link href="{{ base_url() }}/css/animate.css" rel="stylesheet">
+		<!-- Custom CSS -->
+		<link href="{{ base_url() }}/css/style.css" rel="stylesheet">
+		<!-- color CSS -->
+		<link href="{{ base_url() }}/css/colors/blue.css" id="theme" rel="stylesheet">
+		<!-- Sweet Alert 2 v7.29.0 -->
+		<link href="{{ base_url() }}/plugins/bower_components/sweetalert_2/dist/sweetalert2.css" rel="stylesheet" >
+		<!-- CSS CUSTOM -->
+		<link href="{{ base_url() }}/css/custom.css" rel="stylesheet">
+		<link href="{{ base_url() }}/css/miraflores.css" id="theme" rel="stylesheet">
+		<!-- SELECT2 -->
+		<link href="{{ base_url() }}/plugins/extras/select2/select2.min.css" rel="stylesheet">
+		<!-- load CSS -->
+		<link href="{{ base_url() }}/css/load.css" rel="stylesheet">
+	</head>
+
+	<body>
+		<section id="wrapper" class="login-register">
+			<div id="load"></div>
+			<div class="login-box">
+				<div class="white-box">
+					<h3 class="box-title m-b-20"><center>Iniciar Sesión</center></h3>
+					<div class="form-group ">
+						<div class="col-xs-12">
+							<input name="usuario" id="usuario" class="form-control" type="text" placeholder="Username..." onkeyup="javascript:this.value=this.value.toUpperCase();" onkeypress="ingresar(event)" autocomplete="off">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-12">
+							<input name="password" id="password" class="form-control" type="password" placeholder="Password..." onkeyup="javascript:this.value=this.value.toUpperCase();" onkeypress="ingresar(event)" autocomplete="off">
+						</div>
+					</div>
+					<div class="form-group text-center m-t-20">
+						<div class="col-xs-12">
+							<button id="btnLogin" type="button" class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light">Iniciar sesión</button>
+						</div>
+					</div>
+					<div class="row" id="mensaje_acceso">
+						<div class="col-xs-12 col-sm-2 col-md-2 m-t-10 text-center"></div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- MODAL ELEGIR ROL DE USUARIO -->
+		<div class="modal fade" id="mElegir" role="dialog" aria-labelledby="exampleModalLabel1">
+			<div class="modal-dialog modal-MML modal-over-plugin" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="exampleModalLabel1">ELEGIR ROL</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label">Roles</label>
+									<select class="form-control select2" name="elegir_rol_usuario" id="elegir_rol_usuario" style="width: 100%">
+										<option value="" codUE="">-- SELECCIONE --</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" id="btn-cancelar-elegir-rol" data-dismiss="modal">Cerrar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- jQuery -->
+		<script src="{{ base_url() }}/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+		<!-- Bootstrap Core JavaScript -->
+		<script src="{{ base_url() }}/bootstrap/dist/js/tether.min.js"></script>
+		<script src="{{ base_url() }}/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="{{ base_url() }}/plugins/bower_components/bootstrap-extension/js/bootstrap-extension.min.js"></script>
+		<!-- Menu Plugin JavaScript -->
+		<script src="{{ base_url() }}/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+		<!--slimscroll JavaScript -->
+		<script src="{{ base_url() }}/js/jquery.slimscroll.js"></script>
+		<!--Wave Effects -->
+		<script src="{{ base_url() }}/js/waves.js"></script>
+		<!-- Custom Theme JavaScript -->
+		<script src="{{ base_url() }}/js/custom.min.js"></script>
+		<!--Style Switcher -->
+		<script src="{{ base_url() }}/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
+		<script src="{{ base_url() }}/plugins/bower_components/toast-master/js/jquery.toast.js"></script>
+		<script src="{{ base_url() }}/js/toastr.js"></script>
+		<!-- Sweet Alert 2 v7.29.0 -->
+		<script src="{{ base_url() }}/plugins/bower_components/sweetalert_2/dist/sweetalert2.js"></script>
+		<!-- SELECT2 -->
+		<script src="{{ base_url() }}/plugins/extras/select2/select2.min.js"></script>
+
+		<script src="{{ base_url() }}/js/aplicativo/login/login.js?1.2"></script>
+	</body>
+</html>

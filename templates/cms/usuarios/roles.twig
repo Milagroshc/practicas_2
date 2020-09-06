@@ -1,0 +1,139 @@
+{% extends 'cms/plantilla.twig' %}
+
+{% block title %}
+	CMS / Roles
+{% endblock %}
+
+{% block javascriptAPP %}
+	<script src="{{ base_url() }}/js/aplicativo/usuarios/roles.js"></script>
+	<script src="{{ base_url() }}/js/aplicativo/inicio.js"></script>
+	<script language="javascript">
+		window.onload = function() {
+			Acciones('{{acciones|json_encode()|raw()}}');
+			Acceso_Acciones('{{acceso_acciones|json_encode()|raw()}}');
+			ListarRoles(1);
+		};
+	</script>
+{% endblock %}
+
+{% block contenido %}
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">{{titulo}}</div>
+				<!-- ************************************************************************************************************************************************************ -->
+				<!-- VISTA MANTENIMIENTO DE USUARIOS -->
+				<div class="panel-wrapper collapse in" aria-expanded="true">
+					<div class="panel-body">
+						<div id="load"></div>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label">NOMBRE</label>
+									<input class="form-control" type="text" name="rol_nombre_buscar" id="rol_nombre_buscar" onkeyup="javascript:this.value=this.value.toUpperCase();" onkeypress="Enter(event);">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">ESTADO</label>
+									<select class="form-control select2" name="rol_estado_buscar" id="rol_estado_buscar" style="width: 100%" onchange="BuscarRoles(1)">
+										<option value="">-- SELECCIONE --</option>
+										<option value="1">ACTIVO</option>
+										<option value="0">INACTIVO</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="table-responsive">
+								<table id="tblrol" class="table toggle-circle table-hover table-MML">
+									<caption>
+										{% set tmp = 0 %}
+										{% for item in acciones.data %}
+											{% if item.idaccion == 7 %}
+												{% set tmp = 1 %}
+											{% endif %}
+										{% endfor %}
+										{% if tmp == 1 %}
+											{% for item in acceso_acciones.data %}
+												{% if item.idaccion == 7 %}
+													<button class="btn btn-primary btn-sm fa fa-plus" title="Nuevo Rol" onclick="LimpiarDatosNuevoRol();">&nbsp;Nuevo Rol</button>
+												{% endif %}
+											{% endfor %}
+										{% endif %}
+									</caption>
+									<thead>
+										<tr>
+											<th data-sort-ignore="true">ID</th>
+											<th data-sort-ignore="true">NOMBRE</th>
+											<th data-sort-ignore="true">ESTADO</th>
+											<th data-sort-ignore="true">ACCIONES</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+								<div id="paginador_roles" style="text-align: center;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END VISTA MANTENIMIENTO DE ROLES -->
+			</div>
+		</div>
+	</div>
+
+<!-- ***************************************************************** MODALES DEL MANTENIMIENTO DE ROLES ******************************************************************* -->
+<!-- MODAL NUEVO ROL -->
+	<div class="modal fade" id="mNuevoRol" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML modal-over-plugin" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="exampleModalLabel1">NUEVO ROL</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="control-label">NOMBRE <font color="red">*</font></label>
+								<input type="text" name="rol_nombre_nuevo" id="rol_nombre_nuevo" class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="btnGuardarNuevoRol">Guardar</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- MODAL EDITAR ROL -->
+	<div class="modal fade" id="mEditarRol" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML modal-over-plugin" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="exampleModalLabel1">EDITAR ROL</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="idrol_editar" hidden="">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="control-label">NOMBRE <font color="red">*</font></label>
+								<input type="text" name="rol_nombre_editar" id="rol_nombre_editar" class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="btnEditarRol">Guardar</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

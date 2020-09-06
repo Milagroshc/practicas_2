@@ -1,0 +1,24 @@
+<div id="thmg-slider-slideshow" class="thmg-slider-slideshow">
+                <div class="container">
+                    <div id='thm_slider_wrapper' class='thm_slider_wrapper fullwidthbanner-container'>
+                        <div id='thm-rev-slider' class='rev_slider fullwidthabanner'>
+                            <ul>
+
+{% for banner in bannerPublicitario["data"] %}
+
+<li data-transition='random' data-slotamount='7' data-masterspeed='1000' data-thumb='{{ banner.icono }}'><img src='{{ banner.icono }}' data-bgposition='center top' data-bgfit='cover' data-bgrepeat='no-repeat' alt="slider-image1">
+                                    {{banner.resumen|convert_encoding('UTF-8', 'UTF-8')|raw}}
+                                </li>
+		
+		{% endfor %}
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+

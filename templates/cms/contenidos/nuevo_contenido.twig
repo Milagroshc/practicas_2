@@ -1,0 +1,119 @@
+{% extends 'cms/plantilla.twig' %}
+
+{% block title %}
+	CMS / Nuevo Contenido
+{% endblock %}
+
+{% block javascriptAPP %}
+  <!-- include summernote -->
+  <link rel="stylesheet" href="{{ base_url() }}/plugins/bower_components/summernote-master/dist/summernote-bs4.css">
+  <script type="text/javascript" src="{{ base_url() }}/plugins/bower_components/summernote-master/dist/summernote-bs4.js"></script>
+
+	<script src="{{ base_url() }}/js/aplicativo/contenidos/nuevo_contenido.js"></script>
+	<script src="{{ base_url() }}/js/aplicativo/inicio.js"></script>
+	  <script type="text/javascript">
+    $(function() {
+      $('.summernote').summernote({
+        height: 200,
+      });
+
+      $('form').on('submit', function (e) {
+        e.preventDefault();
+       $('.summernote').summernote('code');
+      });
+    });
+  </script>
+{% endblock %}
+
+{% block contenido %}
+
+	<div class="row">
+		<div class="col-md-12">
+			<span class="icon fa fa-arrow-circle-left">
+				<a href="javascript:history.back();"> Atrás</a>
+			</span>
+			<div class="panel panel-info">
+				<div class="panel-heading" id="titulo_contenido">{{titulo}}</div>
+				<div class="panel-wrapper collapse in" aria-expanded="true">
+					<div class="panel-body">
+						<div id="load"></div>
+						<div class="row">
+							<div class="col-md-9">
+								<div class="form-group">
+									<label class="control-label">TÍTULO <font color="red">*</font></label>
+									<input type="text" name="contenido_titulo_nuevo" id="contenido_titulo_nuevo" class="form-control">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">ÍCONO <font size="1">(Solo Formatos: jpg, jpeg, png)</font>&nbsp;&nbsp;<a href="javascript:void(0)" type="button" title="Subir Ícono" onClick="btnIcono()"><i class="far fa-image"></i></a></label>
+									<input type="text" name="contenido_icono_nuevo" id="contenido_icono_nuevo" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">SECCIÓN <font color="red">*</font></label>
+									<select class="form-control select2" name="contenido_seccion_nuevo" id="contenido_seccion_nuevo" style="width: 100%">
+										<option value="">-- SELECCIONE --</option>
+										{% for item in secciones.data %}
+											<option value="{{item.id_item_modulo}}" desc="{{item.nombre_item}}">{{item.nombre_item}}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">ABRIR CONTENIDO</label>
+									<select class="form-control select2" name="contenido_target_nuevo" id="contenido_target_nuevo" style="width: 100%">
+										<option value="">En la misma página</option>
+										<option value="_blank">En una ventana nueva</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">FECHA CONTENIDO <font color="red">*</font></label>
+									<input type="date" name="contenido_fecha_nuevo" id="contenido_fecha_nuevo" class="form-control">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">ESTADO PUBLICACIÓN <font color="red">*</font></label>
+									<select class="form-control select2" name="contenido_estado_nuevo" id="contenido_estado_nuevo" style="width: 100%">
+										<option value="">-- SELECCIONE --</option>
+										{% for estado in estado_publicacion.data %}
+											<option value="{{estado.idparametro}}" desc="{{estado.nombre_parametro}}">{{estado.nombre_parametro}}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label">RESUMEN&nbsp;&nbsp;<a href="javascript:void(0)" type="button" title="Subir Archivo" onClick="btnArchivo(); btnVariable();"><i class="fas fa-cloud-upload-alt"></i></a></label>
+									<textarea class="summernote textarea_editor form-control" name="contenido_resumen_nuevo" id="contenido_resumen_nuevo" style="height:200px"></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label">CONTENIDO <font color="red">*&nbsp;&nbsp;</font><a href="javascript:void(0)" type="button" title="Subir Archivo" onClick="btnArchivo(); btnVariable();"><i class="fas fa-cloud-upload-alt"></i></a></label>
+									<textarea class="summernote textarea_editor form-control" name="contenido_contenido_nuevo" id="contenido_contenido_nuevo" style="height:400px"></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="form-actions">
+							<button type="button" id="btnGuardarNuevoCotenido" class="btn btn-primary"> <i class="fa fa-check"></i> Guardar</button>
+							<button type="button" class="btn btn-default" onclick="Cancelar();">Cancelar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

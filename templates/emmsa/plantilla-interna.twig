@@ -1,0 +1,42 @@
+{% extends 'emmsa/plantilla.twig' %}
+{% block title %}{{ contenido["data"].titulo }}{% endblock %}
+
+{% block cabecera %}
+    {% for plantilla in plantillas.data %}
+        {% if plantilla.tipo == "cab" %}
+            {% include plantilla.archivo_portal_web %}
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block slider %}
+    {% for plantilla in plantillas.data %}
+        {% if plantilla.tipo == "sli" %}
+            {% include plantilla.archivo_portal_web %}
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+        {% block secciones %}
+    <section class="main-container col2-left-layout bounceInUp animated">
+      <div class="container">                
+       <div class="row">
+                            {% block seccionContenido %}
+                                {% for plantilla in plantillas.data %}
+                                    {% if plantilla.tipo == "con" %}
+                                        {% include plantilla.archivo_portal_web %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endblock %}
+
+                            {% block seccionOpciones %}
+                                {% for plantilla in plantillas.data %}
+                                    {% if plantilla.tipo == "mel" %}
+                                        {% include plantilla.archivo_portal_web %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endblock %}
+                    </div>
+                </div>
+            </section>
+        {% endblock %}

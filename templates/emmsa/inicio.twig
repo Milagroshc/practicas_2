@@ -1,0 +1,152 @@
+{% extends 'emmsa/plantilla.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+
+{% block cabecera %}
+    {% for plantilla in plantillas.data %}
+        {% if plantilla.tipo == "cab" %}
+            {% include plantilla.archivo_portal_web %}
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block slider %}
+    {% for plantilla in plantillas.data %}
+        {% if plantilla.tipo == "sli" %}
+            {% include plantilla.archivo_portal_web %}
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block secciones %}
+    {% for plantilla in plantillas.data %}
+        {% if plantilla.tipo == "sec" %}
+            {% include plantilla.archivo_portal_web %}
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block pie %}
+    {% for plantilla in plantillas.data %}
+        {% if plantilla.tipo == "pie" %}
+            {% include plantilla.archivo_portal_web %}
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+    {% block javascriptAPP %}
+<a href="#" class="referrals-button" id="open-popup"><i class="fa fa-bullhorn"></i></a>
+<script>
+jQuery( document ).ready(function($) {
+
+//para sacar en modal los videos
+
+jQuery(".videoemmsa").click(function() {
+    //alert(jQuery(this).attr("href"));
+    jQuery('.videoemmsa').magnificPopup({
+    items: {
+            src: jQuery(this).attr("href")
+        },
+    type: 'iframe',
+    iframe: {
+                markup: '<div class="mfp-iframe-scaler">'+
+                        '<div class="mfp-close"></div>'+
+                        '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
+                        '</div>', 
+            patterns: {
+                youtube: {
+                    index: 'youtube.com/', 
+                    id: 'v=', 
+                    src: '//www.youtube.com/embed/%id%?autoplay=1' 
+                    }
+                },
+                srcAction: 'iframe_src', 
+        }
+    });
+});
+
+
+
+
+
+var param = { };
+var url = "{{ base_url() }}" + "/ajax/get-popup";
+var metodo = "POST";
+var resp = enviar(url, param, metodo);
+console.log("popup");
+console.log(resp.success);
+if(resp.success){
+var estado=false;
+    if(resp.datos.length!==0){
+    if(resp.datos.length>1){
+        estado=true;
+    }
+
+    jQuery('#open-popup').show();
+
+    jQuery('#open-popup').magnificPopup({
+        items: resp.datos,
+        gallery: {
+        enabled: estado
+        },
+        type: 'image' // this is a default type
+
+    });
+    $('#open-popup').click();
+    setTimeout(function(){
+    $.magnificPopup.close();
+    }, 15000);
+}else{
+    jQuery('#open-popup').hide();
+}
+
+}
+
+ 
+
+
+
+});
+
+/*enviar datos ajax*/
+function enviar(url, dato, metodo) { // swal(dato+url+metodo);
+var resultado = "";
+jQuery.ajax({
+type: metodo,
+url: url,
+async: false,
+// cache: false,
+// contentType: false,
+// enctype: 'multipart/form-data',
+// processData: false,
+// dataType: "json",
+data: dato,
+// dataType: "json",
+success: function (data) { /**/
+console.log("recibido de cargar archivo");
+console.log(data);
+resultado = data;
+// retorna(data)
+// swal(data);
+}
+});
+/*Fin ajax*/
+return resultado;
+}
+
+
+
+</script>
+<style>
+.mfp-image-holder .mfp-content {
+    max-width: 40% !important;
+}
+
+
+</style>
+	{% endblock %}
+
+
+
+

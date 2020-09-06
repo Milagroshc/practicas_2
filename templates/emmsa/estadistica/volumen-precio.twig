@@ -1,0 +1,98 @@
+{% extends 'emmsa/plantilla-interna.twig' %}
+
+{% block estiloAPP %}
+
+    <link href="{{ base_url() }}/plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{ base_url() }}/css/componentes/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Date picker plugins css -->
+    <link href="{{base_url()}}/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+    <!-- Daterange picker plugins css -->
+    <link href="{{base_url()}}/plugins/bower_components/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+    <link href="{{base_url()}}/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascriptAPP %}
+    <script src="{{ base_url() }}/plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
+    <!-- start - This is for export functionality only -->
+    <script src="{{ base_url() }}/js/componentes/dataTables.buttons.min.js"></script>
+    <script src="{{ base_url() }}/js/componentes/buttons.flash.min.js"></script>
+    <script src="{{ base_url() }}/js/componentes/jszip.min.js"></script>
+    <script src="{{ base_url() }}/js/componentes/pdfmake.min.js"></script>
+    <script src="{{ base_url() }}/js/componentes/vfs_fonts.js"></script>
+    <script src="{{ base_url() }}/js/componentes/buttons.html5.min.js"></script>
+    <script src="{{ base_url() }}/js/componentes/buttons.print.min.js"></script>
+
+
+
+	<script src="{{ base_url() }}/plugins/bower_components/highcharts/highcharts.js"></script>
+	<script src="{{ base_url() }}/plugins/bower_components/highcharts/modules/series-label.js"></script>
+	<script src="{{ base_url() }}/plugins/bower_components/highcharts/modules/exporting.js"></script>
+	<script src="{{ base_url() }}/plugins/bower_components/highcharts/modules/export-data.js"></script>
+
+ <!-- Date range Plugin JavaScript -->
+    <script src="{{base_url()}}/plugins/bower_components/timepicker/bootstrap-timepicker.min.js"></script>
+    <script src="{{base_url()}}/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="{{base_url()}}/emmsa/js/estadistica/volumen-precio.js"></script>
+{% endblock %}
+
+{% block seccionContenido %}
+<div class="col-md-12 col-sm-12 m-b-50 product-detail">
+<section class="page-section bgc-light">
+          <div class="container">
+            <div class="row group-contact-left-header">
+              <div class="col-md-4 col-xs-12">
+                <header class="hr-header">
+                  <h2 class="smb">  VOLUMEN Y PRECIOS DIARIOS </h2>
+                  <p class="common-serif __caption">Usted podrá consultar la variación de los precios de todos nuestros productos diariamente.</p>
+                  <div class="separator-2-color"></div>
+                </header>
+                <form id="form_precio">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="input-group">
+                       <input id="fecha" type="text" name="fecha" class="form-control mydatepicker" placeholder="Y-m-d" data-date-format="yyyy-mm-dd"> <span class="input-group-addon"><i class="fa fa-calendar"></i></span> </div>
+                    </div>
+                    <div class="col-md-6 text-center-md-max">
+                      <button type="button" class="btn btn-size-1 btn-primary" id="graficar">Generar Consulta</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="col-md-8 col-xs-12">
+              <div class="reporte-tabla">
+                <table id="example" class="table-primary">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Variedad</th>
+                <th>Precio Mínimo</th>
+                <th>Precio Máximo</th>
+                <th>Precio Promedio</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Producto</th>
+                <th>Variedad</th>
+                <th>Precio Mínimo</th>
+                <th>Precio Máximo</th>
+                <th>Precio Promedio</th>
+            </tr>
+        </tfoot>
+    </table>
+    </div>
+              </div>
+            </div>
+          </div>
+        </section>
+</div>
+{% endblock %}
+
+{% block pie %}
+    {% for plantilla in plantillas.data %}
+        {% if plantilla.tipo == "pie" %}
+            {% include plantilla.archivo_portal_web %}
+        {% endif %}
+    {% endfor %}
+{% endblock %}

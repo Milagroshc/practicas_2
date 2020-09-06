@@ -1,0 +1,52 @@
+
+
+
+
+        <!-- Left navbar-header -->
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse slimscrollsidebar">
+                <ul class="nav" id="side-menu">
+                   
+                    <li class="user-pro">
+                        <a href="#" class="waves-effect"><img src="/uploads/Fotos_Usuarios/{{ session.foto }}" alt="user-img" class="img-circle"> <span class="hide-menu"> {{ session.nombres }} {{ session.ape_paterno }}<span class="fa arrow"></span></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="javascript:void(0)"><i class="ti-user"></i> Mi Perfil</a></li>
+                            <li><a href="" data-toggle="modal" data-target="#changePassword">
+                                    <i class="far fa-edit"></i> Cambiar Password
+                                </a></li>
+                            <li><a href="{{ base_url() }}/salir"><i class="fa fa-power-off"></i> Salir</a></li>
+                        </ul>
+                    </li>
+					<li><a href="{{base_url()}}/dashboard" class="waves-effect"><i class="fa fa-home fa-lg" data-icon="v"></i><span class="hide-menu"> Inicio</span></a></li>
+                    <li class="nav-small-cap m-t-10">--- LISTA DE APLICATIVOS</li>
+					{% set menu = session.menu %}
+					{% if menu|length > 0 %}
+						{% for men in menu %}
+							{% if men.accesos|length > 0 %}
+								{% set cantidad = men.accesos|length %}
+								{% if men.accesos|length == 0 %}
+									<li> <a href="{{base_url()}}/{{men.accesos.url}}" class="waves-effect"><i data-icon="P" class="{{men.icono}}"></i> <span class="hide-menu">{{men.accesos.nombre_item}}</span></a> </li>
+								{% else %}
+									<li> <a href="#" class="waves-effect "><i class="{{men.icono}}" data-icon="v"></i> <span class="hide-menu"> {{men.nombre_modulo}} <span class="fa arrow"></span> <span class="label label-rouded label-custom pull-right">{{cantidad}}</span></span></a>
+										<ul class="nav nav-second-level">
+										{% for acceso in men.accesos %}
+											<li> <a href="{{base_url()}}/{{acceso.url}}">{{acceso.nombre_item}}</a> </li>
+										{% endfor %}
+										</ul>
+									</li>
+								{% endif %}
+							{% else %}
+								<li class="nav-small-cap m-t-10">No existe accesos disponibles</li>
+							{% endif %}
+						{% endfor %}
+					{% else %}
+						<li class="nav-small-cap m-t-10">No existe módulos asignados</li>
+					{% endif %}
+                </ul>
+            </div>
+        </div>
+        <!-- Left navbar-header end -->
+
+
+

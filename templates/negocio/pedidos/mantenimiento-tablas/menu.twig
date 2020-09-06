@@ -1,0 +1,247 @@
+{% extends 'negocio/plantilla.twig' %}
+
+
+{% block estiloAPP %}
+	<!-- page css -->
+	<!-- Footable CSS -->
+	<link href="{{base_url()}}/negocio/assets/node_modules/footable/css/footable.bootstrap.min.css" rel="stylesheet"> <link href="{{base_url()}}/negocio/colors/dist/css/pages/footable-page.css" rel="stylesheet">
+	<link
+	href="{{base_url()}}/negocio/colors/dist/css/pages/other-pages.css" rel="stylesheet">
+
+	<!-- CSS para formularios -->
+	<link href="{{base_url()}}/negocio/assets/node_modules/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css"/>
+	<link href="{{base_url()}}/negocio/assets/node_modules/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css"/>
+	<link href="{{base_url()}}/negocio/assets/node_modules/bootstrap-select/bootstrap-select.min.css" rel="stylesheet"/>
+	<link href="{{base_url()}}/negocio/assets/node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" rel="stylesheet"/>
+	<link href="{{base_url()}}/negocio/assets/node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet"/>
+	<link href="{{base_url()}}/negocio/assets/node_modules/multiselect/css/multi-select.css" rel="stylesheet" type="text/css"/>
+
+	<link href="{{base_url()}}/negocio/assets/node_modules/bootstrap-switch/bootstrap-switch.min.css" rel="stylesheet">
+	<link href="{{base_url()}}/negocio/colors/dist/css/pages/bootstrap-switch.css" rel="stylesheet">
+
+	<link
+	href="{{base_url()}}/negocio/colors/dist/css/pages/tab-page.css" rel="stylesheet">
+
+	<!--alerts CSS -->
+	<link href="{{base_url()}}/negocio/assets/node_modules/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+{% endblock %}
+{% block contenidoCuerpo %}
+
+	<div class="row">
+		<div
+			class="col-12">
+
+			<!-- Column -->
+			<div class="card">
+				<div class="card-body">
+				<div class="row">
+					<div class="col-sm-8">
+					
+					<h4 class="card-title">Agregar & Eliminar Filas </h4>
+					<h6 class="card-subtitle">Debe seleccionar al menos un sistema para editar módulos</h6>
+					</div>
+					<div class="col-sm-4">
+					<div class="form-group row">
+										<div class="col-sm-12">
+											<select id="sistemas" name="sistemas" data-placeholder="Seleccione el sistema" class="form-control select2 input-estado" style="width:100%;">
+												{% for sistema in sistemas %}
+													<option value="{{ sistema.IDSISTEMA }}">{{ sistema.NOMBRE }}</option>
+												{% endfor %}
+											</select> 
+										</div>
+									</div>
+					<div class="form-group row">
+										<div class="col-sm-12">
+								
+
+											<select id="modulos" name="modulos" data-placeholder="Seleccione el modulo" class="form-control select2 input-estado" style="width:100%;">
+												
+											</select>
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-12">
+								
+
+											<select id="objacceso" name="objacceso" data-placeholder="Seleccione el objeto" class="form-control select2 input-estado" style="width:100%;">
+												
+											</select>
+										</div>
+									</div>
+					</div>
+				</div>
+					<div class="table-responsive">
+						<table id="footable-addrow" class="table" data-paging="true" data-filtering="true" data-sorting="true" data-editing="true" data-state="true">
+							<thead>
+								<tr>
+									<th data-breakpoints="xs"></th>
+									<th data-breakpoints="all"></th>
+									<th></th>
+									<th data-breakpoints="all"></th>
+									<th></th>
+									<th></th>
+									<th data-breakpoints="all"></th>
+									<th data-breakpoints="all"></th>
+									<th></th>
+									<th data-breakpoints="all"></th>
+									<th data-breakpoints="all"></th>
+									<th data-breakpoints="all"></th>
+									<th width="20%" id="estado" data-formatter="estado"  data-type="HTMLElement"></th>
+	
+									<th data-formatter="accion" data-type="HTMLElement"></th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					<!-- Start Popup Model -->
+					<div class="modal fade" id="editor-modal" tabindex="-1" role="dialog" aria-labelledby="editor-title">
+						<div class="modal-dialog" role="document">
+							<form class="modal-content form-horizontal" id="editor">
+								<div class="modal-header">
+									<h4 class="modal-title" id="editor-title">Agregar Fila</h4>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">×</span>
+									</button>
+								</div>
+								<div class="modal-body">
+								<!-- valores ocultos -->
+								<input type="hidden" class="form-control" id="IDOBJACCESO" name="IDOBJACCESO">
+									
+									<div class="form-group required row">
+										<label for="CODIGO" class="col-sm-3 control-label">
+											Código</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="CODIGO" name="CODIGO" placeholder="Código" required>
+										</div>
+									</div>
+									<div class="form-group required row">
+										<label for="NOMBRE" class="col-sm-3 control-label">
+											Nombre</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="NOMBRE" name="NOMBRE" placeholder="Nombre" required>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="DESCRIPCION" class="col-sm-3 control-label">Descripción
+																																	                                                        Corto</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="DESCRIPCION" name="DESCRIPCION" placeholder="Descripción">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="URL" class="col-sm-3 control-label">Ruta</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="URL" name="URL" placeholder="Url" readonly>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="ICONO" class="col-sm-3 control-label">Ícono</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="ICONO" name="ICONO" placeholder="ICONO">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="FUNCION" class="col-sm-3 control-label">Función</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="FUNCION" name="FUNCION" placeholder="Función">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="NROPARAMETROS" class="col-sm-3 control-label">Nro. de parámetros</label>
+										<div class="col-sm-9">
+											<input type="number" class="form-control" id="NROPARAMETROS" name="NROPARAMETROS" placeholder="0">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="ROUTE" class="col-sm-3 control-label">Tipo de ruta</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="ROUTE" name="ROUTE" placeholder="POST, GET, PUT, OPTION,etc">
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<label for="ESTADO" class="col-sm-3 control-label">Estado</label>
+										<div
+											class="col-sm-9">
+											{# <input type="text" class="form-control" id="ESTADO" name="ESTADO" placeholder="Estado"> #}
+											<select id="ESTADO" name="ESTADO" data-placeholder="Seleccione estado" class="form-control select2modal input-estado" style="width:100%;">
+												{% for estado in estados["data"]["tabtablas"] %}
+													<option value="{{ estado.IDTABLA }}">{{ estado.NOMBRE }}</option>
+												{% endfor %}
+											</select>
+										</div>
+									</div>
+									
+								</div>
+								<div class="modal-footer">
+									<button type="submit" class="btn btn-primary">Guardar Cambios</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+								</div>
+							</form>
+						</div>
+					</div>
+					<!-- End Popup Model -->
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block plugins %}
+	<!-- Footable -->
+	<script src="{{base_url()}}/negocio/assets/node_modules/moment/moment.js"></script>
+	<script src="{{base_url()}}/negocio/assets/node_modules/footable/js/footable.min.js"></script>
+	<!--FooTable init-->
+
+	<!-- This page plugins -->
+	<!-- ============================================================== --><script src="{{base_url()}}/negocio/assets/node_modules/switchery/dist/switchery.min.js"> </script>
+	<script src="{{base_url()}}/negocio/assets/node_modules/select2/dist/js/select2.full.min.js" type="text/javascript"></script>
+	<script src="{{base_url()}}/negocio/assets/node_modules/bootstrap-select/bootstrap-select.min.js" type="text/javascript"></script>
+	<script src="{{base_url()}}/negocio/assets/node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+	<script src="{{base_url()}}/negocio/assets/node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js" type="text/javascript"></script>
+	<script src="{{base_url()}}/negocio/assets/node_modules/dff/dff.js" type="text/javascript"></script>
+	<script type="text/javascript" src="{{base_url()}}/negocio/assets/node_modules/multiselect/js/jquery.multi-select.js"></script>
+
+	<!-- bt-switch -->
+	<script src="{{base_url()}}/negocio/assets/node_modules/bootstrap-switch/bootstrap-switch.min.js"></script>
+
+	<!-- Sweet-Alert  -->
+	<script src="{{base_url()}}/negocio/assets/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+	<script src="{{base_url()}}/negocio/assets/node_modules/sweetalert2/sweet-alert.init.js"></script>
+	{#dump(objOpciones)#}
+
+{% endblock %}
+    {% block javascriptAPP %}
+
+<!-- Incluye Culqi Checkout en tu sitio web-->
+<script src="https://checkout.culqi.com/js/v3"></script>
+
+
+
+<script>
+    // Configura tu llave pública
+    Culqi.publicKey = 'pk_test_5a76b56fe48cc1bc';
+	
+	Culqi.init();
+	//alert(t);
+    // Configura tu Culqi Checkout
+    Culqi.settings({
+    title: 'Culqi Store',
+    currency: 'PEN',
+    description: 'Polo/remera Culqi lover',
+    amount: 3500
+  });
+    // Usa la funcion Culqi.open() en el evento que desees
+    $('#buyButton').on('click', function(e) {
+        // Abre el formulario con las opciones de Culqi.settings
+        Culqi.open();
+        e.preventDefault();
+    });
+</script>
+
+
+    {{ include('negocio/js/menu.js.twig') }}
+	{% endblock %}
+

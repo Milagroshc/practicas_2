@@ -1,0 +1,223 @@
+{% extends 'cms/plantilla.twig' %}
+
+{% block title %}
+	CMS / Plantillas
+{% endblock %}
+
+{% block javascriptAPP %}
+	<script src="{{ base_url() }}/js/aplicativo/contenidos/plantillas.js"></script>
+	<script src="{{ base_url() }}/js/aplicativo/inicio.js"></script>
+	<script>
+		window.onload = function() {
+			Acciones('{{acciones|json_encode()|raw()}}');
+			Acceso_Acciones('{{acceso_acciones|json_encode()|raw()}}');
+			ListarPlantillas(1);
+		};
+	</script>
+{% endblock %}
+
+{% block contenido %}
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading" id="titulo_contenido">{{titulo}}</div>
+				<!-- ********************************************************************************************************************** -->
+				<!-- VISTA PLANTILLAS -->
+				<div class="panel-wrapper collapse in" aria-expanded="true">
+					<div class="panel-body">
+						<div id="load"></div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">NOMBRE</label>
+									<input type="text" name="plantilla_nombre_buscar" id="plantilla_nombre_buscar" class="form-control" onkeypress="Enter(event);">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">ESTADO</label>
+									<select class="form-control select2" name="plantilla_estado_buscar" id="plantilla_estado_buscar" style="width: 100%" onchange="Change();">
+										<option value="">-- SELECCIONE --</option>
+										<option value="1">ACTIVO</option>
+										<option value="0">INACTIVO</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="table-responsive">
+								<table id="tblplantillas" class="table toggle-circle table-hover table-MML">
+									<caption>
+										{% set tmp = 0 %}
+										{% for item in acciones.data %}
+											{% if item.idaccion == 18 %}
+												{% set tmp = 1 %}
+											{% endif %}
+										{% endfor %}
+										{% if tmp == 1 %}
+											{% for item in acceso_acciones.data %}
+												{% if item.idaccion == 18 %}
+													<button class="btn btn-primary btn-sm fa fa-plus" title="Nueva plantilla" onclick="LimpiarDatosNuevaPlantilla();">&nbsp;Nueva Plantilla</button>
+												{% endif %}
+											{% endfor %}
+										{% endif %}
+									</caption>
+									<thead>
+										<tr>
+											<th data-sort-ignore="true">ID</th>
+											<th data-sort-ignore="true">NOMBRE</th>
+											<th data-sort-ignore="true">RUTA PLANTILLA</th>
+											<th data-sort-ignore="true">ESTADO</th>
+											<th data-sort-ignore="true">ACCIONES</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+								<div id="paginador_plantilla" style="text-align: center;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END VISTA PLANTILLAS -->
+			</div>
+		</div>
+	</div>
+
+<!-- ***************************************************************** MODALES DEL MANTENIMIENTO DE USUARIOS ******************************************************************* -->
+	<!-- MODAL - NUEVA PLANTILLA -->
+	<div class="modal fade" id="mNuevaPlantilla" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-xlg modal-over-plugin" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">NUEVA PLANTILLA</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">NOMBRE <font color="red">*</font></label>
+								<input class="form-control" type="text" name="plantilla_nombre_nuevo" id="plantilla_nombre_nuevo">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">RUTA <font color="red">*</font></label>
+								<input class="form-control" type="text" name="plantilla_ruta_nuevo" id="plantilla_ruta_nuevo">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="btnGuardarNuevaPlantilla">Guardar</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- MODAL - EDITAR PLANTILLA -->
+	<div class="modal fade" id="mEditarPlantilla" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-xlg modal-over-plugin" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">EDITAR PLANTILLA</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<input type="text" id="idplantilla_editar" hidden="">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">NOMBRE <font color="red">*</font></label>
+								<input class="form-control" type="text" name="plantilla_nombre_editar" id="plantilla_nombre_editar">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">ARCHIVO TWIG <font color="red">*</font></label>
+								<input class="form-control" type="text" name="plantilla_ruta_editar" id="plantilla_ruta_editar">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="btnEditarPlantilla">Guardar</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- MODAL VER SECCIONES ASIGNADAS AL A PLANTILLA -->
+	<div class="modal fade" id="mVerSeccionesPlantilla" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-lg modal-over-plugin" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="exampleModalLabel1">LISTA DE SECCIONES POR PLANTILLA</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<input type="text" id="id_plantilla_seccion" hidden="">
+						<div class="table-responsive">
+							<table id="tblseccionoesasignadas" class="table toggle-circle table-hover table-MML">
+								<caption>
+									<button class="btn btn-primary btn-sm fa fa-plus" title="Asignar Rol" id="btnAsignarRol" onclick="AsignarSeccion();">&nbsp;Asignar Sección</button>
+								</caption>
+								<thead>
+									<tr>
+										<th data-sort-ignore="true">ID</th>
+										<th data-sort-ignore="true">PLANTILLA</th>
+										<th data-sort-ignore="true">SECCIÓN</th>
+										<th data-sort-ignore="true">ARCHIVO SECCIÓN</th>
+										<th data-sort-ignore="true">ESTADO</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+							<div id="paginador_plantilla_seccion" style="text-align: center;"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="btnCerrarModal1">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- MODAL ASIGNAR SECCION A UNA PLANTILLA -->
+	<div class="modal fade" id="mAsignarSeccion" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML modal-over-plugin" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="exampleModalLabel1">ASIGNAR SECCIÓN</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">PLANTILLA</label>
+								<input class="form-control" type="text" name="mostrar_plantilla_seccion" id="mostrar_plantilla_seccion" disabled="">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">SECCIÓN</label></label>
+								<select class="form-control select2" name="plantilla_asignar_idseccion" id="plantilla_asignar_idseccion" style="width: 100%;">
+									<option value="">-- SELECCIONE --</option>
+								</select>
+							</div>
+						</div>						
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="btnGuardarAsignarSeccion">Guardar</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

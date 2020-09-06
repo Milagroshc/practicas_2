@@ -1,0 +1,1183 @@
+{% extends 'plantilla.twig' %}
+{% block contenido %}
+
+
+	<!-- .row -->
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="white-box">
+				<h3 class="box-title m-b-0">Agregar y eliminar normas, publicaciones y mapas temáticos</h3>
+				<p class="text-muted m-b-20">Seleccione cuidadosamente sus publicaciones según corresponda</p>
+
+				<div class=" padding-bottom-15">
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<button data-toggle="modal" data-target="#normaModal" data-whatever="@mdo" id="demo-btn-addrow" class="btn btn-outline btn-primary btn-sm">
+									<i class="fa fa-plus" aria-hidden="true"></i>Agregar Documento</button>
+							</div>
+						</div>
+						<div class="col-sm-3  m-b-20"></div>
+
+						<div class="col-sm-3  m-b-20">
+							<div class="form-group">
+								<input id="demo-input-search2" type="text" placeholder="buscar" class="form-control" autocomplete="off">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle" data-page-size="7">
+					<thead>
+						<tr>
+							<th data-sort-initial="true" data-toggle="true">TIPO</th>
+							<th data-toggle="true">TITULO</th>
+							<th data-toggle="true">DESCRIPCIÓN</th>
+							<th data-hide="phone, tablet">NÚMERO DE PÁGINAS</th>
+							<th data-hide="phone, tablet">FECHA DE PUBLICACIÓN</th>
+							<th data-hide="phone, tablet">FECHA DE REGISTRO</th>
+							<th data-toggle="true">ESTADO</th>
+							<th data-sort-ignore="true" class="min-width">ACCION</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						{% for documento in documentos["data"] %}
+							{% set estadito = false %}
+							{% if documento.estado == "1" %}
+								{% set estadito ="checked" %}
+							{% else %}
+								{% set estadito ="" %}
+							{% endif %}
+
+							<tr data-iddocumento="{{ documento.idDocumento }}">
+								<td class="tipodoc" data-tipodoc="{{ documento.tipoDocumento }}">{{ documento.TipoDoc }}</td>
+								<td class="titulo" data-titulo="{{ documento.titulo }}">{{ documento.titulo }}</td>
+								<td class="descripcion" data-descripcion="{{ documento.descripcion }}">{{ documento.descripcion }}</td>
+								<td class="numeropaginas" data-numeropagina="{{ documento.numero_pagina }}">{{ documento.numero_pagina }}</td>
+
+								<td class="fechapublicacion" data-fechapublicacion="{{ documento.fecha_publicacion }}">{{ documento.fecha_publicacion }}</td>
+								<td class="fecharegistro" data-fecharegistro="{{ documento.fecha_registro }}">{{ documento.fecha_registro }}</td>
+								<td class="bt-switch"><input type="checkbox" {{ estadito }} data-size="small" data-on-color="primary" data-off-color="info" data-on-text="Activo" data-off-text="Inactivo"></td>
+
+								<td>
+									<a class="actualizar" data-toggle="modal" data-target="#documentoModalUpdate" data-whatever="@mdo" id="demo-btn-updaterow" data-toggle="tooltip" data-original-title="Actualualizar Documento">
+										<i class="fa fa-edit fa-lg" aria-hidden="true"></i>
+									</a>
+									<a href="#" class="eliminar" data-toggle="tooltip" data-original-title="Eliminar">
+										<i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="4">
+								<div class="text-right">
+									<ul class="pagination"></ul>
+								</div>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}
+{% block modales %}
+
+
+	<!-- modal para agregar un documento -->
+	<div class="modal fade" id="normaModal" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog" role="document" style="max-width:850px !important;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="exampleModalLabel1">Nuevo Documento</h4>
+				</div>
+				<form id="guardarDocumento" action="guardar-documento" method="post" data-toggle="validator" enctype="multipart/form-data">
+					<div class="modal-body">
+						<div class="form-body">
+							<div class="row">
+								<div class="col-md-8">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Tipo Catalogo de Documentos</label>
+												<div class="input-group">
+													<select id="input-tipocatalogodocumento" name="tipocatalogodocumento" data-placeholder="Seleccione Tipo de Catalogo de Documentos" class="form-control select2 input-tipocatalogodocumento" style="width:100%;">
+														{% for catalogoDocumento in catalogoDocumentos["data"] %}
+															<option value="{{ catalogoDocumento.idcatalogo }}">{{ catalogoDocumento.nombre_catalogo }}</option>
+														{% endfor %}
+													</select>
+												</div>
+												<div class="help-block with-errors"></div>
+											</div>
+										</div>
+
+
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Tipo de Documento</label>
+												<div class="input-group">
+													<select id="input-tipodocumento" name="tipodocumento" data-placeholder="Seleccione Tipo de Documento" class="form-control select2 input-tipodocumento" style="width:100%;">
+														{% for tipoDocumento in tipoDocumentos["data"] %}
+															<option value="{{ tipoDocumento.idparametro }}">{{ tipoDocumento.nombre_parametro }}</option>
+														{% endfor %}
+													</select>
+												</div>
+												<div class="help-block with-errors"></div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-8">
+											<div class="form-group">
+												<label class="control-label">Título del Documento</label>
+												<div class="input-group">
+													<input name="titulo" type="text" class="form-control" placeholder="título de la norma" required="" data-error="Ingrese el título de la norma">
+												</div>
+											</div>
+											<div class="help-block with-errors">Ingrese el título del documento</div>
+										</div>
+
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Fecha de Publicación</label>
+												<div class="input-group">
+													<input name="fechaPublicacion" type="text" class="form-control dateNormal" placeholder="yyyy-mm-dd" required="" data-error="Ingrese fecha de publicación">
+													<span class="input-group-addon">
+														<i class="icon-calender"></i>
+													</span>
+												</div>
+											</div>
+											<div class="help-block with-errors"></div>
+										</div>
+
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="control-label">Descripción</label>
+										<div class="input-group">
+											<textarea name="descripcion" rows="7" cols="" class="form-control" placeholder="ingrese los detalles del puesto" required="" data-error="Ingrese la descripcion del puesto"></textarea>
+										</div>
+									</div>
+									<div class="help-block with-errors"></div>
+
+								</div>
+							</div>
+
+
+							<div class="norma">
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="control-label">Número</label>
+											<div class="input-group">
+												<input name="numero" type="texto" class="form-control norm" placeholder="Número de la norma" required="" data-error="Ingrese el orden">
+											</div>
+										</div>
+										<div class="help-block with-errors"></div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="control-label">Tipo de Norma</label>
+											<div class="input-group">
+												<select id="input-tiponorma" name="tipoNorma" class="form-control select2 norm input-tiponorma" data-placeholder="Seleccione Tipo de Norma" style="width:100%;">
+													{% for tipoNorma in tipoNormas["data"] %}
+														<option value="{{ tipoNorma.idparametro }}">{{ tipoNorma.nombre_parametro }}</option>
+													{% endfor %}
+												</select>
+											</div>
+											<div class="help-block with-errors"></div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="control-label">Ambito de Aplicación</label>
+											<div class="input-group">
+												<select id="input-ambito" name="ambitoAplicacion" class="form-control select2 norm input-ambito" data-placeholder="Seleccione ámbito" style="width:100%;">
+
+													{% for ambitoAplicacion in ambitosAplicacion["data"] %}
+														<option value="{{ ambitoAplicacion.idparametro }}">{{ ambitoAplicacion.nombre_parametro }}</option>
+													{% endfor %}
+												</select>
+											</div>
+											<div class="help-block with-errors"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-3">
+									<div class="form-group">
+										<label class="control-label">N° de páginas</label>
+										<div class="input-group">
+											<input name="numero_paginas" type="texto" class="form-control docu" placeholder="N° de páginas" required="" data-error="Ingrese el orden">
+										</div>
+									</div>
+									<div class="help-block with-errors"></div>
+								</div>
+								<div class="col-md-5">
+									<div class="form-group">
+										<label class="control-label">NODO</label>
+										<div class="input-group">
+											<select id="input-nodo" name="nodo" data-placeholder=" Seleccione nodo" class="form-control select2 input-nodo" style="width:100%;">
+
+												{% for nodo in nodos["data"] %}
+													<option value="{{ nodo.idparametro }}">{{ nodo.nombre_parametro }}</option>
+												{% endfor %}
+											</select>
+										</div>
+										<div class="help-block with-errors"></div>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="control-label">ISBN</label>
+										<div class="input-group">
+											<input name="isbn" type="texto" class="form-control docu" placeholder="ISBN" required="" data-error="Ingrese el ISBN">
+										</div>
+									</div>
+									<div class="help-block with-errors"></div>
+								</div>
+
+							</div>
+
+							<div class="row">
+
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="control-label">Fuente de Información</label>
+										<div class="input-group">
+											<select id="input-fuente" name="fuenteInformacion" data-placeholder="Seleccione el tipo de fuente de información" class="form-control select2 input-fuente" style="width:100%;">
+
+												{% for fuenteInformacion in fuentesInformacion["data"] %}
+													<option value="{{ fuenteInformacion.idparametro }}">{{ fuenteInformacion.nombre_parametro }}</option>
+												{% endfor %}
+											</select>
+										</div>
+										<div class="help-block with-errors"></div>
+									</div>
+								</div>
+
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="control-label">Entidad</label>
+										<div class="input-group">
+											<select id="input-entidad" name="entidad" class="form-control select2 input-entidad" data-placeholder="Seleccione entidad" style="width:100%;">
+												<option>
+													Seleccione entidad</option>
+
+											</select>
+										</div>
+										<div class="help-block with-errors"></div>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="control-label">Contacto</label>
+										<div class="input-group">
+											<select id="input-contacto" name="contacto" class="form-control select2 input-contacto" data-placeholder="Seleccione contacto" style="width:100%;"></select>
+										</div>
+										<div class="help-block with-errors"></div>
+									</div>
+								</div>
+
+							</div>
+
+							<div
+								class="row">
+								<!--/span-->
+								<div class="col-md-6">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Descriptores Temáticos</label>
+												<div class="input-group">
+													<select id="input-descriptor" name="descriptorTematico" data-placeholder="Seleccione Descriptores Temáticos" class="form-control select2 input-descriptor" style="width:100%;">
+
+														{% for descriptorTematico in descriptoresTematicos["data"] %}
+															<option value="{{ descriptorTematico.idparametro }}">{{ descriptorTematico.nombre_parametro }}</option>
+														{% endfor %}
+													</select>
+												</div>
+												<div class="help-block with-errors"></div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Temáticas</label>
+												<div class="input-group">
+													<select id="input-tematicas" name="tematica" data-placeholder="Seleccione Temáticas" class="form-control select2 input-tematicas" style="width:100%;"></select>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Representación Territorial</label>
+												<div class="input-group">
+													<select id="input-representacion" name="representacionTerritorial" data-placeholder=" Seleccione representación territorial" class="form-control select2 input-representacion" style="width:100%;">
+
+														{% for representacionTerritorial in representacionTerritoriales["data"] %}
+															<option value="{{ representacionTerritorial.idparametro }}">{{ representacionTerritorial.nombre_parametro }}</option>
+														{% endfor %}
+													</select>
+												</div>
+												<div class="help-block with-errors"></div>
+											</div>
+										</div>
+
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Territorio</label>
+												<div class="input-group">
+													<select id="input-territorio" name="territorio[]" class="form-control select2 input-territorio" data-placeholder="Seleccione los territorios" multiple style="width:100%;"></select>
+												</div>
+												<div class="help-block with-errors"></div>
+											</div>
+										</div>
+									</div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+											<div class="form-group">
+												<label class="control-label">URL (Youtube)</label>
+												<div class="input-group">
+													<input name="url_audiovisual" type="text" class="form-control" placeholder="URL video youtube" required="" data-error="Ingrese la URL del video">
+												</div>
+											</div>
+											<div class="help-block with-errors">Ingrese la URL del video</div>
+										</div>
+                                    </div>
+
+
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label class="control-label">Carátula (500X600 px)</label>
+										<input name="caratula" type="file" id="input-file-max-fs-caratula" class="dropify" data-max-file-size="2M"/>
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label class="control-label">Archivo (Formato PDF)</label>
+										<input name="archivo" type="file" id="input-file-max-fs" class="dropify" data-max-file-size="2M"/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-success" id="btn-guardar">
+								<i class="fa fa-check"></i>
+								Guardar
+							</button>
+							<button type="button" class="btn btn-default" id="btn-cancelar" data-dismiss="modal">Cerrar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal" id="documentoModalUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog" role="document" style="max-width:850px !important;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="exampleModalLabel1">Actualizar Documento</h4>
+				</div>
+				<form id="actualizarDocumento" action="actualizar-documento" method="post" data-toggle="validator" enctype="multipart/form-data">
+					<div class="modal-body">
+						<input type="hidden" name="idUsuario" value="{{ session.idUsuario }}"/>
+						<input type="hidden" name="idDocumento" id="a-input-idDocumento" value=""/>
+						<input type="hidden" name="idDocAdjunto" id="a-input-iddocadjunto" value=""/>
+						<div class="form-body">
+                        <hr>
+							<div class="row">
+								<div class="col-md-8">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Tipo Catalogo de Documentos</label>
+												<div class="input-group">
+													<select id="a-input-tipocatalogodocumento" name="tipocatalogodocumento" data-placeholder="Seleccione Tipo de Catalogo de Documentos" class="form-control select2 input-tipocatalogodocumento" style="width:100%;">
+														{% for catalogoDocumento in catalogoDocumentos["data"] %}
+															<option value="{{ catalogoDocumento.idcatalogo }}">{{ catalogoDocumento.nombre_catalogo }}</option>
+														{% endfor %}
+													</select>
+												</div>
+												<div class="help-block with-errors"></div>
+											</div>
+										</div>
+
+
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Tipo de Documento</label>
+												<div class="input-group">
+													<select id="a-input-tipodocumento" name="tipodocumento" data-placeholder="Seleccione Tipo de Documento" class="form-control select2 input-tipodocumento" style="width:100%;">
+														{% for tipoDocumento in tipoDocumentos["data"] %}
+															<option value="{{ tipoDocumento.idparametro }}">{{ tipoDocumento.nombre_parametro }}</option>
+														{% endfor %}
+													</select>
+												</div>
+												<div class="help-block with-errors"></div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-8">
+											<div class="form-group">
+												<label class="control-label">Título del Documento</label>
+												<div class="input-group">
+													<input id="a-input-titulo" name="titulo" type="text" class="form-control" placeholder="título de la norma" required="" data-error="Ingrese el título de la norma">
+												</div>
+											</div>
+											<div class="help-block with-errors">Ingrese el título del documento</div>
+										</div>
+
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Fecha de Publicación</label>
+												<div class="input-group">
+													<input id="a-input-fechaPublicacion" name="fechaPublicacion" type="text" class="form-control dateNormal input-fechaPublicacion" placeholder="yyyy-mm-dd" required="" data-error="Ingrese fecha de publicación">
+													<span class="input-group-addon">
+														<i class="icon-calender"></i>
+													</span>
+												</div>
+											</div>
+											<div class="help-block with-errors"></div>
+										</div>
+
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="control-label">Descripción</label>
+										<div class="input-group">
+											<textarea id="a-input-descripcion" name="descripcion" rows="7" cols="" class="form-control" placeholder="ingrese los detalles del puesto" required="" data-error="Ingrese la descripcion del puesto"></textarea>
+										</div>
+									</div>
+									<div class="help-block with-errors"></div>
+
+								</div>
+							</div>
+
+
+							<div class="norma">
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="control-label">Número</label>
+											<div class="input-group">
+												<input id="a-input-numero" name="numero" type="texto" class="form-control norm" placeholder="Número de la norma" required="" data-error="Ingrese el orden">
+											</div>
+										</div>
+										<div class="help-block with-errors"></div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="control-label">Tipo de Norma</label>
+											<div class="input-group">
+												<select id="a-input-tiponorma" name="tipoNorma" class="form-control select2 norm input-tiponorma" data-placeholder="Seleccione Tipo de Norma" style="width:100%;">
+													{% for tipoNorma in tipoNormas["data"] %}
+														<option value="{{ tipoNorma.idparametro }}">{{ tipoNorma.nombre_parametro }}</option>
+													{% endfor %}
+												</select>
+											</div>
+											<div class="help-block with-errors"></div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="control-label">Ambito de Aplicación</label>
+											<div class="input-group">
+												<select id="a-input-ambito" name="ambitoAplicacion" class="form-control select2 norm input-ambito" data-placeholder="Seleccione ámbito" style="width:100%;">
+
+													{% for ambitoAplicacion in ambitosAplicacion["data"] %}
+														<option value="{{ ambitoAplicacion.idparametro }}">{{ ambitoAplicacion.nombre_parametro }}</option>
+													{% endfor %}
+												</select>
+											</div>
+											<div class="help-block with-errors"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-3">
+									<div class="form-group">
+										<label class="control-label">N° de páginas</label>
+										<div class="input-group">
+											<input id="a-input-numero_paginas" name="numero_paginas" type="texto" class="form-control docu" placeholder="N° de páginas" required="" data-error="Ingrese el orden">
+										</div>
+									</div>
+									<div class="help-block with-errors"></div>
+								</div>
+								<div class="col-md-5">
+									<div class="form-group">
+										<label class="control-label">NODO</label>
+										<div class="input-group">
+											<select id="a-input-nodo" name="nodo" data-placeholder=" Seleccione nodo" class="form-control select2 input-nodo" style="width:100%;">
+
+												{% for nodo in nodos["data"] %}
+													<option value="{{ nodo.idparametro }}">{{ nodo.nombre_parametro }}</option>
+												{% endfor %}
+											</select>
+										</div>
+										<div class="help-block with-errors"></div>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="control-label">ISBN</label>
+										<div class="input-group">
+											<input id="a-input-isbn" name="isbn" type="texto" class="form-control docu" placeholder="ISBN" required="" data-error="Ingrese el ISBN">
+										</div>
+									</div>
+									<div class="help-block with-errors"></div>
+								</div>
+
+							</div>
+
+							<div class="row">
+
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="control-label">Fuente de Información</label>
+										<div class="input-group">
+											<select id="a-input-fuente" name="fuenteInformacion" data-placeholder="Seleccione el tipo de fuente de información" class="form-control select2 input-fuente" style="width:100%;">
+
+												{% for fuenteInformacion in fuentesInformacion["data"] %}
+													<option value="{{ fuenteInformacion.idparametro }}">{{ fuenteInformacion.nombre_parametro }}</option>
+												{% endfor %}
+											</select>
+										</div>
+										<div class="help-block with-errors"></div>
+									</div>
+								</div>
+
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="control-label">Entidad</label>
+										<div class="input-group">
+											<select id="a-input-entidad" name="entidad" class="form-control select2 input-entidad" data-placeholder="Seleccione entidad" style="width:100%;">
+												<option>
+													Seleccione entidad</option>
+
+											</select>
+										</div>
+										<div class="help-block with-errors"></div>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="control-label">Contacto</label>
+										<div class="input-group">
+											<select id="a-input-contacto" name="contacto" class="form-control select2 input-contacto" data-placeholder="Seleccione contacto" style="width:100%;"></select>
+										</div>
+										<div class="help-block with-errors"></div>
+									</div>
+								</div>
+
+							</div>
+
+							<div
+								class="row">
+								<!--/span-->
+								<div class="col-md-6">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Descriptores Temáticos</label>
+												<div class="input-group">
+													<select id="a-input-descriptor" name="descriptorTematico" data-placeholder="Seleccione Descriptores Temáticos" class="form-control select2 input-descriptor" style="width:100%;">
+
+														{% for descriptorTematico in descriptoresTematicos["data"] %}
+															<option value="{{ descriptorTematico.idparametro }}">{{ descriptorTematico.nombre_parametro }}</option>
+														{% endfor %}
+													</select>
+												</div>
+												<div class="help-block with-errors"></div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Temáticas</label>
+												<div class="input-group">
+													<select id="a-input-tematicas" name="tematica" data-placeholder="Seleccione Temáticas" class="form-control select2 input-tematicas" style="width:100%;"></select>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Representación Territorial</label>
+												<div class="input-group">
+													<select id="a-input-representacion" name="representacionTerritorial" data-placeholder=" Seleccione representación territorial" class="form-control select2 input-representacion" style="width:100%;">
+
+														{% for representacionTerritorial in representacionTerritoriales["data"] %}
+															<option value="{{ representacionTerritorial.idparametro }}">{{ representacionTerritorial.nombre_parametro }}</option>
+														{% endfor %}
+													</select>
+												</div>
+												<div class="help-block with-errors"></div>
+											</div>
+										</div>
+
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Territorio</label>
+												<div class="input-group">
+													<select id="a-input-territorio" name="territorio[]" class="form-control select2 input-territorio" data-placeholder="Seleccione los territorios" multiple style="width:100%;"></select>
+												</div>
+												<div class="help-block with-errors"></div>
+											</div>
+										</div>
+									</div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+											<div class="form-group">
+												<label class="control-label">URL (Youtube)</label>
+												<div class="input-group">
+													<input id="a-input-url_audiovisual" name="url_audiovisual" type="text" class="form-control url_audiovisual" placeholder="URL video youtube" required="" data-error="Ingrese la URL del video">
+												</div>
+											</div>
+											<div class="help-block with-errors">Ingrese la URL del video</div>
+										</div>
+                                    </div>
+
+
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label class="control-label">Carátula (500X600 px)</label>
+										<input name="caratula" type="file" id="a-input-file-max-fs-caratula" class="dropify" data-max-file-size="2M"/>
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label class="control-label">Archivo (Formato PDF)</label>
+										<input name="archivo" type="file" id="a-input-file-max-fs" class="dropify" data-max-file-size="2M"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-success" id="a-btn-guardar">
+							<i class="fa fa-check"></i>
+							Guardar
+						</button>
+						<button type="button" class="btn btn-default" id="a-btn-cancelar" data-dismiss="modal">Cerrar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>{% endblock %}{% block javascriptAPP %}
+
+<script src="{{ base_url() }}/js/aplicativo/inicio.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+<script src="{{ base_url() }}/bootstrap/dist/js/bootstrap-3.3.7.min.js"></script>
+<!-- Sidebar menu plugin JavaScript -->
+<script src="{{ base_url() }}/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+<!-- Draggable-panel -->
+<script src="{{ base_url() }}/plugins/bower_components/lobipanel/dist/js/lobipanel.min.js"></script>
+<script>
+	$(function () {
+$('.panel').lobiPanel({sortable: true, reload: false, editTitle: false});
+});
+</script>
+<!--Slimscroll JavaScript For custom scroll-->
+<script src="{{ base_url() }}/js/jquery.slimscroll.js"></script>
+<!-- Wave Effects -->
+<script src="{{ base_url() }}/js/waves.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="{{ base_url() }}/js/custom.min.js"></script>
+<!--Style Switcher -->
+<script src="{{ base_url() }}/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
+
+<script>
+	$(document).ready(function () { /*************CHANGE SELECT**********/
+$(".input-tipocatalogodocumento").change(function (event) {
+
+event.preventDefault();
+var tipoDoc = $(this).val();
+//alert(tipoDoc);
+switch (tipoDoc) {
+case '5': // normas
+$(".docu").attr('disabled', 'disabled');
+$(".carto").attr('disabled', 'disabled');
+$(".norm").removeAttr('disabled');
+break;
+case '14': // cartografia
+$(".carto").removeAttr('disabled');
+$(".docu").attr('disabled', 'disabled');
+$(".norm").attr('disabled', 'disabled');
+break;
+default:
+$(".docu").removeAttr('disabled');
+$(".carto").attr('disabled', 'disabled');
+$(".norm").attr('disabled', 'disabled');
+break;
+}
+
+// swal(tipoDoc);
+});
+
+$(".input-tipocatalogodocumento").change(function (event) {
+event.preventDefault();
+idParametro = $(this).val();
+var param = {
+"idParametro": idParametro
+};
+var url = "{{ base_url() }}" + "/ajax/tipo-documento";
+var metodo = "POST";
+var resp = enviar(url, param, metodo);
+if (resp["success"]) {
+$('.input-tipodocumento').empty();
+if (resp["datos"].length > 0) {
+$.each(resp["datos"], function (key, value) { // alert(key + ": " + value["idTerritorio"]);
+var newOption = new Option(value["nombre_parametro"], value["idparametro"], false, false);
+$('.input-tipodocumento').append(newOption).trigger('change');
+});
+} else {
+$('.input-tipodocumento').val(null).trigger('change');
+}
+
+}
+});
+
+$(".input-representacion").change(function (event) {
+event.preventDefault();
+idParametro = $(this).val();
+var param = {
+"idParametro": idParametro
+};
+var url = "{{ base_url() }}" + "/ajax/territorio";
+var metodo = "POST";
+var resp = enviar(url, param, metodo);
+if (resp["success"]) {
+$('.input-territorio').empty();
+if (resp["datos"].length > 0) {
+$.each(resp["datos"], function (key, value) { // alert(key + ": " + value["idTerritorio"]);
+var newOption = new Option(value["nombre"], value["idTerritorio"], false, false);
+$('.input-territorio').append(newOption).trigger('change');
+});
+} else {
+$('.input-territorio').val(null).trigger('change');
+}
+
+}
+});
+
+$(".input-fuente").change(function (event) {
+event.preventDefault();
+idParametro = $(this).val();
+var param = {
+"idParametro": idParametro
+};
+var url = "{{ base_url() }}" + "/ajax/fuente-informacion";
+var metodo = "POST";
+var resp = enviar(url, param, metodo);
+if (resp["success"]) {
+$('.input-entidad').empty();
+if (resp["datos"].length > 0) {
+$.each(resp["datos"], function (key, value) { // alert(key + ": " + value["idTerritorio"]);
+var newOption = new Option(value["nombre"], value["idEntidad"], false, false);
+$('.input-entidad').append(newOption).trigger('change');
+});
+} else {
+$('.input-entidad').val(null).trigger('change');
+}
+
+}
+});
+
+$(".input-entidad").change(function (event) {
+event.preventDefault();
+idParametro = $(this).val();
+var param = {
+"idParametro": idParametro
+};
+var url = "{{ base_url() }}" + "/ajax/entidad-contacto";
+var metodo = "POST";
+var resp = enviar(url, param, metodo);
+if (resp["success"]) {
+$('.input-contacto').empty();
+if (resp["datos"].length > 0) {
+$.each(resp["datos"], function (key, value) { // alert(key + ": " + value["idTerritorio"]);
+var newOption = new Option(value["nombres"], value["idempleado"], false, false);
+$('.input-contacto').append(newOption).trigger('change');
+});
+} else {
+$('.input-contacto').val(null).trigger('change');
+}
+
+}
+});
+
+
+$(".input-descriptor").change(function (event) {
+event.preventDefault();
+idParametro = $(this).val();
+var param = {
+"idParametro": idParametro
+};
+var url = "{{ base_url() }}" + "/ajax/descriptor-tematica";
+var metodo = "POST";
+var resp = enviar(url, param, metodo);
+if (resp["success"]) {
+$('.input-tematicas').empty();
+if (resp["datos"].length > 0) {
+$.each(resp["datos"], function (key, value) { // alert(key + ": " + value["idTerritorio"]);
+var newOption = new Option(value["nombre"], value["idTematica"], false, false);
+$('.input-tematicas').append(newOption).trigger('change');
+});
+} else {
+$('.input-tematicas').val(null).trigger('change');
+}
+
+}
+});
+
+/*******ACTUALIZAR EMPLEADOR********/
+var actualizarDocumento = function () {
+var bt = function () {
+
+$(".actualizar").click(function (event) {
+event.preventDefault();
+/*extraigo la data de la tabla*/
+idDocumento = $(this).parents("tr").attr("data-iddocumento");
+/*extraer toda la data de este documento con ajax y asignarle el valor*/
+var param = {
+"idDocumento": idDocumento
+};
+var url = "{{ base_url() }}" + "/ajax/get-documento";
+var metodo = "POST";
+var resp = enviar(url, param, metodo);
+console.log(resp["datos"]["idDocumento"]);
+if (resp["success"]) {
+    swal("salio la data");
+    // alert(url);
+    /*asigno valores al modal*/
+    $("#a-input-idDocumento").val(resp["datos"]["idDocumento"]);
+    console.log(resp["datos"]["idcatalogo"]);
+    //$("#a-input-tipocatalogodocumento").select2("val", resp["datos"]["idcatalogo"]);
+    $('#a-input-tipocatalogodocumento').val(resp["datos"]["idcatalogo"]).trigger('change');
+    $('#a-input-tipodocumento').val(resp["datos"]["tipoDocumento"]).trigger('change');
+    $("#a-input-titulo").val(resp["datos"]["titulo"]);
+
+    var d = new Date(resp["datos"]["fecha_publicacion"]);
+    console.log("---------> fecha");
+    console.log(d);
+    var fecha = d.getFullYear()+"-"+ (d.getMonth()+1) + "-"+d.getDate(); 
+    $('#a-input-fechaPublicacion').datepicker('setDate', fecha);
+    $("#a-input-descripcion").val(resp["datos"]["descripcion"]);
+    $("#a-input-numero").val(resp["datos"]["numero"]);
+    //$('#a-input-tiponorma').val(resp["datos"]["tipoDocumento"]).trigger('change');
+    $('#a-input-ambito').val(resp["datos"]["ambitoAplicacion"]).trigger('change');
+    $("#a-input-numero_paginas").val(resp["datos"]["numero_pagina"]);
+    $('#a-input-nodo').val(resp["datos"]["nodo"]).trigger('change');
+    $("#a-input-isbn").val(resp["datos"]["isbn"]);
+    $('#a-input-fuente').val(resp["datos"]["fuenteInformacion"]).trigger('change');
+    $('#a-input-entidad').val(resp["datos"]["Entidad"]).trigger('change');
+    $('#a-input-contacto').val(resp["datos"]["idContacto"]).trigger('change');
+    $('#a-input-descriptor').val(resp["datos"]["descriptorTematico"]).trigger('change');
+    $('#a-input-tematicas').val(resp["datos"]["descriptorTematico"]).trigger('change');
+
+    
+    
+
+
+    
+    
+    
+    
+    
+
+    
+}
+
+});
+
+/*enviando por ajax*/
+$("#actualizarDocumento").submit(function (event) {
+event.preventDefault();
+var $form = $(this);
+// var formData = new FormData();
+var formData = new FormData($(this)[0]);
+var dato = $form.serialize();
+console.log(dato);
+var url = $form.attr('action');
+var metodo = "POST";
+
+var resp = enviarFile(url, formData, metodo);
+resp = JSON.parse(resp);
+console.log(resp["file"]);
+
+$("#demo-foo-addrow tbody tr").each(function () {
+var dom = $(this);
+var idTematica = $(this).attr("data-idtematica");
+
+console.log("1->" + idTematica);
+console.log("2->" + resp["datos"]["idTematica"]);
+if (idTematica == resp["datos"]["idTematica"]) {
+dom.children(".nombre").attr("data-nombre", resp["datos"]["nombre"]);
+dom.children(".nombre").html(resp["datos"]["nombre"]);
+dom.children(".descripcion").attr("data-descripcion", resp["datos"]["descripcion"]);
+dom.children(".descripcion").html(resp["datos"]["descripcion"]);
+dom.children(".orden").attr("data-orden", resp["datos"]["orden"]);
+dom.children(".orden").html(resp["datos"]["orden"]);
+if (resp["file"]) {
+console.log("si actualizo imagen");
+dom.children(".iddocadjunto").attr("data-iddocadjunto", resp["datos"]["idDocAdjunto"]);
+dom.children(".iddocadjunto").find("img").attr("src", resp["datos"]["urlAdjunto"]);
+dom.children(".iddocadjunto").find("a").attr("href", resp["datos"]["urlAdjunto"]);
+}
+}
+});
+
+
+swal(resp["mensaje"]);
+});
+
+};
+return {
+init: function () {
+bt()
+}
+}
+}();
+
+/*******ELIMINANDO EMPLEADO********/
+var eliminarTematica = function () {
+var bt = function () {
+$(".eliminar").click(function (event) {
+event.preventDefault();
+idTematica = $(this).parents("tr").attr("data-idtematica");
+alert(idTematica);
+var param = {
+"idTematica": idTematica
+};
+var url = "{{ base_url() }}" + "/estadistica-gestion/eliminar-tematica";
+var metodo = "POST";
+var resp = enviar(url, param, metodo);
+
+var addrow = $('#demo-foo-addrow');
+var footable = addrow.data('footable');
+var row = $(this).parents('tr:first');
+
+// delete the row
+$(this).tooltip('hide');
+footable.removeRow(row);
+
+
+swal(resp["mensaje"]);
+});
+};
+return {
+init: function () {
+bt()
+}
+}
+}();
+
+var radioswitch = function () {
+var bt = function () {
+$(".bt-switch input[type='checkbox']").bootstrapSwitch({
+'size': 'mini',
+'onSwitchChange': function (event, state) {
+event.preventDefault();
+var estado = 0;
+idTematica = $(this).parents("tr").attr("data-idtematica");
+if (state) {
+console.log("verdad");
+estado = 1;
+
+} else {
+estado = 0;
+}
+var param = {
+"idTematica": $(this).parents("tr").attr("data-idtematica"),
+"estado": estado
+};
+console.log(param);
+var url = "{{ base_url() }}" + "/estadistica-gestion/estado";
+var metodo = "POST";
+
+var resp = enviar(url, param, metodo);
+console.log(resp);
+if (resp["estado"] == "1") {
+// $("#guardarTestimonio")[0].reset();
+// document.getElementById("guardarTestimonio").reset();
+}
+
+swal(resp["mensaje"]);
+// console.log($(this));
+console.log(param);
+},
+'AnotherName': 'AnotherValue'
+});
+};
+return {
+init: function () {
+bt()
+}
+}
+}();
+
+
+radioswitch.init();
+eliminarTematica.init();
+actualizarDocumento.init();
+
+
+$('.textarea_editor').wysihtml5();
+$('.dateNormal').datepicker({autoclose: true, todayHighlight: true, format: "yyyy-mm-dd", endDate: "0d"});
+
+
+/*enviando por ajax*/
+$("#guardarDocumento").submit(function (event) {
+event.preventDefault();
+var $form = $(this);
+// var formData = new FormData();
+var formData = new FormData($(this)[0]);
+var dato = $form.serialize();
+console.log(dato);
+var url = $form.attr('action');
+var metodo = "POST";
+
+var resp = enviarFile(url, formData, metodo);
+resp = JSON.parse(resp);
+console.log(resp);
+if (resp["datos"]["success"]) { // $("#guardarTestimonio")[0].reset();
+document.getElementById("guardarDocumento").reset();
+// get the footable object
+var addrow = $('#demo-foo-addrow');
+var footable = addrow.data('footable');
+var estadito = "";
+if (resp["datos"]["success"]) {
+estadito = "";
+} else {
+estadito = "checked";
+}
+console.log("RESULTADO--------------");
+console.log(resp["datos"]);
+
+
+
+var html = '<tr data-idtematica="' + resp["datos"]["idTematica"] + '">';
+html += '<td>' + resp["datos"]["idTematica"] + '</td>';
+html += '<td class="nombre" data-nombre="' + resp["datos"]["nombre"] + '">' + resp["datos"]["nombre"] + '</td>';
+html += '<td class="descripcion">' + resp["datos"]["descripcion"] + '</td>';
+html += '<td class="url" data-url="' + resp["datos"]["urlAdjunto"] + '" data-idDocAdjunto="' + resp["datos"]["idDocAdjunto"] + '">';
+html += '<div class="row m-t-30">';
+html += '<div class="col-sm-12">';
+html += '<a class="image-popup-vertical-fit" href="' + resp["datos"]["urlAdjunto"] + '" title="">';
+html += '<img src="' + resp["datos"]["urlAdjunto"] + '" class="img-responsive" width="140px;" /> </a>';
+html += '</div>';
+html += '</dv>';
+html += '</td>';
+html += '<td class="bt-switch">';
+html += '<input type="checkbox" ' + estadito + ' data-size="small" data-on-color="primary" data-off-color="info" data-on-text="Activo" data-off-text="Inactivo">';
+html += '</td>';
+html += '<td>' + resp["datos"]["orden"] + '</td>';
+html += '<td>' + resp["datos"]["url"] + '</td>';
+html += '<td>';
+html += '<a href="tematica/' + resp["datos"]["idTematica"] + '" class="puesto"  data-toggle="tooltip" data-original-title="Agregar Indicadores"><i class="fa fa-address-book fa-lg" aria-hidden="true"></i></a> ';
+html += '<a class="actualizar" data-toggle="modal" data-target="#empleadorModalUpdate" data-whatever="@mdo" id="demo-btn-updaterow" data-toggle="tooltip" data-original-title="Actualualizar Temática"><i class="fa fa-edit fa-lg" aria-hidden="true"></i></a> ';
+html += '<a href="#" class="eliminar" data-toggle="tooltip" data-original-title="Eliminar"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>';
+
+html += '</td>';
+html += '</tr>';
+
+// build up the row we are wanting to add
+// var newRow = '<tr><td>thome</td><td>Woldt</td><td>Airline Transport Pilot</td><td>3 Oct 2016</td><td><span class="label label-table label-success">Active</span></td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr>';
+
+// add it
+footable.appendRow(html);
+radioswitch.init();
+eliminarTematica.init();
+actualizarDocumento.init();
+$(".eliminar").tooltip();
+}
+swal(resp["mensaje"]);
+});
+
+
+/*enviar datos ajax*/
+function enviarFile(url, dato, metodo) { // swal(dato+url+metodo);
+var resultado = "";
+$.ajax({
+type: metodo,
+url: url,
+async: false,
+// cache: false,
+contentType: false,
+enctype: 'multipart/form-data',
+processData: false,
+// dataType: "json",
+data: dato,
+// dataType: "json",
+success: function (data) { /**/
+console.log("recibido de cargar archivo");
+console.log(JSON.parse(data));
+resultado = data;
+// retorna(data)
+// swal(data);
+}
+});
+/*Fin ajax*/
+return resultado;
+}
+
+/*enviar datos ajax*/
+function enviar(url, dato, metodo) { // swal(dato+url+metodo);
+var resultado = "";
+$.ajax({
+type: metodo,
+url: url,
+async: false,
+// cache: false,
+// contentType: false,
+// enctype: 'multipart/form-data',
+// processData: false,
+// dataType: "json",
+data: dato,
+// dataType: "json",
+success: function (data) { /**/
+console.log("recibido de cargar archivo");
+console.log(data);
+resultado = data;
+// retorna(data)
+// swal(data);
+}
+});
+/*Fin ajax*/
+return resultado;
+}
+
+});
+</script>{% endblock %}

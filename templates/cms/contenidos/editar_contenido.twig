@@ -1,0 +1,137 @@
+{% extends 'cms/plantilla.twig' %}
+
+{% block title %}
+	CMS / Editar Contenido
+{% endblock %}
+
+{% block javascriptAPP %}
+  <!-- include summernote -->
+  <link rel="stylesheet" href="{{ base_url() }}/plugins/bower_components/summernote-master/dist/summernote-bs4.css">
+  <script type="text/javascript" src="{{ base_url() }}/plugins/bower_components/summernote-master/dist/summernote-bs4.js"></script>
+
+	<script src="{{ base_url() }}/js/aplicativo/contenidos/editar_contenido.js"></script>
+	<script src="{{ base_url() }}/js/aplicativo/inicio.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      $('.summernote').summernote({
+        height: 200,
+      });
+
+      $('form').on('submit', function (e) {
+        e.preventDefault();
+       $('.summernote').summernote('code');
+      });
+    });
+  </script>
+{% endblock %}
+
+{% block contenido %}
+
+	<div class="row">
+		{% set data = contenido.data %}
+		<div class="col-md-12">
+			<span class="icon fa fa-arrow-circle-left">
+				<a href="javascript:history.back();"> Atrás</a>
+			</span>
+			<div class="panel panel-info">
+				<div class="panel-heading" id="titulo_contenido">{{titulo}}</div>
+				<div class="panel-wrapper collapse in" aria-expanded="true">
+					<div class="panel-body">
+						<div id="load"></div>
+						<input type="text" id="idcontenido_editar" hidden="" value="{{data.idcontenido}}">
+						<div class="row">
+							<div class="col-md-9">
+								<div class="form-group">
+									<label class="control-label">TÍTULO <font color="red">*</font></label>
+									<input type="text" name="contenido_titulo_editar" id="contenido_titulo_editar" class="form-control" value="{{data.titulo}}">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">BANNER <font size="1">(Solo Formatos: jpg, jpeg, png)</font>&nbsp;&nbsp;<a href="javascript:void(0)" type="button" title="Subir Ícono" onClick="btnIcono()"><i class="far fa-image"></i></a></label>
+									<input type="text" name="contenido_icono_editar" id="contenido_icono_editar" class="form-control" value="{{data.icono}}">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">SECCIÓN <font color="red">*</font></label>
+									<select class="form-control select2" name="contenido_seccion_editar" id="contenido_seccion_editar" style="width: 100%">
+										<option value="">-- SELECCIONE --</option>
+										{% for item in secciones.data %}
+											{% if data.id_item_modulo == item.id_item_modulo %}
+												<option value="{{item.id_item_modulo}}" desc="{{item.nombre_item}}" selected="">{{item.nombre_item}}</option>
+											{% else %}
+												<option value="{{item.id_item_modulo}}" desc="{{item.nombre_item}}">{{item.nombre_item}}</option>
+											{% endif %}
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">ABRIR CONTENIDO</label>
+									<select class="form-control select2" name="contenido_target_editar" id="contenido_target_editar" style="width: 100%">
+										{% if data.target == "" %}
+											<option value="" selected="">En la misma página</option>
+										{% else %}
+											<option value="">En la misma página</option>
+										{% endif %}
+										{% if data.target == "_blank" %}
+											<option value="_blank" selected="">En una ventana nueva</option>
+										{% else %}
+											<option value="_blank">En una ventana nueva</option>
+										{% endif %}
+									</select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">FECHA CONTENIDO <font color="red">*</font></label>
+									<input type="date" name="contenido_fecha_editar" id="contenido_fecha_editar" class="form-control" value="{{data.fecha_contenido}}">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">ESTADO PUBLICACIÓN <font color="red">*</font></label>
+									<select class="form-control select2" name="contenido_estado_editar" id="contenido_estado_editar" style="width: 100%">
+										<option value="">-- SELECCIONE --</option>
+										{% for estado in estado_publicacion.data %}
+											{% if data.estado_contenido == estado.idparametro %}
+												<option value="{{estado.idparametro}}" desc="{{estado.nombre_parametro}}" selected="">{{estado.nombre_parametro}}</option>
+											{% else %}
+												<option value="{{estado.idparametro}}" desc="{{estado.nombre_parametro}}">{{estado.nombre_parametro}}</option>
+											{% endif %}
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label">RESUMEN&nbsp;&nbsp;<a href="javascript:void(0)" type="button" title="Subir Archivo" onClick="btnArchivo(); btnVariable();"><i class="fas fa-cloud-upload-alt"></i></a></label>
+									<textarea class="summernote form-control" name="contenido_resumen_editar" id="contenido_resumen_editar" style="height:200px">{{data.resumen}}</textarea>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label">CONTENIDO <font color="red">*&nbsp;&nbsp;</font><a href="javascript:void(0)" type="button" title="Subir Archivo" onClick="btnArchivo(); btnVariable();"><i class="fas fa-cloud-upload-alt"></i></a></label>
+									<textarea class="summernote form-control" name="contenido_contenido_editar" id="contenido_contenido_editar" style="height:400px">{{data.contenido}}</textarea>
+								</div>
+							</div>
+						</div>
+						<div class="form-actions">
+							<button type="button" id="btnEditarContenido" class="btn btn-primary"> <i class="fa fa-check"></i> Guardar</button>
+							<button type="button" class="btn btn-default" onclick="javascript:history.back();">Cancelar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,792 @@
+{% extends 'plantilla.twig' %}
+
+
+{% block javascriptAPP %}
+	<script src="{{ base_url() }}/js/aplicativo/inicio.js"></script>
+    <script src="{{ base_url() }}/js/aplicativo/inicio-mapa.js"></script>
+    <script>
+    
+    $(document).ready(function() {
+
+		$(".valores").click(function(event) {
+    	        		event.preventDefault();
+    	        		/*extraigo la data de la tabla*/
+    	            	 //alert(url);
+    	            	/*asigno valores al modal*/
+						idIndicador=  $(this).parents("tr").attr("data-idindicador");
+						$(".input-idIndicador").val(idIndicador);
+						alert(idIndicador);
+    	            });
+	
+	/*enviando por ajax*/
+        $( "#guardarRegistroIndicador" ).submit(function( event ) {
+        	  event.preventDefault();
+
+        	  var $form = $(this);
+        	 // var formData = new FormData();
+        	  var formData = new FormData($(this)[0]);
+        	  var dato = $form.serialize();
+        	  console.log(dato);
+        	  var url = $form.attr('action');
+              var metodo = "POST";
+              var resp= enviarFile(url,formData,metodo);
+              resp=JSON.parse(resp);
+			  if (resp["success"]) {
+				console.log(resp["datos"].urlArchivocargado);
+				$("#btn-validar").attr("href", "http://localhost/estadistica-gestion/valida-registro-indicador/"+resp["datos"]);
+				//$("#excelValidar").val(resp["datos"]);
+				$("#btn-validar").removeClass('disabled');
+              	swal(resp["mensaje"]);
+			  }
+        });
+
+
+
+
+
+		
+		$('#editarTematicas').on('change', function () {
+          var url = $(this).val(); // get selected value
+          if (url) { // require a URL
+              window.location = url; // redirect
+          }
+          return false;
+      });
+        
+
+
+    	
+    	
+    	/*******ACTUALIZAR EMPLEADOR********/
+    	var actualizarIndicador = function() {
+    	        var bt = function() {
+
+    	        	$(".actualizar").click(function(event) {
+    	        		event.preventDefault();
+    	        		/*extraigo la data de la tabla*/
+    	            	 idIndicador=  $(this).parents("tr").attr("data-idIndicador");
+    	            	 nombre=  $(this).parents("td").siblings(".nombre").attr("data-nombre");
+    	            	 descripcion=  $(this).parents("td").siblings(".descripcion").attr("data-descripcion");
+						 unidad=  $(this).parents("td").siblings(".unidad").attr("data-unidad");
+						 prioridad=  $(this).parents("td").siblings(".prioridad").attr("data-prioridad");
+						 periodogeneracion=  $(this).parents("td").siblings(".periodogeneracion").attr("data-periodogeneracion");
+						 periodosinia=  $(this).parents("td").siblings(".periodosinia").attr("data-periodosinia");
+
+    	            	 //alert(url);
+    	            	/*asigno valores al modal*/
+    	            	$("#input-idIndicador").val(idIndicador);
+    	            	$("#input-nombre").val(nombre);
+						$("#input-unidad").val(unidad);
+    	            	$("#input-descripcion").val(descripcion);
+						$("#input-prioridad").val(prioridad);
+    	            	$('#input-periodogeneracion option[value='+periodogeneracion+']').attr('selected','selected');
+						$('#input-periodosinia option[value='+periodosinia+']').attr('selected','selected');
+    	            	//$("#input-archivo").attr("data-default-file", url);
+
+    	            });
+
+    	        	/*enviando por ajax*/
+    	            $( "#actualizarIndicador" ).submit(function( event ) {
+    	            	  event.preventDefault();
+    	            	  var $form = $(this);
+    	            	 // var formData = new FormData();
+    	            	  var formData = new FormData($(this)[0]);
+    	            	  var dato = $form.serialize();
+    	            	  console.log(dato);
+    	            	  var url = $form.attr('action');
+    	                  var metodo = "POST";
+
+    	                  var resp= enviarFile(url,formData,metodo);
+    	                  resp=JSON.parse(resp);
+    	                  console.log(resp["file"]);
+
+    	                  $("#demo-foo-addrow tbody tr").each(function() {
+        	                  var dom = $(this);
+    	                	  var idIndicador= $(this).attr("data-idIndicador");
+							  	
+    	                	  console.log("1->"+idIndicador);
+    	                	  console.log("2->"+resp["datos"]["idIndicador"]); 
+    	                	  if(idIndicador==resp["datos"]["idIndicador"]){
+
+    	                		  dom.children(".nombre").attr("data-nombre", resp["datos"]["nombre"]);
+    	                		  dom.children(".nombre").html(resp["datos"]["nombre"]);
+								  dom.children(".descripcion").attr("data-descripcion", resp["datos"]["descripcion"]);
+    	                		  dom.children(".descripcion").html(resp["datos"]["descripcion"]);
+								  dom.children(".unidad").attr("data-unidad", resp["datos"]["unidad"]);
+    	                		  dom.children(".unidad").html(resp["datos"]["unidad"]);
+								  dom.children(".prioridad").attr("data-prioridad", resp["datos"]["prioridad"]);
+    	                		  dom.children(".prioridad").html(resp["datos"]["prioridad"]);
+    	                		  dom.children(".periodogeneracion").attr("data-periodogeneracion", resp["datos"]["periodo_generacion"]);
+    	                		  dom.children(".periodogeneracion").html(resp["datos"]["nombre_periodo_generacion"]);
+								  dom.children(".periodosinia").attr("data-periodosinia", resp["datos"]["periodo_sinia"]);
+    	                		  dom.children(".periodosinia").html(resp["datos"]["nombre_periodo_sinia"]);
+    	                		  
+        	                	  }
+    	                  });
+    	                    
+							radioswitch.init();
+							eliminarIndicador.init();
+							actualizarIndicador.init();
+    	                  swal(resp["mensaje"]);
+    	            });
+    	
+    	        };
+    	 return {
+	            init: function() {
+	                bt()
+	            }
+	        }
+	    }();
+
+    	/*******ELIMINANDO EMPLEADO********/
+    	var eliminarIndicador = function() {
+    	        var bt = function() {
+    	$(".eliminar").click(function(event) {
+    		event.preventDefault();
+        	 idIndicador=  $(this).parents("tr").attr("data-idindicador");
+        	 var param={
+	    	        	 "idIndicador": idIndicador
+	    	        	};
+        	 var url = "{{base_url()}}"+"/estadistica-gestion/eliminar-indicador";
+              var metodo = "POST";
+              var resp= enviar(url,param,metodo);
+
+              var addrow = $('#demo-foo-addrow');
+        		var footable = addrow.data('footable');
+        		var row = $(this).parents('tr:first');
+
+        		//delete the row
+        		$(this).tooltip('hide');
+        		footable.removeRow(row);
+        		
+              
+              swal(resp["mensaje"]);
+        });
+    	        };
+    	 return {
+	            init: function() {
+	                bt()
+	            }
+	        }
+	    }();
+            	
+    	 var radioswitch = function() {
+    	        var bt = function() {
+    	        	 $(".bt-switch input[type='checkbox']").bootstrapSwitch({
+    	     	        'size': 'mini',
+    	     	        'onSwitchChange': function(event, state){
+    	     	        	 event.preventDefault();
+    	     	        	 var estado=0;
+    	     	        	 var idIndicador=  $(this).parents("tr").attr("data-idindicador");
+    	     	        	// alert(idIndicador);
+    	     	        	 if(state){
+    	         	        	 console.log("verdad");
+    	         	        	 estado=1;
+    	         	        	 
+    	         	        	 }else{
+    	             	        	 estado=0;
+    	             	        	 }
+    	     	        	 var param={
+    	     	    	        	 "idIndicador": idIndicador,
+    	     	        	 		 "estado": estado
+    	     	    	        	 };
+    	     	        	 console.log(param);
+    	     	        	  var url = "{{base_url()}}"+"/estadistica-gestion/estado-indicador";
+    	     	              var metodo = "POST";
+
+    	     	              var resp= enviar(url,param,metodo);
+    	     	              console.log(resp);
+    	     	              
+    	     	              swal(resp["mensaje"]);
+    	 					//console.log($(this));
+    	     	            console.log(param);
+    	     	        },
+    	     	        'AnotherName':'AnotherValue'
+    	     	    });
+    	        };
+    	        return {
+    	            init: function() {
+    	                bt()
+    	            }
+    	        }
+    	    }();
+    	
+
+
+     	
+      	  radioswitch.init();
+      	  eliminarIndicador.init();
+      		actualizarIndicador.init();
+
+
+        
+        $('.textarea_editor').wysihtml5();
+        $('.dateNormal').datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            format: "yyyy-mm-dd",
+            endDate: "0d"
+        });
+
+        
+		/*enviando por ajax*/
+        $( "#guardarIndicador").submit(function( event ) {
+
+        	  event.preventDefault();
+        	  var $form = $(this);
+        	 // var formData = new FormData();
+        	  var formData = new FormData($(this)[0]);
+        	  var dato = $form.serialize();
+        	  console.log(dato);
+        	  var url = $form.attr('action');
+              var metodo = "POST";
+
+              var resp= enviarFile(url,formData,metodo);
+             // resp=JSON.parse(resp);
+             console.log(resp["mensaje"]);
+              if (resp["datos"]["estado"]=="0") {
+                  //$("#guardarTestimonio")[0].reset();
+                document.getElementById("guardarIndicador").reset();
+          		//get the footable object
+          		var addrow = $('#demo-foo-addrow');
+          		var footable = addrow.data('footable');
+				var estadito="";
+          		if(resp["datos"]["estado"]=='0'){
+          			estadito="";
+              		}else{
+              			estadito="checked";
+                  		}
+          		
+          	var html='<tr data-idIndicador="'+resp["datos"]["idIndicador"]+'">';
+          		html+='    <td class="nombre" data-nombre="'+resp["datos"]["nombre"]+'">'+resp["datos"]["nombre"]+'</td>';
+				html+='    <td class="descripcion" data-descripcion="'+resp["datos"]["descripcion"]+'">'+resp["datos"]["descripcion"]+'</td>';
+          		html+='    <td class="unidad" data-unidad="'+resp["datos"]["unidad"]+'">'+resp["datos"]["unidad"]+'</td>';
+          		html+='    <td class="prioridad" data-prioridad="'+resp["datos"]["prioridad"]+'">'+resp["datos"]["prioridad"]+'</td>';
+          		
+          		html+='    <td class="periodogeneracion" data-periodogeneracion="'+resp["datos"]["periodo_generacion"]+'">'+resp["datos"]["nombre_periodo_generacion"]+'</td>';
+          		html+='    <td class="periodosinia" data-periodosinia="'+resp["datos"]["periodo_sinia"]+'">'+resp["datos"]["nombre_periodo_sinia"]+'</td>';
+          		
+          		html+='    <td class="bt-switch">';
+          		html+='        <input type="checkbox" '+estadito+' data-size="small" data-on-color="primary" data-off-color="info" data-on-text="Activo" data-off-text="Inactivo">';
+          		html+='    </td>';
+          		html+='    <td>';
+          		html+='        <a class="actualizar" data-toggle="modal" data-target="#indicadorModalUpdate" data-whatever="@mdo" id="demo-btn-updaterow" data-toggle="tooltip" data-original-title="Actualualizar puesto">';
+          		html+='            <i class="fa fa-edit fa-lg" aria-hidden="true"></i>';
+          		html+='        </a>';
+          		html+='        <a href="#" class="eliminar" data-toggle="tooltip" data-original-title="Eliminar">';
+          		html+='            <i class="fa fa-trash fa-lg" aria-hidden="true"></i>';
+          		html+='        </a>';
+          		html+='    </td>';
+          		html+='</tr>';
+          		
+          		//build up the row we are wanting to add
+          		//var newRow = '<tr><td>thome</td><td>Woldt</td><td>Airline Transport Pilot</td><td>3 Oct 2016</td><td><span class="label label-table label-success">Active</span></td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr>';
+
+          		//add it
+          		footable.appendRow(html);
+          		radioswitch.init();
+          		eliminarIndicador.init();
+          		actualizarIndicador.init();
+          		$(".eliminar").tooltip();
+              }
+              swal(resp["mensaje"]);
+        });
+
+
+
+		
+
+        /*enviar datos ajax*/
+        function enviarFile(url,dato,metodo){
+         //   swal(dato+url+metodo);
+         var resultado="";
+        $.ajax({
+              type: metodo,
+              url: url,
+              async: false, 
+              //cache: false,
+              contentType: false,
+              enctype: 'multipart/form-data',
+              processData: false,
+              //dataType: "json",
+              data: dato,
+                            //dataType: "json",
+                            success: function (data) {
+                              /**/
+                              console.log("recibido de cargar archivo");
+                              console.log(data);
+                              resultado=data;
+                             // retorna(data)
+                              //swal(data);
+                            }
+               });
+        /*Fin ajax*/
+        return resultado;
+        }
+
+        /*enviar datos ajax*/
+        function enviar(url,dato,metodo){
+         //   swal(dato+url+metodo);
+         var resultado="";
+        $.ajax({
+              type: metodo,
+              url: url,
+              async: false, 
+              //cache: false,
+              //contentType: false,
+              //enctype: 'multipart/form-data',
+              //processData: false,
+              //dataType: "json",
+              data: dato,
+                            //dataType: "json",
+                            success: function (data) {
+                              /**/
+                              console.log("recibido de cargar archivo");
+                              console.log(data);
+                              resultado=data;
+                             // retorna(data)
+                              //swal(data);
+                            }
+               });
+        /*Fin ajax*/
+        return resultado;
+        }
+        
+    });
+    </script>
+{% endblock %}
+
+{% block contenido %}
+
+					<div class="row">
+                    <div class="col-lg-6">
+                        <div class="white-box row">
+
+							<div class="col-sm-6">
+                            <h3 class="box-title m-b-0">DATOS DE LA TEMÁTICA</h3>
+                            <h4 class="box-title m-b-0"> {{ tematica["data"].nombre }}</h4>
+							</div>
+							<div class="col-sm-6">
+							<p><img class="img-responsive" alt="Icono  {{ tematica["data"].nombre }}" src="{{ tematica["data"].urlAdjunto }}"> </p>
+							</div>
+                        </div>
+
+                     </div>
+                     <div class="col-lg-6">
+                        <div class="white-box">
+                            <h3 class="box-title m-b-0">Lista de indicadores</h3>
+
+                            <form action="/lista/">
+                            <select id="editarTematicas" class="form-control select2">
+                            {% for listaTematica in listaTematicas["data"] %}
+
+                            {% set url = {'nombreTematica':	 listaTematica.url } %}
+                            	<option value="{{ path_for('gestionTematica',url) }}">{{ listaTematica.nombre }}</option>
+                            {% endfor %}
+                            
+                            </select>
+                            </form>
+                        </div>
+                     </div>
+                     </div>    
+
+<div class="row">
+                    <div class="col-lg-12">
+                        <div class="white-box">
+                            <h3 class="box-title m-b-0">Agregar y eliminar indicadores</h3>
+                            <p class="text-muted m-b-20">Usted puede agregar, editar y quitar el registro indicadores</p>
+                            
+                            <div class=" padding-bottom-15">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <button data-toggle="modal" data-target="#indicadorModal" data-whatever="@mdo" id="demo-btn-addrow" class="btn btn-outline btn-primary btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>Agregar Indicador</button>  
+                                                </div>
+                                        </div>
+                                        <div class="col-sm-3  m-b-20" >
+                                        </div>
+                                        
+                                        <div class="col-sm-3  m-b-20" >
+                                            <div class="form-group">
+                                                <input id="demo-input-search2" type="text" placeholder="buscar" class="form-control" autocomplete="off"> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <table id="demo-foo-addrow" class="table table-bordered table-hover toggle-circle" data-page-size="7">
+                                <thead>
+                                    <tr>
+                                        <th data-sort-initial="true" data-toggle="true">NOMBRE INDICADOR</th>
+                                        <th  data-hide="phone, tablet">DESCRIPCIÓN</th>
+                                        <th  data-toggle="true">UNIDAD</th>
+                                        <th  data-hide="phone, tablet">PRIORIDAD</th>
+										<th  data-hide="phone, tablet">PERIODO GENERACIÓN</th>
+										<th  data-hide="phone, tablet">PERIODO SINIA</th>
+                                        <th data-toggle="true">ESTADO</th>
+                                        <th data-sort-ignore="true" class="min-width">ACCION</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody>
+                                {% for indicador in indicadores["data"] %}
+                                {% set estadito = false %}
+                                
+                                {% if indicador.estado == "1" %}
+                                    {% set estadito ="checked" %}
+                                {% else %}
+                                    {% set estadito ="" %}
+                                {% endif %}
+
+					<tr data-idIndicador="{{ indicador.idIndicador }}" >
+						<td class="nombre" data-nombre="{{ indicador.nombre }}">{{ indicador.nombre }}</td>
+						<td class="descripcion" data-descripcion="{{ indicador.descripcion }}">{{ indicador.descripcion }}</td>
+						<td class="unidad" data-unidad="{{ indicador.unidad }}">{{ indicador.unidad }}</td>
+						<td class="prioridad" data-prioridad="{{ indicador.prioridad }}">{{ indicador.prioridad }}</td>
+						<td class="periodogeneracion" data-periodogeneracion="{{ indicador.periodo_generacion }}">{{ indicador.nombre_periodo_generacion }}</td>
+						<td class="periodosinia" data-periodosinia="{{ indicador.periodo_sinia }}">{{ indicador.nombre_periodo_sinia }}</td>
+						<td class="bt-switch"><input type="checkbox" {{ estadito }}
+							data-size="small" data-on-color="primary" data-off-color="info"
+							data-on-text="Activo" data-off-text="Inactivo"></td>
+							
+						<td> 
+						<a
+							class="valores" data-toggle="modal"
+							data-target="#indicadorModalRegistro"
+							id="demo-btn-registrorow" data-toggle="tooltip"
+							data-original-title="Cargar valores de este indicador"><i class="fas fa-chart-line fa-lg"></i> </a> 
+						<a
+							class="actualizar" data-toggle="modal"
+							data-target="#indicadorModalUpdate" data-whatever="@mdo"
+							id="demo-btn-updaterow" data-toggle="tooltip"
+							data-original-title="Actualualizar puesto"><i
+								class="fa fa-edit fa-lg" aria-hidden="true"></i></a> <a href="#"
+							class="eliminar" data-toggle="tooltip"
+							data-original-title="Eliminar"><i class="fa fa-trash fa-lg"
+								aria-hidden="true"></i></a></td>
+					</tr>
+					{% endfor %}
+                                   
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4">
+                                            <div class="text-right">
+                                                <ul class="pagination"> </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+{% endblock %}
+
+{% block modales %}
+
+<!-- modal para agregar un empleador -->
+<div class="modal fade" id="indicadorModal" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel1">
+	<div class="modal-dialog" role="document" style="max-width:850px !important;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="exampleModalLabel1">Nuevo Indicador</h4>
+			</div>
+			<form id="guardarIndicador" action="../guardar-indicador" method="post"
+				data-toggle="validator" enctype="multipart/form-data">
+				<div class="modal-body">
+
+					<input type="hidden" name="idTematica"
+						value="{{ tematica["data"].idTematica }}" />
+					<div class="form-body">
+						<div class="row">
+							<!--/span-->
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Nombre del Indicador</label>
+									<div class="input-group">
+										<input name="nombre" type="text" class="form-control"
+											placeholder="Nombre del indicador" required=""
+											data-error="Ingrese el nombre del indicador">
+									</div>
+								</div>
+								<div class="help-block with-errors"></div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Unidad</label>
+									<div class="input-group">
+										<input name="unidad" type="text" class="form-control"
+											placeholder="Ingrese unidad" required=""
+											data-error="Ingrese el unidad del indicador">
+									</div>
+									<div class="help-block with-errors"></div>
+								</div>
+								<div class="help-block with-errors"></div>
+							</div>
+
+						</div>
+						
+						<div class="row">
+							<!--/span-->
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Descripción</label>
+									<div class="input-group">
+										<textarea name="descripcion" rows="12" cols="" class="form-control"
+											placeholder="ingrese los detalles del indicador" required=""
+											data-error="Ingrese la descripcion del indicador"></textarea>
+									</div>
+								</div>
+								<div class="help-block with-errors"></div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Prioridad</label>
+									<div class="input-group">
+										<input name="prioridad" type="number" class="form-control"
+											placeholder="Ingrese prioridad" required=""
+											data-error="Ingrese la prioridad del indicador">
+									</div>
+									<div class="help-block with-errors"></div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label">Periodo Generación</label>
+									<div class="input-group">
+										<select name="periodogeneracion" class="form-control input-sm" required="">
+										<option> Seleccione Periodo</option>
+										{% for periodo in periodos["data"] %}
+										<option value="{{ periodo.idparametro }}">{{ periodo.nombre_parametro }}</option>
+										{% endfor %}
+										</select>
+									</div>
+								<div class="help-block with-errors"></div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label">Periodo Sinia</label>
+									<div class="input-group">
+										<select name="periodosinia" class="form-control input-sm" required="">
+										<option> Seleccione Periodo</option>
+										{% for periodo in periodos["data"] %}
+										<option value="{{ periodo.idparametro }}">{{ periodo.nombre_parametro }}</option>
+										{% endfor %}
+										</select>
+									</div>
+								<div class="help-block with-errors"></div>
+								</div>
+								
+							</div>
+
+						</div>
+
+
+					</div>
+
+
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-success" id="btn-guardar">
+						<i class="fa fa-check"></i> Guardar
+					</button>
+					<button type="button" class="btn btn-default" id="btn-cancelar"
+						data-dismiss="modal">Cerrar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- actualizar los empleadores -->
+<!-- modal para agregar un empleador -->
+<div class="modal fade" id="indicadorModalUpdate" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel1">
+	<div class="modal-dialog" role="document"  style="max-width:850px !important;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="exampleModalLabel1">Actualizar Puesto</h4>
+			</div>
+			<form id="actualizarIndicador" action="../actualizar-indicador" method="post"
+				data-toggle="validator" enctype="multipart/form-data">
+				<div class="modal-body">
+				
+					<input type="hidden" name="idIndicador" id="input-idIndicador"
+						value="" />
+	
+					<div class="form-body">
+						<hr>
+												<div class="row">
+							<!--/span-->
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Nombre del Indicador</label>
+									<div class="input-group">
+										<input name="nombre" id="input-nombre" type="text" class="form-control"
+											placeholder="Nombre del indicador" required=""
+											data-error="Ingrese el nombre del indicador">
+									</div>
+								</div>
+								<div class="help-block with-errors"></div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Unidad</label>
+									<div class="input-group">
+										<input name="unidad" id="input-unidad" type="text" class="form-control"
+											placeholder="Ingrese unidad" required=""
+											data-error="Ingrese el unidad del indicador">
+									</div>
+									<div class="help-block with-errors"></div>
+								</div>
+								<div class="help-block with-errors"></div>
+							</div>
+
+						</div>
+						
+						<div class="row">
+							<!--/span-->
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Descripción</label>
+									<div class="input-group">
+										<textarea name="descripcion" id="input-descripcion" rows="12" cols="" class="form-control"
+											placeholder="ingrese los detalles del indicador" required=""
+											data-error="Ingrese la descripcion del indicador"></textarea>
+									</div>
+								</div>
+								<div class="help-block with-errors"></div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Prioridad</label>
+									<div class="input-group">
+										<input name="prioridad" id="input-prioridad" type="number" class="form-control"
+											placeholder="Ingrese prioridad" required=""
+											data-error="Ingrese la prioridad del indicador">
+									</div>
+									<div class="help-block with-errors"></div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label">Periodo Generación</label>
+									<div class="input-group">
+										<select name="periodogeneracion" id="input-periodogeneracion" class="form-control input-sm" required="">
+										<option> Seleccione Periodo</option>
+										{% for periodo in periodos["data"] %}
+										<option value="{{ periodo.idparametro }}">{{ periodo.nombre_parametro }}</option>
+										{% endfor %}
+										</select>
+									</div>
+								<div class="help-block with-errors"></div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label">Periodo Sinia</label>
+									<div class="input-group">
+										<select name="periodosinia" id="input-periodosinia" class="form-control input-sm" required="">
+										<option> Seleccione Periodo</option>
+										{% for periodo in periodos["data"] %}
+										<option value="{{ periodo.idparametro }}">{{ periodo.nombre_parametro }}</option>
+										{% endfor %}
+										</select>
+									</div>
+								<div class="help-block with-errors"></div>
+								</div>
+								
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-success" id="btn-guardar">
+						<i class="fa fa-check"></i> Guardar
+					</button>
+					<button type="button" class="btn btn-default" id="btn-cancelar"
+						data-dismiss="modal">Cerrar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- Modal cargar valores del indicador -->
+
+<!-- modal para agregar un empleador -->
+<div class="modal fade" id="indicadorModalRegistro" tabindex="-1" role="dialog"
+	aria-labelledby="indicadorModalRegistro">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="indicadorModalRegistro1">Cargar Valores del Indicador </h4>
+			</div>
+			<form id="guardarRegistroIndicador" action="../guardar-registro-indicador" method="post"
+				data-toggle="validator" enctype="multipart/form-data">
+				<div class="modal-body">
+
+					<input type="hidden" name="idEmpleado"
+						value="{{ session.idEmpleado }}" />
+					<input type="hidden" name="idIndicador"
+						value="" class="input-idIndicador" />
+					<div class="form-body">
+					<a href="#"><i class="fas fa-file-excel"></i> Descargar formato</a>
+					<hr>
+	
+						<!--/row-->
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label">Cargar valores estadísticos según formato</label> <input
+										name="archivo" type="file" id="input-file-max-fs"
+										class="dropify" data-max-file-size="4M" />
+								</div>
+							</div>
+						</div>
+
+						<i>*Nota: </i>
+						<ul>
+						<li>El sistema validará si existen datos anteriores para este indicador.</li>
+						<li>El sistema le preguntará si desea reemplazar esos valores.</li>
+						<li>El sistema le dará la opción de generar un backup antes de cargar los nuevos valores.</li>
+						</ul>
+
+
+
+					</div>
+
+
+				</div>
+				<div class="modal-footer">
+					<input type="hidden" name="validar" id="excelValidar" value="" />
+					<a href="#" class="btn btn-info disabled" id="btn-validar" target="_blank">
+						<i class="fa fa-check"></i> Validar
+					</a>
+
+					<button type="submit" class="btn btn-success" id="btn-guardar">
+						<i class="fa fa-check"></i> Cargar
+					</button>
+					<button type="button" class="btn btn-default" id="btn-cancelar"
+						data-dismiss="modal">Cerrar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

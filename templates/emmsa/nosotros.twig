@@ -1,0 +1,498 @@
+{% extends 'emmsa/plantilla-interna.twig' %}
+
+{% block estiloAPP %}
+    <link href="{{ base_url() }}/plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{ base_url() }}/css/componentes/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+
+{% endblock %}
+
+{% block slider %}
+	<div class="page-title-breadcrumbs" style="background-image: url({{tematica['data'].urlBanner}}) !important; margin-bottom: 0pt !important;">
+		<div class="breadcrumbs-container container">
+			<div
+				class="breadcrumbs_wrapper">
+				{# <div class="page-title-container">
+				                            <h1 class="text-center">{{tematica["data"].nombre}}</h1>
+				                        </div> #}
+				<div class="breadcrumbs-container text-center">
+					<ul class="breadcrumbs primary-font">
+						<li>
+							<a href="{{base_url()}}/">
+								<span>Inicio</span>
+							</a>
+						</li>
+						{# <li>
+						                                    <a href="#">
+						                                        <span>/ {{tematica["data"].nombre}}</span>
+						                                    </a>
+						                                </li> #}
+
+						{# <li>
+						                                    <span>{{contenido["data"].titulo}}</span>
+						                                </li> #}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block secciones %}
+	<div class="cart-wrapper pd-top-bottom">
+		<div class="container">
+			<div class="cart-section cart-collaterals">
+				<div class="title-icon text-left">
+					<h2 class="title-h2 background-position-left">{{tematica["data"].nombre}}</h2>
+
+				</div>
+				<p>
+					<span class="green font-italic">
+						{{tematica["data"].descripcion}}
+					</span>
+				</p>
+				<nav>
+					<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+						<a class="nav-item nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Estadística</a>
+						<a class="nav-item nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Tabla</a>
+						<a class="nav-item nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Hoja de divulgación</a>
+					</div>
+
+				</nav>
+				<div class="tab-content py-3 px-3 px-sm-0" id="myTabContent">
+					<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+						<div class="cart-form coupon-content">
+							<form action="graficar" id="formGrafica" method="post">
+
+								<div class="row">
+									<div class="form-group col-md-3">
+										<label for="indicador">Indicadores</label>
+										<select class="form-control simple" id="indicador" name="indicador">
+										
+											{% for indicador in indicadores.data %}
+												<option value="{{indicador.idIndicador}}">{{indicador.nombre}}</option>
+											{% endfor %}
+										</select>
+									</div>
+									<div class="form-group col-md-3">
+										<label for="distrito">Distritos</label>
+										<select class="form-control multiple" name="distrito[]" id="distrito" data-live-search="true" data-placeholder="Selecciona los distritos" multiple>
+											{% for distrito in distritos.data %}
+												<option value="{{distrito.idDistrito}}">{{distrito.nombre}}</option>
+											{% endfor %}
+										</select>
+										<input type="checkbox" id="checkbox">Selecionar todo
+									</div>
+									<div class="form-group col-md-3">
+										<label for="anio">Año</label>
+										<select class="form-control multiple" name="anio[]" id="anio" data-placeholder="Selecciona los Años" multiple></select>
+										<input type="checkbox" id="checkboxanio">Selecionar todo
+
+									</div>
+
+									<div class="form-group col-md-3">
+										<label for="grafico">Generar Gráfico</label>
+										<br/>
+										<button type="button" class="btn btn-default btnFormGrafico">
+											Graficar
+										</button>
+
+									</div>
+
+								</div>
+
+							</form>
+						</div>
+
+						<div id="container" style="min-width: 310px; max-width: 1000px; height: 800px; max-height: 1000px; margin: 0 auto"></div>
+
+
+					</div>
+					<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+						<div class="table-responsive">
+                                <table id="example23" class="display nowrap" cellspacing="0" width="100%">
+                                   <thead></thead>
+                                </table>
+                            </div>
+					</div>
+					<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">rtyrtyrtyrty</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block javascriptAPP %}
+
+
+    <script src="{{ base_url() }}/plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
+    <!-- start - This is for export functionality only -->
+    <script src="{{ base_url() }}/js/componentes/dataTables.buttons.min.js"></script>
+    <script src="{{ base_url() }}/js/componentes/buttons.flash.min.js"></script>
+    <script src="{{ base_url() }}/js/componentes/jszip.min.js"></script>
+    <script src="{{ base_url() }}/js/componentes/pdfmake.min.js"></script>
+    <script src="{{ base_url() }}/js/componentes/vfs_fonts.js"></script>
+    <script src="{{ base_url() }}/js/componentes/buttons.html5.min.js"></script>
+    <script src="{{ base_url() }}/js/componentes/buttons.print.min.js"></script>
+
+
+
+	<script src="{{ base_url() }}/plugins/bower_components/highcharts/highcharts.js"></script>
+	<script src="{{ base_url() }}/plugins/bower_components/highcharts/modules/series-label.js"></script>
+	<script src="{{ base_url() }}/plugins/bower_components/highcharts/modules/exporting.js"></script>
+	<script src="{{ base_url() }}/plugins/bower_components/highcharts/modules/export-data.js"></script>
+<script src="{{ base_url() }}/emmsa/js/jquery.parseparams.js"></script>
+
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+
+
+
+$(".btnFormGrafico").click(function () {
+
+
+
+/*inicio*/
+
+var datatable = $("#formGrafica").serialize();
+	console.log("tabla 1------------->");
+	col = $.parseParams(datatable);
+console.log(col["anio"]);
+
+	$("#example23 thead").html('');
+	var i=0;
+	var column=[];
+		$('<th> distrito </th>').appendTo($("#example23 thead"));
+		column.push({data: "distrito"});
+
+$('#example23 tbody').empty();
+var anio = [];
+	$("#anio option").each(function()
+{
+    // Add $(this).val() to your list
+	anio.push($(this).val());
+	column.push({data: $(this).val()});
+	$('<th>'+$(this).val()+'</th>').appendTo($("#example23 thead"));
+
+
+});
+
+
+		//i++;
+		column.push({data: "Total"});
+		$('<th> Total </th>').appendTo($("#example23 thead"));
+	console.log(column);
+
+var distrito = [];
+	$("#distrito option").each(function()
+{
+    // Add $(this).val() to your list
+	distrito.push($(this).val());
+
+});
+
+	var tblEntidad = $('#example23').DataTable( {
+
+			dom: 'Bfrtip',
+				buttons: [
+					'copy', 'csv', 'excel', 'pdf', 'print'
+				],
+			ajax: {
+				url: '{{ base_url }}/estadistica/tematica/reportetabla',
+				type: 'GET',
+				data:{
+					"indicador": $("#indicador").val(),
+					"anio":anio,
+					"distrito": distrito
+					},
+				dataSrc: ""
+			},
+			columns: column
+		});
+
+/*fin*/
+
+
+
+
+
+
+var data = $("#formGrafica").serialize();
+console.log(data);
+// genera gráfico
+$.ajax({data: data, type: "GET", dataType: "json", url: "{{ base_url }}/estadistica/tematica/reporte"}).done(function (data, textStatus, jqXHR) {
+if (console && console.log) {
+//console.log(data.datos);
+grafico1(data);
+//$('#example23').DataTable().reload();
+tabla1(data);
+
+//$("#example23 thead").empty();
+	//$("#example23 tbody").empty();
+
+
+/*	 $('#example23').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+			data: datos,
+			columns: column
+        }); */
+
+		//$('#example23').dataTable().fnClearTable();
+	
+// grafico2(data);
+// grafico3(data);
+console.log("La solicitud se ha completado correctamente.");
+}
+}).fail(function (jqXHR, textStatus, errorThrown) {
+if (console && console.log) {
+console.log("La solicitud a fallado: " + textStatus);
+}
+});
+// fin ajax
+});
+
+$(".multiple").select2();
+
+$('.multiple').select2MultiCheckboxes({
+templateSelection: function (selected, total) {
+return "Seleccionado " + selected.length + " de " + total;
+}
+});
+
+$("#checkbox").click(function () {
+if ($("#checkbox").is(':checked')) {
+$("#distrito > option").prop("selected", "selected");
+$("#distrito").trigger("change");
+} else {
+$("#distrito > option").removeAttr("selected");
+$("#distrito").trigger("change");
+}
+});
+
+$("#checkboxanio").click(function () {
+if ($("#checkboxanio").is(':checked')) {
+$("#anio > option").prop("selected", "selected");
+$("#anio").trigger("change");
+} else {
+$("#anio > option").removeAttr("selected");
+$("#anio").trigger("change");
+}
+});
+
+
+$(".simple").select2();
+
+// evento cambia indicador
+$("#indicador").change(function () {
+var idIndicador = $(this).val();
+$('#distrito').empty();
+$('#anio').empty();
+// saca los parametros por cambiar el indicador
+$.ajax({
+data: {
+"idIndicador": idIndicador
+},
+type: "GET",
+dataType: "json",
+url: "{{ base_url }}/estadistica/tematica/reporteparametros"
+}).done(function (data, textStatus, jqXHR) {
+if (console && console.log) {
+console.log(data);
+if (data.success) {
+console.log(data.distritos.data);
+$.each(data.distritos.data, function (i, distrito) {
+        $('#distrito').append('<option selected="selected" value="' + distrito.idDistrito + '">' + distrito.nombre + '</option>');
+});
+$.each(data.anio.data, function (i, anio) {
+    if(i<1){
+        $('#anio').append('<option selected="selected" value="' + anio.anio + '">' + anio.anio + '</option>');
+    }
+    else{
+        $('#anio').append('<option value="' + anio.anio + '">' + anio.anio + '</option>');
+    }
+
+});
+}
+$('#distrito').select2();
+$('#distrito').select2MultiCheckboxes({
+templateSelection: function (selected, total) {
+return "Seleccionado " + selected.length + " de " + total;
+}
+
+});
+$(".btnFormGrafico").click();
+
+// grafico1(data);
+console.log("La solicitud se ha completado correctamente.");
+}
+}).fail(function (jqXHR, textStatus, errorThrown) {
+if (console && console.log) {
+console.log("La solicitud a fallado: " + textStatus);
+}
+});
+// fin ajax
+
+}).change();
+// fin evento
+
+
+});
+function tabla1(data) {
+	
+
+}
+
+
+
+function grafico1(data) {
+console.log("grafico 1------------->");
+console.log(data);
+Highcharts.chart('container', {
+chart: {
+type: 'bar'
+},
+title: {
+text: data.indicador.data.nombre
+},
+subtitle: {
+text: 'Datos: <a href="#">SINIA</a>'
+},
+xAxis: {
+categories: data.etiquetas,
+title: {
+text: "Distritos"
+}
+},
+yAxis: {
+min: 0,
+title: {
+text: 'Unidad (' + data.unidad + ')',
+align: 'high'
+},
+labels: {
+overflow: 'justify'
+}
+},
+tooltip: {
+valueSuffix: data.unidad
+},
+plotOptions: {
+bar: {
+dataLabels: {
+enabled: true
+}
+}
+},
+legend: {
+layout: 'vertical',
+align: 'right',
+verticalAlign: 'top',
+x: -40,
+y: 80,
+floating: true,
+borderWidth: 1,
+backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+shadow: true
+},
+credits: {
+enabled: false
+},
+height: 800,
+series: data.datos
+});
+}
+
+function grafico2(data) {
+Highcharts.chart('container', {
+chart: {
+type: 'column'
+},
+title: {
+text: 'Monthly Average Rainfall'
+},
+subtitle: {
+text: 'Source: WorldClimate.com'
+},
+xAxis: {
+categories: data.etiquetas,
+crosshair: true
+},
+yAxis: {
+min: 0,
+title: {
+text: 'Unidad (' + data.unidad + ')'
+}
+},
+tooltip: {
+headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' + '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+footerFormat: '</table>',
+shared: true,
+useHTML: true
+},
+plotOptions: {
+column: {
+pointPadding: 0.2,
+borderWidth: 0
+}
+},
+series: data.datos
+});
+}
+
+function grafico3(data) {
+Highcharts.chart('container', {
+chart: {
+type: 'column'
+},
+title: {
+text: 'Stacked column chart'
+},
+xAxis: {
+categories: data.etiquetas
+},
+yAxis: {
+min: 0,
+title: {
+text: 'Total fruit consumption'
+},
+stackLabels: {
+enabled: true,
+style: {
+fontWeight: 'bold',
+color: ( // theme
+Highcharts.defaultOptions.title.style && Highcharts.defaultOptions.title.style.color) || 'gray'
+}
+}
+},
+legend: {
+align: 'right',
+x: -30,
+verticalAlign: 'top',
+y: 25,
+floating: true,
+backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || 'white',
+borderColor: '#CCC',
+borderWidth: 1,
+shadow: false
+},
+tooltip: {
+headerFormat: '<b>{point.x}</b><br/>',
+pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+},
+plotOptions: {
+column: {
+stacking: 'normal',
+dataLabels: {
+enabled: true
+}
+}
+},
+series: data.datos
+});
+}
+	</script>
+{% endblock %}

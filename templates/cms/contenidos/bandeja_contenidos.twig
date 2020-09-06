@@ -1,0 +1,156 @@
+{% extends 'cms/plantilla.twig' %}
+
+{% block title %}
+	CMS / Contenidos
+{% endblock %}
+
+{% block javascriptAPP %}
+	<script src="{{ base_url() }}/js/aplicativo/contenidos/bandeja.js"></script>
+	<script src="{{ base_url() }}/js/aplicativo/inicio.js"></script>
+	<script>
+		window.onload = function() {
+			Acciones('{{acciones|json_encode()|raw()}}');
+			Acceso_Acciones('{{acceso_acciones|json_encode()|raw()}}');
+			ListarContenido(1);
+			$('#div_tbl_hijo').hide();
+			$('#btnAtras').hide();
+		};
+	</script>
+{% endblock %}
+
+{% block contenido %}
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading" id="titulo_contenido">{{contenido}}</div>
+				<!-- ********************************************************************************************************************** -->
+				<!-- VISTA CONTENIDOS -->
+				<div class="panel-wrapper collapse in" aria-expanded="true">
+					<div class="panel-body">
+						<div id="load"></div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">URL</label>
+									<input type="text" name="contenido_url_buscar" id="contenido_url_buscar" class="form-control" onkeypress="Enter(event);">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">TÍTULO</label>
+									<input type="text" name="contenido_titulo_buscar" id="contenido_titulo_buscar" class="form-control" onkeypress="Enter(event);">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">SECCIÓN</label>
+									<select class="form-control select2" name="contenido_seccion_buscar" id="contenido_seccion_buscar" style="width: 100%" onchange="Change();">
+										<option value="">-- SELECCIONE --</option>
+										{% for item in secciones.data %}
+											<option value="{{item.id_item_modulo}}" desc="{{item.nombre_item}}">{{item.nombre_item}}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">FECHA CONTENIDO</label>
+									<input type="date" name="contenido_fecha_buscar" id="contenido_fecha_buscar" class="form-control" onchange="Change();">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">ESTADO PUBLICACIÓN</label>
+									<select class="form-control select2" name="contenido_estado_buscar" id="contenido_estado_buscar" style="width: 100%" onchange="Change();">
+										<option value="">-- SELECCIONE --</option>
+										{% for item in estado_publicacion.data %}
+											<option value="{{item.idparametro}}" desc="{{item.nombre_parametro}}">{{item.nombre_parametro}}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row" id="div_tbl_padre">
+							<div class="table-responsive">
+								<table id="tblcontenido" class="table toggle-circle table-hover table-MML">
+									<caption>
+										{% set tmp = 0 %}
+										{% for item in acciones.data %}
+											{% if item.idaccion == 11 %}
+												{% set tmp = 1 %}
+											{% endif %}
+										{% endfor %}
+										{% if tmp == 1 %}
+											{% for item in acceso_acciones.data %}
+												{% if item.idaccion == 11 %}
+													<button class="btn btn-primary btn-sm fa fa-plus" title="Nuevo Contenido" onclick="NuevoContenido();">&nbsp;Nuevo Contenido</button>
+												{% endif %}
+											{% endfor %}
+										{% endif %}
+									</caption>
+									<thead>
+										<tr>
+											<th data-sort-ignore="true">ID</th>
+											<th data-sort-ignore="true">TÍTULO</th>
+											<th data-sort-ignore="true">URL</th>
+											<th data-sort-ignore="true">SECCIÓN</th>
+											<th data-sort-ignore="true">FECHA</th>
+											<th data-sort-ignore="true">ESTADO</th>
+											<th data-sort-ignore="true">ACCIONES</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+								<div id="paginador_contenido" style="text-align: center;"></div>
+							</div>
+						</div>
+						<!-- **************************** -->
+						<div class="row" id="div_tbl_hijo">
+							<div class="table-responsive">
+								<input type="text" id="idcontenido_padre" hidden="">
+								<table id="tblcontenido_hijo" class="table toggle-circle table-hover table-MML">
+									<caption>
+										{% set tmp = 0 %}
+										{% for item in acciones.data %}
+											{% if item.idaccion == 11 %}
+												{% set tmp = 1 %}
+											{% endif %}
+										{% endfor %}
+										{% if tmp == 1 %}
+											{% for item in acceso_acciones.data %}
+												{% if item.idaccion == 11 %}
+													<button class="btn btn-primary btn-sm fa fa-plus" title="Nuevo Contenido" onclick="NuevoContenidoHijo();">&nbsp;Nuevo Contenido</button>
+												{% endif %}
+											{% endfor %}
+										{% endif %}
+										<span class="icon fa fa-arrow-circle-left" id="btnAtras">
+											<a href="javascript:void(0)" onclick="Atras()"> Atrás</a>
+										</span>
+									</caption>
+									<thead>
+										<tr>
+											<th data-sort-ignore="true">ID</th>
+											<th data-sort-ignore="true">TÍTULO</th>
+											<th data-sort-ignore="true">URL</th>
+											<th data-sort-ignore="true">SECCIÓN</th>
+											<th data-sort-ignore="true">FECHA</th>
+											<th data-sort-ignore="true">ESTADO</th>
+											<th data-sort-ignore="true">ACCIONES</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+								<div id="paginador_contenido_hijo" style="text-align: center;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END VISTA CONTENIDOS -->
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

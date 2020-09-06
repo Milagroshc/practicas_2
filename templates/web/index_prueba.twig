@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>
+		{% block title %}Página Web Principal{% endblock %}
+	</title>
+	<meta name="description" content="Megatron - Multipurpose Responsive HTML5 Template">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="apple-touch-icon" sizes="57x57" href="{{base_url()}}/favicon/apple-touch-icon-57x57.html">
+	<link rel="apple-touch-icon" sizes="60x60" href="{{base_url()}}/favicon/apple-touch-icon-60x60.html">
+	<link rel="apple-touch-icon" sizes="72x72" href="{{base_url()}}/favicon/apple-touch-icon-72x72.html">
+	<link rel="apple-touch-icon" sizes="76x76" href="{{base_url()}}/favicon/apple-touch-icon-76x76.html">
+	<link rel="apple-touch-icon" sizes="114x114" href="{{base_url()}}/favicon/apple-touch-icon-114x114.html">
+	<link rel="apple-touch-icon" sizes="120x120" href="{{base_url()}}/favicon/apple-touch-icon-120x120.html">
+	<link rel="apple-touch-icon" sizes="144x144" href="{{base_url()}}/favicon/apple-touch-icon-144x144.html">
+	<link rel="apple-touch-icon" sizes="152x152" href="{{base_url()}}/favicon/apple-touch-icon-152x152.html">
+	<link rel="apple-touch-icon" sizes="180x180" href="{{base_url()}}/favicon/apple-touch-icon-180x180.html">
+	<link rel="icon" type="image/png" href="{{base_url()}}/favicon/favicon-32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="{{base_url()}}/favicon/favicon-194x194.html" sizes="194x194">
+	<link rel="icon" type="image/png" href="{{base_url()}}/favicon/favicon-96x96.png" sizes="96x96">
+	<link rel="icon" type="image/png" href="{{base_url()}}/favicon/android-chrome-192x192.html" sizes="192x192">
+	<link rel="icon" type="image/png" href="{{base_url()}}/favicon/favicon-16x16.png" sizes="16x16">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="msapplication-TileImage" content="{{base_url()}}/favicon/mstile-144x144.html">
+	<meta name="theme-color" content="#ffffff">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300italic,800italic,800,700italic,700,600italic,600,400italic,300%7CRoboto+Condensed:400,400i,700,700i%7CGreat+Vibes" rel="stylesheet">
+	<!-- Bootstrap Stylesheet -->
+	<link rel="stylesheet" href="{{ base_url() }}/css/bootstrap.min.css">
+	<!-- Font Awesome Stylesheet -->
+	<link rel="stylesheet" href="{{ base_url() }}/css/fontawesome-all.min.css">
+	<!-- Flex Slider Stylesheets -->
+	<link rel="stylesheet" href="{{ base_url() }}/css/flexslider.css">
+	<!-- OWL Stylesheets -->
+	<link rel="stylesheet" href="{{ base_url() }}/css/owl.carousel.css">
+	<link rel="stylesheet" href="{{ base_url() }}/css/owl.theme.css">
+	<link rel="stylesheet" href="{{ base_url() }}/css/reloj.css">
+	<!-- Stylesheets -->
+	<link href="{{ base_url() }}/css/miraflores/bootstrap.css" rel="stylesheet">
+	<link href="{{ base_url() }}/plugins/revolution/css/settings.css" rel="stylesheet" type="text/css">
+	<link href="{{ base_url() }}/plugins/revolution/css/layers.css" rel="stylesheet" type="text/css">
+	<link href="{{ base_url() }}/plugins/revolution/css/navigation.css" rel="stylesheet" type="text/css">
+	<!--alerts CSS -->
+	<link href="{{ base_url() }}/plugins/bower_components/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+	<link href="{{ base_url() }}/css/miraflores/style.css" rel="stylesheet">
+	<link href="{{ base_url() }}/css/miraflores/responsive.css" rel="stylesheet">
+	<!--Color Switcher Mockup-->
+	<link href="{{ base_url() }}/css/miraflores/color-switcher-design.css" rel="stylesheet">
+	<!--Color Themes-->
+	<link id="theme-color-file" href="{{ base_url() }}/css/miraflores/color-themes/default-theme.css" rel="stylesheet">
+	<link rel="shortcut icon" href="{{ base_url() }}/miraflores/images/favicon.png" type="image/x-icon">
+	<link rel="icon" href="{{ base_url() }}/miraflores/images/favicon.png" type="image/x-icon">
+	<link rel="stylesheet" href="{{base_url()}}/vendors/animate.css/animate.min.css">
+	<link rel="stylesheet" href="{{base_url()}}/assets/css/font-awesome.min.css">
+	<link rel="stylesheet" href="{{base_url()}}/assets/fonts/megatron/styles.css">
+	{# ESTILOS DEL ACORDION Bootstrap #}
+	<link rel="stylesheet" href="{{base_url()}}/css/mml/acordion.css">
+	<!--Main stylesheet-->
+	{% block estilo %}
+		<link rel="stylesheet" href="{{base_url()}}/assets/css/main.css">
+	{% endblock %}
+
+	<script type="text/javascript">
+		var DOMAINSITE= '{{constantes.DOMAINSITE}}';
+	</script>
+
+	{% block estiloAPP %}{% endblock %}
+</head>
+
+<body>
+	<div class="page-content">
+		{% block cuerpo %}
+			<div id="page-body" class="page-body">
+				{% for item in secciones.data %}
+					{% for value in cont_secc %}
+						{% if value.success == "true" %}
+							{% if value["data"]["0"]["id_item_modulo"] == item.id_item_modulo %}
+								{% set vars = {'data' : value.data} %}
+								{% include item.archivo_portal_web with vars %}
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+				{% endfor %}
+			</div>
+		{% endblock %}
+
+		{% block footer %}
+			<footer id="footer" class="page-footer footer-preset-1">
+				<!-- <h1>ddd</h1> -->
+			</footer>
+		{% endblock %}
+	</div>
+	<button id="back-to-top-btn"><i class="icon-up-open-big"></i></button>
+
+
+	<!-- Page Scripts Starts -->
+	<script src="{{ base_url() }}/js/jquery.min.js"></script>
+	<script src="{{ base_url() }}/js/bootstrap.min.js"></script>
+	<script src="{{ base_url() }}/js/jquery.flexslider.js"></script>
+	<script src="{{ base_url() }}/js/owl.carousel.min.js"></script>
+	<script src="{{ base_url() }}/js/custom-navigation.js"></script>
+	<script src="{{ base_url() }}/js/custom-owl.js"></script>
+	<!-- Page Scripts Ends -->
+	<!-- Sweet-Alert  -->
+	<script src="{{ base_url() }}/plugins/bower_components/sweetalert/sweetalert.min.js"></script>
+	<script src="{{ base_url() }}/plugins/bower_components/sweetalert/jquery.sweet-alert.custom.js"></script>
+	<script src="{{base_url()}}/vendors/jquery/dist/jquery.min.js"></script>
+	<script src="{{base_url()}}/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="{{base_url()}}/vendors/waypoints/lib/jquery.waypoints.min.js"></script>
+	<script src="{{base_url()}}/vendors/waypoints/lib/shortcuts/sticky.min.js"></script>
+	<script src="{{base_url()}}/vendors/smoothscroll/SmoothScroll.js"></script>
+	<script src="{{base_url()}}/vendors/wow/dist/wow.min.js"></script>
+	<script src="{{base_url()}}/vendors/parallax.js/parallax.js"></script>
+	<script type="text/javascript" src="{{base_url()}}/vendors/jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="{{base_url()}}/vendors/jquery-countTo/jquery.countTo.js"></script>
+	<script type="text/javascript" src="{{base_url()}}/vendors/slick-carousel/slick/slick.js"></script>
+	<script type="text/javascript" src="{{base_url()}}/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+	<script type="text/javascript" src="{{base_url()}}/vendors/Chart.js/Chart.min.js"></script>
+	<script type="text/javascript" src="{{base_url()}}/vendors/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+	<script type="text/javascript" src="{{base_url()}}/vendors/jquery-modal/jquery.modal.min.js"></script>
+	<script type="text/javascript" src="{{base_url()}}/assets/js/main.js"></script>
+	{# SCRIPT DEL ACORDION Bootstrap #}
+	<script type="text/javascript" src="{{base_url()}}/js/mml/acordion.js"></script>
+</body>
+</html>

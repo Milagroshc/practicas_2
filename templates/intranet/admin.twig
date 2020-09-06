@@ -1,0 +1,227 @@
+{% extends 'plantilla.twig' %}
+
+{% block javascriptAPP %}
+	<script src="{{ base_url() }}/js/aplicativo/admin.js"></script>
+	<script src="{{ base_url() }}/js/aplicativo/inicio.js"></script>
+
+  <script language="javascript"> 
+	window.onload = function() { 
+		var tmp = {{session.nconexion}};
+		var url = '{{constantes.DOMAINSITE}}';
+		CapturarVariable(url);
+		if (tmp == 1) {
+			$('#mPrimeraConexion').modal({backdrop: 'static', keyboard: false});
+			$('#mPrimeraConexion').modal('show');
+		}
+		var btnMenu='{{session.MenuColap}}';
+		if (btnMenu=='SI') {$('#idBtncolapseMenu').click();}
+	};
+  </script>
+{% endblock %}
+
+
+{% block contenido %}
+
+<div class="row">
+  <div class="col-lg-12">
+	<div class="white-box">
+	  <div class="row">
+		<div class="col-md-12">
+		  <div class="panel panel-info">
+			<div class="panel-heading">
+			   {{ saludo }}
+			</div>            
+			<div class="panel-wrapper collapse in" aria-expanded="true">
+			  <div class="panel-body"> 
+{# ---------------------------- Inicio Body ---------------------------- #}
+				<div class="col-md-7 col-lg-9 col-sm-12 col-xs-12">
+{% set atri_1 = 'hidden'%}
+{% set atri_2 = 'hidden'%}
+{% set atri_3 = 'hidden'%}
+{% set atri_4 = 'hidden'%}
+{% set atri_5 = 'hidden'%}
+
+{% for sys in session.sistema %}
+	{% if sys.IDSISTEMA == '1' %}
+		{% set atri_1 = '' %}
+	{% elseif sys.IDSISTEMA == '2' %} {# Monitoreo #}
+		{% set atri_2 = '' %}
+	{% elseif sys.IDSISTEMA == '3' %} {# Salud #}
+		{% set atri_3 = '' %}
+	{% elseif sys.IDSISTEMA == '4' %} {# Obra #}
+		{% set atri_4 = '' %}
+	{% elseif sys.IDSISTEMA == '5' %} {# Deporte #}
+		{% set atri_5 = '' %}
+	{% endif %}
+{% endfor %}  
+				  <div>                        
+					<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+					  <div class="col-md-12">
+
+					  </div>					  
+					</div>    
+				  </div>
+				</div>
+				<div class="col-md-5 col-lg-3 col-sm-6 col-xs-12">
+{# Logica para el calendario #}
+				<div class="white-box">
+					{% set d = "" %}
+					{% set dayname = "now"|date('l') %}
+					{% if dayname == "Monday" %}
+						{% set d = "Lunes" %}
+					{% endif %}
+					{% if dayname == "Tuesday" %}
+						{% set d = "Martes" %}
+					{% endif %}
+					{% if dayname == "Wednesday" %}
+						{% set d = "Miércoles" %}
+					{% endif %}
+					{% if dayname == "Thursday" %}
+						{% set d = "Jueves" %}
+					{% endif %}
+					{% if dayname == "Friday" %}
+						{% set d = "Viernes" %}
+					{% endif %}
+					{% if dayname == "Saturday" %}
+						{% set d = "Sábado" %}
+					{% endif %}
+					{% if dayname == "Sunday" %}
+						{% set d = "Domingo" %}
+					{% endif %}
+
+					{% set m = "" %}
+					{% set tmp = "now"|date('m') %}
+					{% if tmp == "01" %}
+						{% set mes = "Enero" %}
+					{% endif %}
+					{% if tmp == "02" %}
+						{% set mes = "Febrero" %}
+					{% endif %}
+					{% if tmp == "03" %}
+						{% set mes = "Marzo" %}
+					{% endif %}
+					{% if tmp == "04" %}
+						{% set mes = "Abril" %}
+					{% endif %}
+					{% if tmp == "05" %}
+						{% set mes = "Mayo" %}
+					{% endif %}
+					{% if tmp == "06" %}
+						{% set mes = "Junio" %}
+					{% endif %}
+					{% if tmp == "07" %}
+						{% set mes = "Julio" %}
+					{% endif %}
+					{% if tmp == "08" %}
+						{% set mes = "Agosto" %}
+					{% endif %}
+					{% if tmp == "09" %}
+						{% set mes = "Septiembre" %}
+					{% endif %}
+					{% if tmp == "10" %}
+						{% set mes = "Octubre" %}
+					{% endif %}
+					{% if tmp == "11" %}
+						{% set mes = "Noviembre" %}
+					{% endif %}
+					{% if tmp == "12" %}
+						{% set mes = "Diciembre" %}
+					{% endif %}
+				</div>
+{# fin de la logica del calendario #}
+					<div class="row">
+						<div class="col-md-12">
+							<div class="bg-theme-dark m-b-15">
+								<div class="row weather p-20">
+									<div class="col-md-6 col-xs-6 col-lg-6 col-sm-6 m-t-40">
+										<h3>&nbsp;</h3>
+										<h1>21<sup>°C</sup></h1>
+										<p class="text-white">LIMA, PERÚ</p>
+									</div>
+									<div class="col-md-6 col-xs-6 col-lg-6 col-sm-6 text-right"> <i class="wi wi-day-cloudy-high"></i>
+										<br/>
+										<br/>
+										<b class="text-white">{{d}}</b>
+										<p class="w-title-sub">{{mes}}, {{"now"|date('d')}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="bg-theme m-b-15">
+								<div id="myCarouse2" class="carousel vcarousel slide p-20">
+									<!-- Carousel items -->
+									<div class="carousel-inner ">
+										<div class="active item">
+											<h3 class="text-white">Bienvenido al<span class="font-bold"> Portal de Aplicativos de la MML. </span></h3>
+											<div class="twi-user">
+												<h4 class="text-white m-b-0">{{session.correo}}</h4>
+												<p class="text-white">Usuario</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+{# ----------------------------   Fin Body  ---------------------------- #}
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </div>
+</div>
+
+
+	
+<!-- MODAL EDITAR PASSWORD POR PRIMERA VEZ -->
+	<div class="modal fade" id="mPrimeraConexion"  role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+					<h4 class="modal-title" id="tituloEvento">PRIMERA CONEXION: CAMBIAR PASSWORD</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-2"></div>
+						<div class="col-md-8">
+							<div class="form-group">
+								<label class="control-label">Password</label>
+								<input type="password" name="primera_conexion_password" id="primera_conexion_password" class="form-control" placeholder="Escribe una contraseña..." onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="col-md-2"></div>
+					</div>
+					<div class="row">
+						<div class="col-md-2"></div>
+						<div class="col-md-8">
+							<div class="form-group">
+								<label class="control-label">Repita Password</label>
+								<input type="password" name="primera_conexion_repite_password" id="primera_conexion_repite_password" class="form-control" placeholder="Repite la contraseña..." onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="col-md-2"></div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" id="btnGuardarPrimeraConexion">Guardar</button>
+					<!-- <button type="button" class="btn btn-default" id="btn-cancelar-nuevo-evento" data-dismiss="modal">Cerrar</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+

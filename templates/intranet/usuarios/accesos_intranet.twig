@@ -1,0 +1,33 @@
+{% extends 'plantilla.twig' %}
+
+{% block javascriptAPP %}
+	<script src="{{ base_url() }}/js/aplicativo/usuarios/usuarios.js"></script>
+	<script src="{{ base_url() }}/js/aplicativo/inicio.js"></script>
+	<script src="{{ base_url() }}/js/aplicativo/inicio-mapa.js"></script>
+	<script>
+		ListarAccesosPorRol();
+	</script>
+{% endblock %}
+
+{% block contenido %}
+
+	<div class="row">
+		<span class="icon fa fa-arrow-circle-left">
+			<a href="javascript:history.back();"> Atrás</a>
+		</span>
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">{{titulo2}}</div>
+				<!-- ************************************************************************************************************************************************************ -->
+				<!-- VISTA MANTENIMIENTO DE ACCESOS POR ROL -->
+				<div class="panel-wrapper collapse in" aria-expanded="true">
+					<div class="panel-body" id="divAccesosRol">
+					</div>
+				</div>
+				<!-- END VISTA MANTENIMIENTO DE ACCESOS POR ROL -->
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

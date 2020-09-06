@@ -1,0 +1,26 @@
+<script src="{{ base_url() }}/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="{{ base_url() }}/js/aplicativo/login/login.js"></script>
+<script>
+	GenerarMenu();
+</script>
+<!-- Left navbar-header -->
+<div class="navbar-default sidebar" role="navigation">
+	<div>
+		<center>
+		<a href="javascript:void(0)" onclick="btnMenu();" id="btnMenu">
+			{% if session.MenuColap == 'SI' %}
+				{% set h1 = 'hidden' %}
+				{% set h2 = '' %}
+			{% elseif session.MenuColap == 'NO' %}
+				{% set h1 = '' %}
+				{% set h2 = 'hidden' %}
+			{% endif %}
+			<i class="fas fa-arrow-circle-left"  {{h1}}>&nbsp;</i>
+			<i class="fas fa-arrow-circle-right" {{h2}}>&nbsp;</i>
+		</a>			
+		</center>
+	</div>	
+	<div class="sidebar-nav navbar-collapse slimscrollsidebar" id="div_Menu">
+	</div>
+</div>
+

@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ base_url() }}/plugins/images/favicon.png?1.0">
+    <title>{% block title %} emmsa :: Municipalidad de Lima {% endblock %}</title>
+    {% block estilo %}
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ base_url() }}/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ base_url() }}/plugins/bower_components/bootstrap-extension/css/bootstrap-extension.css" rel="stylesheet">
+    <link href="{{ base_url() }}/plugins/bower_components/lobipanel/dist/css/lobipanel.min.css" rel="stylesheet">
+    <link href="{{ base_url() }}/plugins/bower_components/bootstrap-switch/bootstrap-switch.min.css" rel="stylesheet">
+    <link href="{{ base_url() }}/plugins/bower_components/icheck/skins/all.css" rel="stylesheet">
+    <!-- Typehead CSS -->
+    <link href="{{ base_url() }}/plugins/bower_components/typeahead.js-master/dist/typehead-min.css" rel="stylesheet">
+    <!-- Datatable Core CSS -->
+    <link href="{{ base_url() }}/plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{ base_url() }}/css/componentes/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <!-- Menu CSS -->
+    <link href="{{ base_url() }}/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <!-- Popup CSS -->
+    <link href="{{ base_url() }}/plugins/bower_components/Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ base_url() }}/plugins/bower_components/html5-editor/bootstrap-wysihtml5.css" />
+    <link href="{{ base_url() }}/plugins/bower_components/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
+    <!-- Color picker plugins css -->
+    <link href="{{ base_url() }}/plugins/bower_components/jquery-asColorPicker-master/css/asColorPicker.css" rel="stylesheet">
+    <!-- Date picker plugins css -->
+    <link href="{{ base_url() }}/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+    <!-- Daterange picker plugins css -->
+    <link href="{{ base_url() }}/plugins/bower_components/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+    <link href="{{ base_url() }}/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!--modal CSS -->
+    <link href="{{ base_url() }}/plugins/bower_components/sweetmodal/jquery.sweet-modal.css" rel="stylesheet" type="text/css">
+    <!--alerts CSS -->
+    <link href="{{ base_url() }}/plugins/bower_components/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+    <!-- Sweet Alert 2 v7.29.0 -->
+    <link href="{{ base_url() }}/plugins/bower_components/sweetalert_2/dist/sweetalert2.css" rel="stylesheet">
+    <!-- toast CSS -->
+    <link href="{{ base_url() }}/plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
+    <!-- morris CSS -->
+    <link href="{{ base_url() }}/plugins/bower_components/morrisjs/morris.css" rel="stylesheet">
+    <!--My admin Custom CSS -->
+    <link href="{{ base_url() }}/plugins/bower_components/owl.carousel/owl.carousel.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{ base_url() }}/plugins/bower_components/owl.carousel/owl.theme.default.css" rel="stylesheet" type="text/css" />
+    <link href="{{ base_url() }}/plugins/bower_components/custom-select/custom-select.css" rel="stylesheet" type="text/css" />
+    <link href="{{ base_url() }}/plugins/bower_components/switchery/dist/switchery.min.css" rel="stylesheet" />
+    <!-- Footable CSS -->
+    <link href="{{ base_url() }}/plugins/bower_components/footable/css/footable.core.css" rel="stylesheet">
+    <link href="{{ base_url() }}/plugins/bower_components/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="{{ base_url() }}/plugins/bower_components/bootstrap-select/select2.css" rel="stylesheet" />
+    <link href="{{ base_url() }}/plugins/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" rel="stylesheet" />
+    <link href="{{ base_url() }}/plugins/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+    <link href="{{ base_url() }}/plugins/bower_components/multiselect/css/multi-select.css" rel="stylesheet" type="text/css" />
+    <!-- animation CSS -->
+    <link href="{{ base_url() }}/css/animate.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ base_url() }}/css/style.css" rel="stylesheet">
+    <!-- load CSS -->
+    <link href="{{ base_url() }}/css/load.css" rel="stylesheet">
+    <!-- color CSS -->
+    <link href="{{ base_url() }}/css/colors/blue.css" id="theme" rel="stylesheet">
+    <!-- Chatbot CSS -->
+    {#
+    <link href="{{ base_url() }}/css/chatbot.css" id="theme" rel="stylesheet"> #}
+    <!-- Miraflores estilo CSS -->
+    <link href="{{ base_url() }}/css/miraflores.css" rel="stylesheet">
+    <!-- Aplicativo licencia CSS -->
+    <link href="{{ base_url() }}/css/aplicativo/licencia.css" id="theme" rel="stylesheet">
+    <link href="{{ base_url() }}/assets/css/bootstrap-rating.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ base_url() }}/plugins/bower_components/dropify/dist/css/dropify.min.css?1.0">
+    <!-- Vector CSS -->
+    {#
+    <link href="{{ base_url() }}/plugins/bower_components/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet" /> #}
+    <!-- TOGGLEBUTTON  -->
+    <link rel="stylesheet" type="text/css" href="{{ base_url() }}/plugins/bootstrap-toggle-master/css/bootstrap-toggle.min.css"> {# FOOTABLE #}
+    <link href="{{ base_url() }}/plugins/bower_components/footable/css/footable.core.css" rel="stylesheet">
+    <!-- Activar / Desactivar Estado -->
+    <link rel="stylesheet" href="{{ base_url() }}/css/mml/ToggleButtoon.css">
+    <!-- TIME PICKER - LIBRERIA SECUNDARIA -->
+    <link rel="stylesheet" href="{{ base_url() }}/css/mml/bootstrap-timepicker.min.css">
+    <!-- FULLCALENDAR.IO CSS -->
+    <link href="{{ base_url() }}/plugins/fullcalendar.io-3.10.0/css/fullcalendar.min.css" rel="stylesheet" />
+    <!--nestable CSS -->
+    <link href="{{ base_url() }}/plugins/bower_components/nestable/nestable.css" rel="stylesheet" type="text/css" />
+    <!--toastr-master -->
+    <link href="{{ base_url() }}/plugins/toastr-master/build/toastr.min.css" rel="stylesheet" type="text/css" />
+
+    <script>
+        var DOMAINSITE = '{{constantes.DOMAINSITE}}';
+        var sesion_nombres = '{{ session.nombres }}';
+        var sesion_ape_paterno = '{{ session.ape_paterno }}';
+        var sesion_ape_materno = '{{ session.ape_materno }}';
+        var sesion_foto = '{{ session.foto }}';
+        var sesion_correo_institucional = '{{ session.correo_institucional }}';
+        var sesion_idunidadorganica = '{{ session.idunidadorganica }}';
+    </script>
+    {% endblock %}
+
+    <!--Se crea esta parte para agregar estilos a cada modulo según sea conveniente -->
+    {% block estiloAPP %} {% endblock %}
+    <link rel="stylesheet" type="text/css" href="{{ base_url() }}/css/custom.css">
+</head>
+
+<body id="idBodyPage">
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="cssload-speeding-wheel"></div>
+        <div class="conteo">{{conteo}}</div>
+    </div>
+    <div id="wrapper">
+        <!-- Navigation -->
+        {% block cabecera %}
+        <nav class="navbar navbar-default navbar-static-top m-b-0">
+            <div class="navbar-header">
+                <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
+                <div class="top-left-part">
+                    <a class="logo" href="#">
+                        <img src="{{ base_url() }}/plugins/images/eliteadmin-logo.png?1.0" alt="Inicio" />
+                        <img src="{{ base_url() }}/plugins/images/eliteadmin-text.png" alt="Inicio" />
+                    </a>
+                </div>
+                <ul class="nav navbar-top-links navbar-left hidden-xs">
+                    <li hidden>
+                        <a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light" id="idBtncolapseMenu">
+                            <i class="icon-arrow-left-circle ti-menu"></i>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-top-links navbar-right pull-right">
+                    <li class="dropdown mostrar">
+                        <a class="btn btn-succes" href="#" id="iSesion" data-toggle="modal" data-target="#login-register .bs-example-modal-lg"><i class="fa  fa-user"></i> Iniciar  Sesión</a>
+                    </li>
+                    <li class="dropdown oculto">
+                        <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="/uploads/Fotos_Usuarios/{{ session.foto }}" alt="user-img" width="36" class="img-circle">
+                            <b class="hidden-xs">
+										<span> {{ session.nombres }} {{ session.ape_paterno }}</span>
+									</b>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user animated flipInY">
+                            <li>
+                                <a href="" data-toggle="modal" data-target="#changePassword">
+                                    <i class="far fa-edit"></i> Cambiar Password
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ base_url() }}/salir">
+                                    <i class="fa fa-power-off"></i> Cerrar Sesión
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        {% endblock %}
+
+        <!-- Left navbar-header -->
+        {% block menuIzquierda %} {% include 'cms/MenuIzquierda.twig' %} {% endblock %}
+        <!-- Left navbar-header end -->
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div id="banner_load"></div>
+                {% block tituloCabecera %}
+                <div class="row bg-title">
+                    <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">{{titulo}}</h4>
+                    </div>
+                    <div class="col-lg-6 col-sm-8 col-md-8 col-xs-12">
+                        <select class="form-control select2" name="cambiar_sesion_rol" id="cambiar_sesion_rol" style="width: 100%">
+									</select>
+                    </div>
+                </div>
+                {% endblock %} {% block contenido %} {% endblock %} {% block panel %} {% endblock %}
+            </div>
+            {% block autor %}
+            <footer class="footer text-center"> {{ "now"|date("Y") }} &copy; <a href="http://www.munlima.gob.pe" target="_blank">Municipalidad  de Lima </a> </footer>
+            {% endblock %}
+        </div>
+    </div>
+
+    <!-- MODALES PARA LOGIN -->
+    {% block login %}
+    <!-- CAMBIAR DE CONTRASEÑA -->
+    <div id="changePassword" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-MML-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Cambiar Password</h4>
+                </div>
+                <div class="modal-body">
+                    {# Inicio Body Modal #}
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Nuevo Password</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" placeholder="Nuevo Password" required="" id="pass">
+                            </div>
+                        </div>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Repite Nuevo Password</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" placeholder="Repite Nuevo Password" required="" id="repass">
+                            </div>
+                        </div>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    {# Fin Body Modal #}
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" id="btnguardar_Password" onclick="cambiarPass();"><i class="fa fa-check"></i>Cambiar</button>
+                    <button type="button" class="btn btn-default" id="btncancelar_Password" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %} {% block modales %} {% endblock %}
+
+    <!-- jQuery -->
+    {% block javascript %}
+    <!-- jQuery -->
+    <script src="{{ base_url() }}/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- jQuery -->
+    <script src="{{ base_url() }}/plugins/bower_components/jqueryui/jquery-ui.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ base_url() }}/bootstrap/dist/js/tether.min.js"></script>
+    <script src="{{ base_url() }}/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/bootstrap-extension/js/bootstrap-extension.min.js"></script>
+    <!-- Typehead CSS -->
+    <link href="{{ base_url() }}/plugins/bower_components/typeahead.js-master/dist/typehead-min.css" rel="stylesheet">
+
+    <script src="{{ base_url() }}/plugins/bower_components/bootstrap-select/bootstrap-select.min.js" type="text/javascript"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/multiselect/js/jquery.multi-select.js"></script>
+    <!-- Menu Plugin JavaScript -->
+    <script src="{{ base_url() }}/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+    <!--slimscroll JavaScript -->
+    <script src="{{ base_url() }}/js/jquery.slimscroll.js"></script>
+    <!--Wave Effects -->
+    <script src="{{ base_url() }}/js/waves.js"></script>
+    <!--Counter js -->
+    <script src="{{ base_url() }}/plugins/bower_components/waypoints/lib/jquery.waypoints.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/counterup/jquery.counterup.min.js"></script>
+    <!--Morris JavaScript -->
+    <script src="{{ base_url() }}/plugins/bower_components/raphael/raphael-min.js"></script>
+    <!--BlockUI Script -->
+    <script src="{{ base_url() }}/plugins/bower_components/blockUI/jquery.blockUI.js"></script>
+    <!-- Sweet-Modal  -->
+    <!-- Custom Theme JavaScript -->
+    <script src="{{ base_url() }}/js/custom.min.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/sweetmodal/jquery.sweet-modal.js"></script>
+    <!-- Sweet-Alert  -->
+    <script src="{{ base_url() }}/plugins/bower_components/sweetalert/sweetalert.min.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/sweetalert/jquery.sweet-alert.custom.js"></script>
+    <!-- Sweet Alert 2 v7.29.0 -->
+    <script src="{{ base_url() }}/plugins/bower_components/sweetalert_2/dist/sweetalert2.js"></script>
+    <!-- Typehead Plugin JavaScript -->
+    <script src="{{ base_url() }}/plugins/bower_components/typeahead.js-master/dist/typeahead.bundle.min.js"></script>
+    {#
+    <script src="{{ base_url() }}/plugins/bower_components/gmaps/gmaps.min.js"></script> #}
+    <script src="{{ base_url() }}/js/jquery.simpleWeather.min.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/toast-master/js/jquery.toast.js"></script>
+    <script src="{{ base_url() }}/js/toastr.js"></script>
+    <script src="{{ base_url() }}/js/jquery-traductor.js">
+    </script>
+
+    <!-- Typehead Plugin JavaScript -->
+    <script src="{{ base_url() }}/plugins/bower_components/typeahead.js-master/dist/typeahead.bundle.min.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/typeahead.js-master/dist/typeahead-init.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/switchery/dist/switchery.min.js"></script>
+    <!-- jQuery for carousel -->
+    <script src="{{ base_url() }}/plugins/bower_components/owl.carousel/owl.carousel.min.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/owl.carousel/owl.custom.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/dropify/dist/js/dropify.min.js?1.0"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="{{ base_url() }}/js/validator.js"></script>
+
+    <script src="{{ base_url() }}/js/cbpFWTabs.js"></script>
+    <script src="{{ base_url() }}/js/moment.min.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/clockpicker/dist/jquery-clockpicker.min.js"></script>
+    <!-- Color Picker Plugin JavaScript -->
+    <script src="{{ base_url() }}/plugins/bower_components/jquery-asColorPicker-master/libs/jquery-asColor.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/jquery-asColorPicker-master/libs/jquery-asGradient.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js"></script>
+    <!-- Date Picker Plugin JavaScript -->
+    <script src="{{ base_url() }}/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <!-- Date range Plugin JavaScript -->
+    <script src="{{ base_url() }}/plugins/bower_components/timepicker/bootstrap-timepicker.min.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="{{ base_url() }}/js/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
+    <script type="text/javascript">
+        (function() {
+            [].slice.call(document.querySelectorAll('.sttabs')).forEach(function(el) {
+                new CBPFWTabs(el);
+            });
+        })();
+    </script>
+    <script src="{{ base_url() }}/plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
+    {#
+    <script src="{{ base_url() }}/js/Spanish.json"></script> #}
+    <!-- start - This is for export functionality only -->
+    <script src="{{ base_url() }}/js/componentes/dataTables.buttons.min.js"></script>
+    <script src="{{ base_url() }}/js/componentes/buttons.flash.min.js"></script>
+    <script src="{{ base_url() }}/js/componentes/jszip.min.js"></script>
+    <script src="{{ base_url() }}/js/componentes/pdfmake.min.js"></script>
+    <script src="{{ base_url() }}/js/componentes/vfs_fonts.js"></script>
+    <script src="{{ base_url() }}/js/componentes/buttons.html5.min.js"></script>
+    <script src="{{ base_url() }}/js/componentes/buttons.print.min.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/jquery-sparkline/jquery.charts-sparkline.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/toast-master/js/jquery.toast.js"></script>
+    <!-- wysuhtml5 Plugin JavaScript -->
+    <script src="{{ base_url() }}/plugins/bower_components/html5-editor/wysihtml5-0.3.0.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/html5-editor/bootstrap-wysihtml5.js"></script>
+    <script src="{{ base_url() }}/assets/js/bootstrap-rating.js"></script>
+    <script src="{{ base_url() }}/js/validator.js"></script>
+    <!-- Magnific popup JavaScript -->
+    <script src="{{ base_url() }}/plugins/bower_components/Magnific-Popup-master/dist/jquery.magnific-popup.min.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/Magnific-Popup-master/dist/jquery.magnific-popup-init.js"></script>
+
+    {# ICHECK #}
+    <script src="{{ base_url() }}/plugins/bower_components/icheck/icheck.min.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/icheck/icheck.init.js"></script>
+    {# TOGGLEBUTTON #}
+    <script src="{{ base_url() }}/plugins/bootstrap-toggle-master/js/bootstrap-toggle.min.js"></script>
+    {# FOOTABLE #}
+    <script src="{{ base_url() }}/plugins/bower_components/footable/js/footable.all.min.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/bootstrap-select/bootstrap-select.min.js" type="text/javascript"></script>
+    <script src="{{ base_url() }}/js/footable-init.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/bootstrap-switch/bootstrap-switch.min.js"></script>
+    {# EXPORTAR TABLA A EXCEL #}
+    <script src="{{ base_url() }}/js/mml/jquery.table2excel.js"></script>
+    <!-- TIMEPICKER - LIBRERIA SECUNDARIA -->
+    <script src="{{ base_url() }}/js/mml/bootstrap-timepicker.min.js"></script>
+    {# Highcharts #}
+    <script src="{{ base_url() }}/plugins/Highcharts-6.1.0/code/highcharts.js"></script>
+    <script src="{{ base_url() }}/plugins/Highcharts-6.1.0/code/modules/exporting.js"></script>
+    <script src="{{ base_url() }}/plugins/Highcharts-6.1.0/code/modules/export-data.js"></script>
+    <script src="{{ base_url() }}/plugins/Highcharts-6.1.0/code/modules/data.js"></script>
+    {# nestable #}
+    <script src="{{ base_url() }}/plugins/bower_components/nestable/jquery.nestable.js"></script>
+    <!-- wysuhtml5 Plugin JavaScript - editor de texto html   -->
+    <script src="{{ base_url() }}/plugins/bower_components/html5-editor/wysihtml5-0.3.0.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/html5-editor/bootstrap-wysihtml5.js"></script>
+    <!-- simple-mask-money -->
+    <script src="{{ base_url() }}/plugins/bower_components/simple-mask-money/simple-mask-money.js" type="text/javascript"></script>
+    <!--toastr-master -->
+    <script src="{{ base_url() }}/plugins/toastr-master/build/toastr.min.js"></script>
+
+    <!--toastr-master -->
+    <script src="{{ base_url() }}/plugins/select2/js/select2.full.js"></script>
+
+    <!-- VALIDACIONES Y FUNCIONES PARA TODOS LOS JS -->
+    <script src="{{ base_url() }}/js/aplicativo/funciones_general.js"></script>
+
+    <script src="{{ base_url() }}/js/aplicativo/login/login.js"></script>
+    <script>
+        GenerarMenu();
+    </script>
+
+    {% endblock %} {% block javascriptAPP %} {% endblock %}
+    <script>
+        // CAMBIAR CONTRASEÑA
+        function cambiarPass() {
+            var pass = $('#pass').val().trim();
+            var repass = $('#repass').val().trim();
+
+            if (pass == "" || repass == "") {
+                swal({
+                    title: "ERROR",
+                    text: "No pueden haber campos vacíos.",
+                    type: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#3085d6",
+                    confirmButtonText: "Aceptar",
+                });
+            } else {
+                if (pass === repass) {
+                    $.ajax({
+                        url: DOMAINSITE + 'cambiarPass',
+                        type: 'post',
+                        data: {
+                            tipo: "generico",
+                            pass: pass
+                        },
+                        beforeSend: function(e) {
+                            $('#load').addClass('load');
+                        },
+                        success: function(data) {
+                            if (data.estado) {
+                                swal({
+                                    title: 'OK',
+                                    text: data.mensaje,
+                                    type: 'success',
+                                    showCancelButton: false,
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: 'Aceptar',
+                                    footer: '<b><i><center>Recuerde: Al dar click en ACEPTAR tendrá que logearse nuevamente.</center></i></b>'
+                                }).then((result) => {
+                                    if (result.value) {
+                                        location.href = DOMAINSITE + 'salir';
+                                    }
+                                });
+                            } else {
+                                swal({
+                                    title: "ERROR",
+                                    text: data.mensaje,
+                                    type: "error",
+                                    showCancelButton: false,
+                                    confirmButtonColor: "#3085d6",
+                                    confirmButtonText: "Aceptar",
+                                    footer: '<b><i>Intente nuevamente. Si el error persiste, contáctese con el Administrador del Sistema.</i></b>'
+                                });
+                            }
+                        },
+                        error: function() {
+                            $('#load').addClass('load');
+                        }
+                    });
+                } else {
+                    swal({
+                        title: "ERROR",
+                        text: "Las contraseñas no coinciden.",
+                        type: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#3085d6",
+                        confirmButtonText: "Aceptar",
+                    });
+                }
+            }
+        }
+
+        // BOTON DE MENU
+        function btnMenu() {
+            $.ajax({
+                url: DOMAINSITE + '/btnMenu',
+                type: 'post',
+                data: {},
+                beforeSend: function(e) {},
+                success: function(data) {
+                    $('#idBtncolapseMenu').click();
+                    $('#btnMenu i').remove();
+                    if (data) {
+                        $('#btnMenu').append('<i class="fas fa-arrow-circle-right">&nbsp;</i>');
+                    } else {
+                        $('#btnMenu').append('<i class="fas fa-arrow-circle-left">&nbsp;</i>');
+                    }
+                },
+                error: function() {}
+            });
+        };
+
+        // CARGAR COMBO CON LOS ROLES DEL USUARIO
+        $.ajax({
+            url: DOMAINSITE + 'get-roles-usuario',
+            type: 'post',
+            data: {
+                pag: 0,
+                tipo: 1,
+                idusuario: parseInt("{{session.idusuario}}")
+            },
+            beforeSend: function(e) {
+                $('#cambiar_sesion_rol option').remove();
+            },
+            success: function(data) {
+                if (data.success) {
+                    $.each(data.data, function(i, item) {
+                        $('#cambiar_sesion_rol').append('<option value="' + item.idrol + '" iduser="' + item.idusuario + '">' + item.nombre_rol + '</option>');
+                    });
+                    setTimeout(function() {
+                        $('#cambiar_sesion_rol').val("{{session.idrol}}").trigger("change");
+                    }, 500);
+                } else {
+                    console.log(data.mensaje);
+                }
+            },
+            error: function() {}
+        });
+
+        // CAMBIAR DE ROL DEL USUARIO
+        $('#cambiar_sesion_rol').change(function() {
+            var newidrol = $('#cambiar_sesion_rol').val();
+            $.ajax({
+                url: DOMAINSITE + 'cambiarSesionRol',
+                type: 'post',
+                data: {
+                    newidrol: newidrol
+                },
+                beforeSend: function(e) {},
+                success: function(data) {
+                    if (data.accion == true) {
+                        window.location = DOMAINSITE + "dashboard";
+                    }
+                },
+                error: function() {}
+            });
+        });
+    </script>
+
+    <script>
+        // Clock pickers
+        $('#single-input').clockpicker({
+            placement: 'bottom',
+            align: 'left',
+            autoclose: true,
+            'default': 'now'
+        });
+
+        $('.clockpicker').clockpicker({
+            donetext: 'Done',
+        }).find('input').change(function() {
+            console.log(this.value);
+        });
+
+        $('#check-minutes').click(function(e) {
+            // Have to stop propagation here
+            e.stopPropagation();
+            input.clockpicker('show').clockpicker('toggleView', 'minutes');
+        });
+
+        if (/mobile/i.test(navigator.userAgent)) {
+            $('input').prop('readOnly', true);
+        }
+
+        // Colorpicker
+        $(".colorpicker").asColorPicker();
+        $(".complex-colorpicker").asColorPicker({
+            mode: 'complex'
+        });
+
+        $(".gradient-colorpicker").asColorPicker({
+            mode: 'gradient'
+        });
+
+        jQuery('#datepicker-autoclose').datepicker({
+            autoclose: true,
+            todayHighlight: true
+        });
+
+        jQuery('#date-range').datepicker({
+            format: 'dd/mm/yyyy',
+            toggleActive: true
+        });
+
+        jQuery('#datepicker-inline').datepicker({
+            todayHighlight: true
+        });
+
+        $('.input-daterange-datepicker').daterangepicker({
+            "locale": {
+                "format": "DD/MM/YYYY",
+                "separator": " - ",
+                "applyLabel": "Aplicar",
+                "cancelLabel": "Cancelar",
+                "fromLabel": "De",
+                "toLabel": "Até",
+                "customRangeLabel": "Custom",
+                "daysOfWeek": [
+                    "Dom",
+                    "Lun",
+                    "Mar",
+                    "Mie",
+                    "Jue",
+                    "Vie",
+                    "Sab"
+                ],
+                "monthNames": [
+                    "Enero",
+                    "Febrero",
+                    "Marzo",
+                    "Abril",
+                    "Mayo",
+                    "Junio",
+                    "Julio",
+                    "Agosto",
+                    "Septiembre",
+                    "Octubre",
+                    "Noviembre",
+                    "Diciembre"
+                ],
+                "firstDay": 0
+            }
+        });
+
+        $('.input-limit-datepicker').daterangepicker({
+            format: 'DD/MM/YYYY',
+            minDate: '06/01/2015',
+            maxDate: '06/30/2015',
+            buttonClasses: ['btn', 'btn-sm'],
+            applyClass: 'btn-danger',
+            cancelClass: 'btn-inverse',
+            dateLimit: {
+                days: 6
+            }
+        });
+
+        $('.timepicker').timepicker({
+            showInputs: false
+        });
+    </script>
+
+</body>
+
+</html>

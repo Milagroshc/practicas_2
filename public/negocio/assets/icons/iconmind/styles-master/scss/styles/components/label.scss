@@ -1,0 +1,55 @@
+// Styles - https://github.com/adamwdraper/styles
+// Label 0.0.1
+// -----------------------------------------------------------------
+
+@mixin label-type($type) {
+    color: white;
+    background: $type;
+
+    i {
+
+        &:before {
+            color: white;
+        }
+    }
+}
+
+.label {
+    display: inline-block;
+    padding: .15em .7em;
+    background: $labelBackground;
+    font-size: pxem($defaultFontSize);
+    line-height: pxem($defaultLineHeight, $defaultFontSize);
+    @include border-radius($labelBorderRadius);
+    @include user-select(none);
+    color: $grayDark;
+    margin: 0 .3em .3em 0;
+    
+    &:hover, &:active {
+        text-decoration: none;
+    }
+
+    &.disabled {
+        @include opacity(.6);
+        cursor: not-allowed;
+        background-image: none;
+    }
+
+    @for $i from 1 through length($typeList) {
+        &.#{nth($typeList, $i)} {
+            @include label-type(nth($typeVarsList, $i));
+        }
+    }
+
+    &.small {
+        font-size: pxem($smallFontSize);
+        line-height: pxem($smallLineHeight, $smallFontSize);
+        @include border-radius($labelSmallBorderRadius);
+    }
+
+    &.large {
+        font-size: pxem($largeFontSize);
+        line-height: pxem($largeLineHeight, $largeFontSize);
+        @include border-radius($labelLargeBorderRadius);
+    }
+} 

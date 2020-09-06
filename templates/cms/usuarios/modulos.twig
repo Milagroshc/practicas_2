@@ -1,0 +1,562 @@
+{% extends 'plantilla.twig' %}
+
+{% block javascriptAPP %}
+	<script src="{{ base_url() }}/js/aplicativo/usuarios/usuarios.js"></script>
+	<script src="{{ base_url() }}/js/aplicativo/inicio.js"></script>
+	<script src="{{ base_url() }}/js/aplicativo/inicio-mapa.js"></script>
+	<script>
+		$('#selec_vista').val("MD").trigger("change");
+	</script>
+{% endblock %}
+
+{% block contenido %}
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<select class="form-control select2" name="selec_vista" id="selec_vista" style="width: 15%;">
+						<option value="MD">MÓDULOS</option>
+						<option value="SM">SISTEMAS</option>
+					</select>
+				</div>
+				<!-- ********************************************************************************************************************** -->
+				<!-- VISTA MODULOS -->
+				<div class="panel-wrapper collapse in" aria-expanded="true" id="vista_modulos">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label">NOMBRE</label>
+									<input type="text" name="modulo_nombre_buscar" id="modulo_nombre_buscar" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label">NOMBRE CORTO</label>
+									<input type="text" name="modulo_nombrecorto_buscar" id="modulo_nombrecorto_buscar" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">SISTEMA</label>
+									<select class="form-control select2" name="modulo_sistema_buscar" id="modulo_sistema_buscar" style="width: 100%">
+										<option value="">-- SELECCIONE --</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-1">
+								<div class="form-group">
+									<br>
+									<button type="button" id="btnBuscarModulo" class="btn btn-default"> <i class="fa fa-search"></i> Buscar</button>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="col-md-2">
+									<label class="form-inline">Mostrar&nbsp;&nbsp;
+										<select id="entries_modulos" class="form-control input-sm">
+											<option value="5">5</option>
+											<option value="10">10</option>
+											<option value="15">15</option>
+											<option value="20">20</option>
+										</select>
+									&nbsp;&nbsp;registros </label>
+								</div>
+								<div class="col-md-2">
+									<button class="btn btn-primary btn-sm fa fa-plus" data-toggle="modal" data-target="#mNuevoModulo" title="Nuevo Módulo" onclick="LimpiarDatosNuevoModulo();">&nbsp;Nuevo Módulo</button>
+								</div>
+							</div>
+							<div class="table-responsive">
+								<table id="tblmodulos" class="table toggle-circle table-hover table-MML" data-page-size="5">
+									<thead>
+										<tr>
+											<th>ORDEN</th>
+											<th data-sort-ignore="true">NOMBRE</th>
+											<th data-sort-ignore="true">NOMBRE CORTO</th>
+											<th data-sort-ignore="true">SISTEMA</th>
+											<th data-sort-ignore="true">OBJACCESO</th>
+											<th data-sort-ignore="true">EDITAR</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+									<tfoot>
+										<tr>
+											<td colspan="6">
+												<div class="text-right">
+													<ul class="pagination pagination-split m-t-30"> </ul>
+												</div>
+											</td>
+										</tr>
+									</tfoot>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END VISTA MODULOS -->
+				<!-- ********************************************************************************************************************** -->
+				<!-- VISTA SISTEMAS -->
+				<div class="panel-wrapper collapse in" aria-expanded="true" id="vista_sistemas">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">NOMBRE</label>
+									<input type="text" name="sistema_nombre_buscar" id="sistema_nombre_buscar" class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">TIPO DE SISTEMA</label>
+									<select class="form-control select2" name="sistema_tiposistema_buscar" id="sistema_tiposistema_buscar" style="width: 100%">
+										<option value="">-- SELECCIONE --</option>
+										<option value="WB">WEB</option>
+										<option value="CS">CLIENTE SERVIDOR</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">TIPO DE ACCESO</label>
+									<select class="form-control select2" name="sistema_tipoacceso_buscar" id="sistema_tipoacceso_buscar" style="width: 100%">
+										<option value="">-- SELECCIONE --</option>
+										<option value="IN">INTERNO</option>
+										<option value="EX">EXTERNO</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">ESTADO</label>
+									<select class="form-control select2" name="sistema_estado_buscar" id="sistema_estado_buscar" style="width: 100%">
+										<option value="">-- SELECCIONE --</option>
+										<option value="A">ACTIVO</option>
+										<option value="I">INACTIVO</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-1">
+								<div class="form-group">
+									<br>
+									<button type="button" id="btnBuscarSistema" class="btn btn-default"> <i class="fa fa-search"></i> Buscar</button>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="col-md-2">
+									<label class="form-inline">Mostrar&nbsp;&nbsp;
+										<select id="entries_sistema" class="form-control input-sm">
+											<option value="5">5</option>
+											<option value="10">10</option>
+											<option value="15">15</option>
+											<option value="20">20</option>
+										</select>
+									&nbsp;&nbsp;registros </label>
+								</div>
+								<div class="col-md-2">
+									<button class="btn btn-primary btn-sm fa fa-plus" data-toggle="modal" data-target="#mNuevoSistema" title="Crear Nuevo Sistema" onclick="LimpiarDatosNuevoSistema();">&nbsp;Nuevo Sistema</button>
+								</div>
+							</div>
+							<div class="table-responsive">
+								<table id="tblsistemas" class="table toggle-circle table-hover table-MML" data-page-size="5">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th data-sort-ignore="true">NOMBRE</th>
+											<th data-sort-ignore="true">NOMBRE CORTO</th>
+											<th data-sort-ignore="true">TIPO</th>
+											<th data-sort-ignore="true">ACCESO</th>
+											<th data-sort-ignore="true">ESTADO</th>
+											<th data-sort-ignore="true">EDITAR</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+									<tfoot>
+										<tr>
+											<td colspan="8">
+												<div class="text-right">
+													<ul class="pagination pagination-split m-t-30"> </ul>
+												</div>
+											</td>
+										</tr>
+									</tfoot>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END VISTA SISTEMAS -->
+			</div>
+		</div>
+	</div>
+
+<!-- *********************************************** MODALES DEL MANTENIMIENTO DE MODULOS ************************************************* -->
+<!-- MODAL NUEVO MODULO -->
+	<div class="modal fade" id="mNuevoModulo" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">NUEVO MÓDULO</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">NOMBRE</label>
+								<input type="text" name="modulo_nombre_nuevo" id="modulo_nombre_nuevo" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">NOMBRE CORTO</label>
+								<input type="text" name="modulo_nomcorto_nuevo" id="modulo_nomcorto_nuevo" class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">SISTEMA</label>
+								<select class="form-control select2" name="modulo_sistema_nuevo" id="modulo_sistema_nuevo" style="width:100%">
+									<option value="">-- SELECCIONE --</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">ORDEN</label>
+								<input type="text" name="modulo_orden_nuevo" id="modulo_orden_nuevo" class="form-control" onkeypress="return validarnu(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="btnGuardarNuevoModulo">Guardar</button>
+					<button type="button" class="btn btn-default" id="btn-cancelar-nuevo-modulo" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- MODAL EDITAR MODULO -->
+	<div class="modal fade" id="mEditarModulo" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">EDITAR MÓDULO</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="idmodulo_editar" hidden="">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">NOMBRE</label>
+								<input type="text" name="modulo_nombre_editar" id="modulo_nombre_editar" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">NOMBRE CORTO</label>
+								<input type="text" name="modulo_nomcorto_editar" id="modulo_nomcorto_editar" class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">SISTEMA</label>
+								<select class="form-control select2" name="modulo_sistema_editar" id="modulo_sistema_editar" style="width:100%">
+									<option value="">-- SELECCIONE --</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">ORDEN</label>
+								<input type="text" name="modulo_orden_editar" id="modulo_orden_editar" class="form-control" onkeypress="return validarnu(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="btnEditarModulo">Guardar</button>
+					<button type="button" class="btn btn-default" id="btn-cancelar-editar-modulo" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- ************************************************* MODALES DEL MANTENIMIENTO DE OBJACCESOS ******************************************** -->
+<!-- MODAL VER LOS OBJACCESOS POR MODULO -->
+	<div class="modal fade" id="VerObjAcceso" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">OBJACCESO POR MÓDULO</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<input type="text" id="idmodulo_objacceso" hidden="">
+						<div class="col-md-12">
+							<div class="col-md-4">
+								<label class="form-inline">Mostrar&nbsp;&nbsp;
+									<select id="entries_objaccesos" class="form-control input-sm">
+										<option value="3">3</option>
+										<option value="5">5</option>
+										<option value="10">10</option>
+									</select>
+								&nbsp;&nbsp;registros </label>
+							</div>
+							<div class="col-md-6">
+								<button class="btn btn-primary btn-sm fa fa-plus" data-toggle="modal" data-target="#mNuevoObjAcceso" onclick="LimpiarDatosNuevoObjAcceso();" title="Nuevo ObjAcceso">&nbsp;Nuevo ObjAcceso</button>
+							</div>
+						</div>
+						<div class="table-responsive">
+							<table id="tblobjacceso" class="table toggle-circle table-hover table-MML" data-page-size="3">
+								<thead>
+									<tr>
+										<th>ORDEN</th>
+										<th data-sort-ignore="true">MODULO</th>
+										<th data-sort-ignore="true">OBJACCESO</th>
+										<th data-sort-ignore="true">URL</th>
+										<th data-sort-ignore="true">EDITAR</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="5">
+											<div class="text-right">
+												<ul class="pagination pagination-split m-t-30"></ul>
+											</div>
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="btn-cancelar-ver-objacceso" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- MODAL NUEVO OBJACCESO -->
+	<div class="modal fade" id="mNuevoObjAcceso" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">NUEVO OBJACCESO</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">MÓDULO</label>
+								<select class="form-control select2" name="objacceso_modulo_nuevo" id="objacceso_modulo_nuevo" style="width:100%" disabled="">
+									<option value="">-- SELECCIONE --</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">NOMBRE</label>
+								<input type="text" name="objacceso_nombre_nuevo" id="objacceso_nombre_nuevo" class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">URL</label>
+								<input type="text" name="objacceso_url_nuevo" id="objacceso_url_nuevo" class="form-control">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">ORDEN</label>
+								<input type="text" name="objacceso_orden_nuevo" id="objacceso_orden_nuevo" class="form-control" onkeypress="return validarnu(event)">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="btnGuardarNuevoObjAcceso">Guardar</button>
+					<button type="button" class="btn btn-default" id="btn-cancelar-nuevo-objacceso" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- MODAL EDITAR OBJACCESO -->
+	<div class="modal fade" id="mEditarObjAcceso" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">EDITAR OBJACCESO</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="idobjacceso_editar" hidden="">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">MÓDULO</label>
+								<select class="form-control select2" name="objacceso_modulo_editar" id="objacceso_modulo_editar" style="width:100%" disabled="">
+									<option value="">-- SELECCIONE --</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">NOMBRE</label>
+								<input type="text" name="objacceso_nombre_editar" id="objacceso_nombre_editar" class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">URL</label>
+								<input type="text" name="objacceso_url_editar" id="objacceso_url_editar" class="form-control">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">ORDEN</label>
+								<input type="text" name="objacceso_orden_editar" id="objacceso_orden_editar" class="form-control" onkeypress="return validarnu(event)">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="btnEditarObjAcceso">Guardar</button>
+					<button type="button" class="btn btn-default" id="btn-cancelar-editar-objacceso" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- ************************************************* MODALES DEL MANTENIMIENTO DE SISTEMAS ******************************************** -->
+<!-- MODAL NUEVO SISTEMA -->
+	<div class="modal fade" id="mNuevoSistema" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">NUEVO SISTEMA</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">NOMBRE</label>
+								<input type="text" name="sistema_nombre_nuevo" id="sistema_nombre_nuevo" class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">NOMBRE CORTO</label>
+								<input type="text" name="sistema_nomcorto_nuevo" id="sistema_nomcorto_nuevo" class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">TIPO DE SISTEMA</label>
+								<select class="form-control select2" name="sistema_tiposistema_nuevo" id="sistema_tiposistema_nuevo" style="width:100%">
+									<option value="">-- SELECCIONE --</option>
+									<option value="WB">WEB</option>
+									<option value="CS">CLIENTE SERVIDOR</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">TIPO DE ACCESO</label>
+								<select class="form-control select2" name="sistema_tipoacceso_nuevo" id="sistema_tipoacceso_nuevo" style="width:100%">
+									<option value="">-- SELECCIONE --</option>
+									<option value="IN">INTERNO</option>
+									<option value="EX">EXTERNO</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="btnGuardarNuevoSistema">Guardar</button>
+					<button type="button" class="btn btn-default" id="btn-cancelar-nuevo-sistema" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- MODAL EDITAR SISTEMA -->
+	<div class="modal fade" id="mEditarSistema" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">EDITAR SISTEMA</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="idsistema_editar" hidden="">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">NOMBRE</label>
+								<input type="text" name="sistema_nombre_editar" id="sistema_nombre_editar" class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">NOMBRE CORTO</label>
+								<input type="text" name="sistema_nomcorto_editar" id="sistema_nomcorto_editar" class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">TIPO DE SISTEMA</label>
+								<select class="form-control select2" name="sistema_tiposistema_editar" id="sistema_tiposistema_editar" style="width:100%">
+									<option value="">-- SELECCIONE --</option>
+									<option value="WB">WEB</option>
+									<option value="CS">CLIENTE SERVIDOR</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">TIPO DE ACCESO</label>
+								<select class="form-control select2" name="sistema_tipoacceso_editar" id="sistema_tipoacceso_editar" style="width:100%">
+									<option value="">-- SELECCIONE --</option>
+									<option value="IN">INTERNO</option>
+									<option value="EX">EXTERNO</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="btnEditarSistema">Guardar</button>
+					<button type="button" class="btn btn-default" id="btn-cancelar-editar-sistema" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

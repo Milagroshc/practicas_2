@@ -1,0 +1,73 @@
+{% extends 'cms/plantilla.twig' %}
+
+{% block title %}
+	CMS / Accesos
+{% endblock %}
+
+{% block javascriptAPP %}
+	<script src="{{ base_url() }}/js/aplicativo/usuarios/accesos.js"></script>
+	<script src="{{ base_url() }}/js/aplicativo/inicio.js"></script>
+	<script>
+		window.onload = function() {
+			CapturarVariable('{{idrol}}');
+			ListarAccesosPorRol();
+		};
+	</script>
+{% endblock %}
+
+{% block contenido %}
+
+	<div class="row">
+		<div id="load"></div>
+		<span class="icon fa fa-arrow-circle-left">
+			<a href="javascript:void(0)" onclick="Atras()"> Atrás</a>
+		</span>
+		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">{{nombre_rol}}</div>
+				<!-- ************************************************************************************************************************************************************ -->
+				<!-- VISTA MANTENIMIENTO DE ACCESOS POR ROL -->
+				<div class="panel-wrapper collapse in" aria-expanded="true">
+					<div class="panel-body" id="divAccesosRol">
+					</div>
+				</div>
+				<!-- END VISTA MANTENIMIENTO DE ACCESOS POR ROL -->
+			</div>
+		</div>
+	</div>
+
+	<!-- MODAL ASIGNAR ACCIONES A UN ROL -->
+	<div class="modal fade" id="mAsignarAcciones" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-lg modal-over-plugin" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="exampleModalLabel1">ACCIONES - ROL</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<input type="text" id="id_item_modulo_accion" hidden="">
+						<div class="table-responsive">
+							<table id="tblaccion" class="table toggle-circle table-hover table-MML">
+								<thead>
+									<tr>
+										<th data-sort-ignore="true">ID</th>
+										<th data-sort-ignore="true">ÍTEM MÓDULO</th>
+										<th data-sort-ignore="true">ACCIÓN</th>
+										<th data-sort-ignore="true">ESTADO</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'cms/plantilla.twig' %}
+
+{% block title %}
+	CMS / Archivos Por Contenido
+{% endblock %}
+
+{% block javascriptAPP %}
+	<script src="{{ base_url() }}/js/aplicativo/contenidos/archivos_contenido.js"></script>
+	<script src="{{ base_url() }}/js/aplicativo/inicio.js"></script>
+	<script>
+		window.onload = function() {
+			CapturarVariable('{{idcontenido}}');
+			MostrarArchivosPorContenido();
+		};
+	</script>
+{% endblock %}
+
+{% block contenido %}
+
+	<div class="row">
+		<div class="col-md-12">
+			<span class="icon fa fa-arrow-circle-left">
+				<a href="javascript:history.back();"> Atrás</a>
+			</span>
+			<div class="panel panel-info">
+				<div class="panel-heading" id="titulo_contenido">SUBIR ARCHIVOS</div>
+				<div class="panel-wrapper collapse in" aria-expanded="true">
+					<div class="panel-body">
+						<div id="load"></div>
+						<form id="FormSubirArchivoContenido" method="post" enctype="multipart/form-data">
+							<input type="text" name="idcontenido_archivo" id="idcontenido_archivo" value="{{idcontenido}}" hidden="">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="control-label">TIPO DE ARCHIVO A SUBIR</label>
+										<select class="form-control select2" name="tipo_archivo" id="tipo_archivo" style="width: 100%">
+											<option value="">-- SELECCIONE --</option>
+											<option value="1">Imágenes</option>
+											<option value="2">Documentos</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="control-label">ADJUNTAR ARCHIVO <font size="1"><i>(Tam. Máx.: 100 MB)</i></font></label>
+										<input name="archivo_contenido" id="archivo_contenido" type="file" class="dropify" data-max-file-size="100M"/>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<br>
+									<button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Guardar</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading" id="titulo_contenido">IMÁGENES</div>
+				<div class="panel-wrapper collapse in" aria-expanded="true">
+					<div class="panel-body">
+						<div class="row el-element-overlay m-b-40" id="contenedor_img">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading" id="titulo_contenido">DOCUMENTOS</div>
+				<div class="panel-wrapper collapse in" aria-expanded="true">
+					<div class="panel-body">
+						<div class="row el-element-overlay m-b-40" id="contenedor_doc">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

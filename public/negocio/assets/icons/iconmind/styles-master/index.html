@@ -1,0 +1,791 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Styles example</title>
+    <meta name="description" content="Styles example">
+    <meta name="author" content="">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+
+    <link rel="stylesheet" href="css/theme.css">
+
+    <style type="text/css">
+
+        .box1 {
+            margin: 10px 5px;
+            padding: 5px;
+            display: inline-block;
+        }
+
+        .box1 i {
+            font-size: 1.3em;
+        }
+
+    </style>
+</head>
+<body class="cf" style="padding: 5%;">
+<!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+
+
+
+    <h2 >Conventions</h2>
+    <ul >
+        <li>
+            Use classes for CSS not id's
+        </li>
+        <li>
+            Multi words are always dashed (.header-link)
+        </li>
+        <li>
+            Abbreviations are frowned upon :(
+        </li>
+    </ul>
+    <h2>Components</h2>
+    <div id="type-buttons" class="cf module">
+        <h3>Buttons</h3>
+        <div class="method">
+            <h4>Sizes</h4>
+            <div>        
+                <button class="button small">Small</button>
+                <button class="button">Default</button>
+                <button class="button large">Large</button>
+            </div>
+            <pre>
+&lt;button class=&quot;button small&quot;&gt;Small&lt;/button&gt;
+&lt;button class=&quot;button&quot;&gt;Default&lt;/button&gt;
+&lt;button class=&quot;button large&quot;&gt;Large&lt;/button&gt;
+            </pre>
+        </div>
+        <div class="method">
+            <h4>Styles</h4>
+            <div>
+                <button class="button">Default</button>
+                <button class="button primary">Primary</button>
+                <button class="button secondary">Secondary</button>
+                <button class="button info">Info</button>
+                <button class="button success">Success</button>
+                <button class="button error">Error</button>
+                <button class="button warning">Warning</button>
+                <button class="button disabled">Disabled</button>
+            </div>
+            <pre>
+&lt;button class=&quot;button&quot;&gt;Default&lt;/button&gt;
+&lt;button class=&quot;button primary&quot;&gt;Primary&lt;/button&gt;
+&lt;button class=&quot;button secondary&quot;&gt;Secondary&lt;/button&gt;
+&lt;button class=&quot;button info&quot;&gt;Info&lt;/button&gt;
+&lt;button class=&quot;button success&quot;&gt;Success&lt;/button&gt;
+&lt;button class=&quot;button error&quot;&gt;Error&lt;/button&gt;
+&lt;button class=&quot;button warning&quot;&gt;Warning&lt;/button&gt;
+&lt;button class=&quot;button disabled&quot;&gt;Disabled&lt;/button&gt;
+            </pre>
+        </div>
+        <div class="method">
+            <h4>With Icon</h4>
+            <div>
+                <button class="button primary"><i aria-hidden="true" class="icon-checkmark"></i> Save</button>
+            </div>
+            <pre>
+&lt;button class=&quot;button primary&quot;&gt;&lt;i aria-hidden=&quot;true&quot; class=&quot;icon-checkmark&quot;&gt;&lt;/i&gt; Save&lt;/button&gt;
+            </pre>
+        </div>
+        <div class="method">
+            <h4>Flat</h4>
+            <div>
+                <button class="button primary flat"><i aria-hidden="true" class="icon-checkmark"></i> Save</button>
+            </div>
+            <pre>
+&lt;button class=&quot;button primary flat&quot;&gt;&lt;i aria-hidden=&quot;true&quot; class=&quot;icon-checkmark&quot;&gt;&lt;/i&gt; Save&lt;/button&gt;
+            </pre>
+        </div>
+        <div class="method">
+            <h4>Group</h4>
+            <div class="group">
+                <a class="button active">1</a>
+                <a class="button">2</a>
+                <a class="button">3</a>
+            </div>
+            <pre>
+&lt;div class=&quot;group&quot;&gt;
+    &lt;a class=&quot;button active&quot;&gt;1&lt;/a&gt;
+    &lt;a class=&quot;button&quot;&gt;2&lt;/a&gt;
+    &lt;a class=&quot;button&quot;&gt;3&lt;/a&gt;
+&lt;/div&gt;
+            </pre>
+        </div>
+        <div class="method">
+            <h4>List</h4>
+            <div class="list">
+                <button class="button flat active">1</button>
+                <button class="button flat">2</button>
+                <button class="button flat">3</button>
+            </div>
+            <pre>
+&lt;div class=&quot;list&quot;&gt;
+    &lt;button class=&quot;button flat active&quot;&gt;1&lt;/button&gt;
+    &lt;button class=&quot;button flat&quot;&gt;2&lt;/button&gt;
+    &lt;button class=&quot;button flat&quot;&gt;3&lt;/button&gt;
+&lt;/div&gt;
+            </pre>
+        </div>
+    </div>
+    <div id="type-boxes" class="cf module">
+        <h3>Boxes</h3>
+        <div class="method">
+            <div>
+                <div class="box cf">
+                    <div class="body">
+                        <img class="avatar" src="" />
+                        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                    </div>
+                    <div class="footer cf">
+                        <p class="note">Some footer text</p>
+                        <p class="date">May 21, 2012</p>
+                        <div class="more">
+                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <pre>
+&lt;div class=&quot;box cf&quot;&gt;
+&lt;div class=&quot;body&quot;&gt;
+    &lt;img class=&quot;avatar&quot; src=&quot;&quot; /&gt;
+    &lt;p&gt;
+        Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+    &lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footer cf&quot;&gt;
+    &lt;p class=&quot;note&quot;&gt;Some footer text&lt;/p&gt;
+    &lt;p class=&quot;date&quot;&gt;May 21, 2012&lt;/p&gt;
+    &lt;div class=&quot;more&quot;&gt;
+        &lt;p&gt;
+            Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+        &lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+            </pre>
+        </div>
+    </div>
+    <div id="type-icons" class="cf module">
+        <h3>Icons</h3>
+        <div class="method">
+            <h4>Available</h4>
+            <div class="cf">
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-github"></i>
+                    &nbsp;icon-github
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-linkedin"></i>
+                    &nbsp;icon-linkedin
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-google-plus"></i>
+                    &nbsp;icon-google-plus
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-facebook"></i>
+                    &nbsp;icon-facebook
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-twitter"></i>
+                    &nbsp;icon-twitter
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-trash"></i>
+                    &nbsp;icon-trash
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-marker"></i>
+                    &nbsp;icon-marker
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-map"></i>
+                    &nbsp;icon-map
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-share"></i>
+                    &nbsp;icon-share
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-settings"></i>
+                    &nbsp;icon-settings
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-home"></i>
+                    &nbsp;icon-home
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-folder"></i>
+                    &nbsp;icon-folder
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-archive"></i>
+                    &nbsp;icon-archive
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-view"></i>
+                    &nbsp;icon-view
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-search"></i>
+                    &nbsp;icon-search
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-tag"></i>
+                    &nbsp;icon-tag
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-unlocked"></i>
+                    &nbsp;icon-unlocked
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-locked"></i>
+                    &nbsp;icon-locked
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-link"></i>
+                    &nbsp;icon-link
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-male"></i>
+                    &nbsp;icon-male
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-female"></i>
+                    &nbsp;icon-female
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-checkmark"></i>
+                    &nbsp;icon-checkmark
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-caret-up"></i>
+                    &nbsp;icon-caret-up
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-caret-right"></i>
+                    &nbsp;icon-caret-right
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-caret-left"></i>
+                    &nbsp;icon-caret-left
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-caret-down"></i>
+                    &nbsp;icon-caret-down
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-arrow-up"></i>
+                    &nbsp;icon-arrow-up
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-arrow-right"></i>
+                    &nbsp;icon-arrow-right
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-arrow-left"></i>
+                    &nbsp;icon-arrow-left
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-arrow-down"></i>
+                    &nbsp;icon-arrow-down
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-edit"></i>
+                    &nbsp;icon-edit
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-comments"></i>
+                    &nbsp;icon-comments
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-close"></i>
+                    &nbsp;icon-close
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-plus"></i>
+                    &nbsp;icon-plus
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-file"></i>
+                    &nbsp;icon-file
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-copy"></i>
+                    &nbsp;icon-copy
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-print"></i>
+                    &nbsp;icon-print
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-nav"></i>
+                    &nbsp;icon-nav
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-notifications"></i>
+                    &nbsp;icon-notifications
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-pie-chart"></i>
+                    &nbsp;icon-pie-chart
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-news"></i>
+                    &nbsp;icon-news
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-clip"></i>
+                    &nbsp;icon-clip
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-people"></i>
+                    &nbsp;icon-people
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-locate"></i>
+                    &nbsp;icon-locate
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-circle"></i>
+                    &nbsp;icon-circle
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-dashboard"></i>
+                    &nbsp;icon-dashboard
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-flag"></i>
+                    &nbsp;icon-flag
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-clock"></i>
+                    &nbsp;icon-clock
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-bookmark"></i>
+                    &nbsp;icon-bookmark
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-android"></i>
+                    &nbsp;icon-android
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-html5"></i>
+                    &nbsp;icon-html5
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-safari"></i>
+                    &nbsp;icon-safari
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-opera"></i>
+                    &nbsp;icon-opera
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-ie"></i>
+                    &nbsp;icon-ie
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-firefox"></i>
+                    &nbsp;icon-firefox
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-chrome"></i>
+                    &nbsp;icon-chrome
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-circle-outline"></i>
+                    &nbsp;icon-circle-outline
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-download"></i>
+                    &nbsp;icon-download
+                </span>
+            </div>
+            <pre>
+&lt;i aria-hidden=&quot;true&quot; class=&quot;icon-marker&quot;&gt;&lt;/i&gt;
+            </pre>
+        </div>
+        <div class="method">
+            <h4>Styles</h4>
+            <div class="cf">
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-checkmark"></i>
+                    &nbsp;default
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-checkmark primary"></i>
+                    &nbsp;primary
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-checkmark secondary"></i>
+                    &nbsp;secondary
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-checkmark info"></i>
+                    &nbsp;info
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-checkmark success"></i>
+                    &nbsp;success
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-checkmark error"></i>
+                    &nbsp;error
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-checkmark warning"></i>
+                    &nbsp;warning
+                </span>
+                <span class="box1">
+                    <i aria-hidden="true" class="icon-checkmark disabled"></i>
+                    &nbsp;disabled
+                </span>
+            </div>
+            <pre>
+&lt;i aria-hidden=&quot;true&quot; class=&quot;icon-checkmark&quot;&gt;&lt;/i&gt;
+&lt;i aria-hidden=&quot;true&quot; class=&quot;icon-checkmark primary&quot;&gt;&lt;/i&gt;
+&lt;i aria-hidden=&quot;true&quot; class=&quot;icon-checkmark secondary&quot;&gt;&lt;/i&gt;
+&lt;i aria-hidden=&quot;true&quot; class=&quot;icon-checkmark info&quot;&gt;&lt;/i&gt;
+&lt;i aria-hidden=&quot;true&quot; class=&quot;icon-checkmark success&quot;&gt;&lt;/i&gt;
+&lt;i aria-hidden=&quot;true&quot; class=&quot;icon-checkmark error&quot;&gt;&lt;/i&gt;
+&lt;i aria-hidden=&quot;true&quot; class=&quot;icon-checkmark warning&quot;&gt;&lt;/i&gt;
+&lt;i aria-hidden=&quot;true&quot; class=&quot;icon-checkmark disabled&quot;&gt;&lt;/i&gt;
+            </pre>
+        </div>
+    </div>
+    <div id="type-close" class="cf module">
+        <h3>Close</h3>
+        <div class="method">
+            <a class="close"><i aria-hidden="true" class="icon-close"></i></a>
+            <pre>
+&lt;a class=&quot;close&quot;&gt;&lt;i aria-hidden=&quot;true&quot; class=&quot;icon-close&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+            </pre>
+        </div>
+    </div>
+    <div id="type-inputs" class="cf module">
+        <h3>Inputs</h3>
+        <div class="method">
+            <h4>Sizes</h4>
+            <div>
+                <input type="text" class="small">
+                <input type="text">
+                <input type="text" class="large">
+            </div>
+            <pre>
+&lt;input type=&quot;text&quot; class=&quot;small&quot;&gt;
+&lt;input type=&quot;text&quot;&gt;
+&lt;input type=&quot;text&quot; class=&quot;large&quot;&gt;
+            </pre>
+        </div>
+    </div>
+    <div id="type-alerts" class="cf module">
+        <h3>Alerts</h3>
+        <div class="method">
+            <h4>Sizes</h4>
+            <div>
+                <div type="text" class="alert small">
+                    <i class="close i-close" href="#"></i>
+                    <span>This is a small sized alert</span>
+                </div>
+                <div type="text" class="alert">
+                    <i class="close i-close" href="#"></i>
+                    <span>This is a default sized alert</span>
+                </div>
+                <div type="text" class="alert large">
+                    <i class="close i-close" href="#"></i>
+                    <span>This is a large sized alert</span>
+                </div>
+            </div>
+            <pre>
+&lt;div type=&quot;text&quot; class=&quot;alert small&quot;&gt;
+    &lt;i class=&quot;close i-close&quot; href=&quot;#&quot;&gt;&lt;/i&gt;
+    &lt;span&gt;This is a small sized alert&lt;/span&gt;
+&lt;/div&gt;
+&lt;div type=&quot;text&quot; class=&quot;alert&quot;&gt;
+    &lt;i class=&quot;close i-close&quot; href=&quot;#&quot;&gt;&lt;/i&gt;
+    &lt;span&gt;This is a default sized alert&lt;/span&gt;
+&lt;/div&gt;
+&lt;div type=&quot;text&quot; class=&quot;alert large&quot;&gt;
+    &lt;i class=&quot;close i-close&quot; href=&quot;#&quot;&gt;&lt;/i&gt;
+    &lt;span&gt;This is a large sized alert&lt;/span&gt;
+&lt;/div&gt;
+            </pre>
+        </div>
+        <div class="method">
+            <h4>Styles</h4>
+            <div>
+                <div type="text" class="alert">
+                    <i class="close i-close" href="#"></i>
+                    <span>This is a default alert</span>
+                </div>
+                <div type="text" class="alert info">
+                    <i class="close i-close" href="#"></i>
+                    <span>This is an info alert</span>
+                </div>
+                <div type="text" class="alert error">
+                    <i class="close i-close" href="#"></i>
+                    <span>This is an error alert</span>
+                </div>
+
+                <div type="text" class="alert warning">
+                    <i class="close i-close" href="#"></i>
+                    <span>This is a warning alert</span>
+                </div>
+                <div type="text" class="alert success">
+                    <i class="close i-close" href="#"></i>
+                    <span>This is a success alert</span>
+                </div>
+            </div>
+            <pre>
+&lt;div type=&quot;text&quot; class=&quot;alert small&quot;&gt;
+    &lt;i class=&quot;i-close&quot; href=&quot;#&quot;&gt;&lt;/i&gt;
+    &lt;span&gt;This is a small default alert&lt;/span&gt;
+&lt;/div&gt;
+&lt;div type=&quot;text&quot; class=&quot;alert info&quot;&gt;
+    &lt;i class=&quot;i-close&quot; href=&quot;#&quot;&gt;&lt;/i&gt;
+    &lt;span&gt;This is a default info alert&lt;/span&gt;
+&lt;div type=&quot;text&quot; class=&quot;alert error&quot;&gt;
+    &lt;i class=&quot;i-close&quot; href=&quot;#&quot;&gt;&lt;/i&gt;
+    &lt;span&gt;This is a default error alert&lt;/span&gt;
+&lt;/div&gt;
+&lt;div type=&quot;text&quot; class=&quot;alert large success&quot;&gt;
+    &lt;i class=&quot;i-close&quot; href=&quot;#&quot;&gt;&lt;/i&gt;
+    &lt;span&gt;This is a large success alert&lt;/span&gt;
+&lt;/div&gt;
+            </pre>
+        </div>
+    </div>
+    <div id="type-tabs" class="cf module">
+        <h3>Tabs</h3>
+        <div class="method">
+            <h4>Styles</h4>
+            <div>
+                <ul class="tabs cf">
+                    <li class="tab">
+                        Tab 1
+                    </li>
+                    <li class="tab active">
+                        Tab 2
+                    </li>
+                    <li class="tab">
+                        Tab 3
+                    </li>
+                </ul>
+            </div>
+            <pre>
+&lt;ul class=&quot;tabs cf&quot;&gt;
+    &lt;li class=&quot;tab&quot;&gt;
+        Tab 1
+    &lt;/li&gt;
+    &lt;li class=&quot;tab active&quot;&gt;
+        Tab 2
+    &lt;/li&gt;
+    &lt;li class=&quot;tab&quot;&gt;
+        Tab 3
+    &lt;/li&gt;
+&lt;/ul&gt;
+            </pre>
+        </div>
+    </div>
+    <div id="type-modal" class="cf module">
+        <h3>Modal</h3>
+        <div class="method">
+            <div style="position: relative; height: 210px">
+                <div class="modal open" style="top: 20px; opacity: 1; visibility: visible; display: block; ">
+                    <i aria-hidden="true" class="icon-close close-modal"></i>
+                    <div class="body">
+                        <h2>Modal Header</h2>
+                        <p>Some text</p>
+                    </div>
+                    <div class="footer">
+                        <a class="button primary"><i aria-hidden="true" class="icon-checkmark"></i> Save</a>
+                        <a class="button"><i aria-hidden="true" class="icon-close"></i> Cancel</a>
+                    </div>
+                </div>
+                <div class="modal-bg" style="opacity: 0.8; display: block; cursor: pointer; position: absolute; height: 210px"></div>
+            </div>
+            <pre>
+&lt;div style=&quot;position: relative&quot;&gt;
+    &lt;div class=&quot;modal open&quot;&gt;
+        &lt;i aria-hidden=&quot;true&quot; class=&quot;icon-close close-modal&quot;&gt;&lt;/i&gt;
+        &lt;div class=&quot;body&quot;&gt;
+            &lt;h2&gt;Modal Header&lt;/h2&gt;
+            &lt;p&gt;Some text&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;footer&quot;&gt;
+            &lt;a class=&quot;button primary&quot;&gt;&lt;i aria-hidden=&quot;true&quot; class=&quot;icon-checkmark&quot;&gt;&lt;/i&gt; Save&lt;/a&gt;
+            &lt;a class=&quot;button&quot;&gt;&lt;i aria-hidden=&quot;true&quot; class=&quot;icon-close&quot;&gt;&lt;/i&gt; Cancel&lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;modal-bg&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+            </pre>
+        </div>
+    </div>
+    <div id="type-auto-complete" class="cf module">
+        <h3>Auto Complete</h3>
+        <div class="method">
+            <h4>Auto</h4>
+            <div>
+                <div class="auto-suggest is-visible" style="width: 50%;">
+                    <input type="text" value="Ar" >
+                    <div class="suggestions" style="position: relative;">
+                        <ul>
+                            <li class="title">States</li>
+                            <li data-value="Arizona" class="">
+                                <a href="#"><strong>Ar</strong>izona</a>
+                            </li>
+                            <li data-value="Arkansas" class="">
+                                <a href="#"><strong>Ar</strong>kansas</a>
+                            </li>
+                            <li data-value="Delaware" class="">
+                                <a href="#">Delaw<strong>ar</strong>e</a>
+                            </li>
+                            <li data-value="Maryland" class="active">
+                                <a href="#">M<strong>ar</strong>yland</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <pre>
+&lt;div class=&quot;auto-suggest is-visible&quot;&gt;
+    &lt;input type=&quot;text&quot; &gt;
+    &lt;div class=&quot;suggestions&quot;&gt;
+        &lt;ul&gt;
+            &lt;li class=&quot;title&quot;&gt;States&lt;/li&gt;
+            &lt;li data-value=&quot;Arizona&quot; class=&quot;&quot;&gt;
+                &lt;a href=&quot;#&quot;&gt;&lt;strong&gt;Ar&lt;/strong&gt;izona&lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li data-value=&quot;Arkansas&quot; class=&quot;&quot;&gt;
+                &lt;a href=&quot;#&quot;&gt;&lt;strong&gt;Ar&lt;/strong&gt;kansas&lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li data-value=&quot;Delaware&quot; class=&quot;&quot;&gt;
+                &lt;a href=&quot;#&quot;&gt;Delaw&lt;strong&gt;ar&lt;/strong&gt;e&lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li data-value=&quot;Maryland&quot; class=&quot;active&quot;&gt;
+                &lt;a href=&quot;#&quot;&gt;M&lt;strong&gt;ar&lt;/strong&gt;yland&lt;/a&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+            </pre>
+        </div>
+    </div>
+    <div id="type-tag-clouds" class="cf module">
+        <h3>Tag Clouds</h3>
+        <div class="method">
+            <h4>Sizes</h4>
+            <h5>Small</h5>
+            <ul class="tag-cloud small">
+                <li>Arizona</li>
+                <li>California</li>
+                <li>New York</li>
+                <li>Ohio</li>
+                <li>Hawaii</li>
+                <li>New Mexico</li>
+                <li>Nevada</li>
+            </ul>
+            <pre>
+&lt;ul class=&quot;tag-cloud small&quot;&gt;
+    &lt;li&gt;Arizona&lt;/li&gt;
+    &lt;li&gt;California&lt;/li&gt;
+    &lt;li&gt;New York&lt;/li&gt;
+    &lt;li&gt;Ohio&lt;/li&gt;
+    &lt;li&gt;Hawaii&lt;/li&gt;
+    &lt;li&gt;New Mexico&lt;/li&gt;
+    &lt;li&gt;Nevada&lt;/li&gt;
+&lt;/ul&gt;
+            </pre>
+            <h5>Default</h5>
+            <ul class="tag-cloud">
+                <li>Arizona</li>
+                <li>California</li>
+                <li>New York</li>
+                <li>Ohio</li>
+                <li>Hawaii</li>
+                <li>New Mexico</li>
+                <li>Nevada</li>
+            </ul>
+            <pre>
+&lt;ul class=&quot;tag-cloud&quot;&gt;
+    &lt;li&gt;Arizona&lt;/li&gt;
+    &lt;li&gt;California&lt;/li&gt;
+    &lt;li&gt;New York&lt;/li&gt;
+    &lt;li&gt;Ohio&lt;/li&gt;
+    &lt;li&gt;Hawaii&lt;/li&gt;
+    &lt;li&gt;New Mexico&lt;/li&gt;
+    &lt;li&gt;Nevada&lt;/li&gt;
+&lt;/ul&gt;
+            </pre>
+            <h5>Large</h5>
+            <ul class="tag-cloud large">
+                <li>Arizona</li>
+                <li>California</li>
+                <li>New York</li>
+                <li>Ohio</li>
+                <li>Hawaii</li>
+                <li>New Mexico</li>
+                <li>Nevada</li>
+            </ul>
+            <pre>
+&lt;ul class=&quot;tag-cloud large&quot;&gt;
+    &lt;li&gt;Arizona&lt;/li&gt;
+    &lt;li&gt;California&lt;/li&gt;
+    &lt;li&gt;New York&lt;/li&gt;
+    &lt;li&gt;Ohio&lt;/li&gt;
+    &lt;li&gt;Hawaii&lt;/li&gt;
+    &lt;li&gt;New Mexico&lt;/li&gt;
+    &lt;li&gt;Nevada&lt;/li&gt;
+&lt;/ul&gt;
+            </pre>
+        </div>
+        <div class="method">
+            <h4>Style</h4>
+            <ul class="tag-cloud info">
+                <li>Default</li>
+                <li class="primary">Primary</li>
+                <li class="secondary">Secondary</li>
+                <li class="info">Info</li>
+                <li class="success">Success</li>
+                <li class="error">Error</li>
+                <li class="warning">Warning</li>
+                <li class="disabled">Disabled</li>
+            </ul>
+            <pre>
+&lt;ul class=&quot;tag-cloud info&quot;&gt;
+    &lt;li&gt;Default&lt;/li&gt;
+    &lt;li class=&quot;primary&quot;&gt;Primary&lt;/li&gt;
+    &lt;li class=&quot;secondary&quot;&gt;Secondary&lt;/li&gt;
+    &lt;li class=&quot;info&quot;&gt;Info&lt;/li&gt;
+    &lt;li class=&quot;success&quot;&gt;Success&lt;/li&gt;
+    &lt;li class=&quot;error&quot;&gt;Error&lt;/li&gt;
+    &lt;li class=&quot;warning&quot;&gt;Warning&lt;/li&gt;
+    &lt;li class=&quot;disabled&quot;&gt;Disabled&lt;/li&gt;
+&lt;/ul&gt;
+            </pre>
+        </div>
+    </div>
+    <div id="type-drop-downs" class="cf module">
+        <h3>Dropdowns</h3>
+        <div class="method">
+            <h4>Coming Soon...</h4>
+        </div>
+    </div>
+
+
+</body>
+</html>

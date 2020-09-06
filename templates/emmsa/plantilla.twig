@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Default Description">
+    <meta name="keywords" content="fashion, store, E-commerce">
+    <meta name="robots" content="*">
+    <link rel="icon" href="#" type="image/x-icon">
+    <link rel="shortcut icon" href="#" type="image/x-icon">
+
+
+<title>{% block title %}{% endblock %}</title>
+{% block estilo %}
+
+    <!-- CSS Style -->
+    
+        <link rel="stylesheet" href="{{ base_url() }}/vendors/animate.css/animate.min.css">
+    <link rel="stylesheet" href="{{ base_url() }}/assets/fonts/megatron/styles.css">
+    <!--Main stylesheet-->
+    <link rel="stylesheet" href="{{ base_url() }}/assets/css/main.css">
+
+
+    <link rel="stylesheet" type="text/css" href="{{ base_url() }}/emmsa/stylesheet/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ base_url() }}/emmsa/stylesheet/font-awesome.css" media="all">
+    <link rel="stylesheet" type="text/css" href="{{ base_url() }}/emmsa/stylesheet/revslider.css">
+    <link rel="stylesheet" type="text/css" href="{{ base_url() }}/emmsa/stylesheet/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="{{ base_url() }}/emmsa/stylesheet/owl.theme.css">
+    <link rel="stylesheet" type="text/css" href="{{ base_url() }}/emmsa/stylesheet/jquery.bxslider.css">
+    <link rel="stylesheet" type="text/css" href="{{ base_url() }}/emmsa/stylesheet/jquery.mobile-menu.css">
+    <link rel="stylesheet" type="text/css" href="{{ base_url() }}/emmsa/stylesheet/style.css" media="all">
+    <link rel="stylesheet" type="text/css" href="{{ base_url() }}/emmsa/stylesheet/responsive.css" media="all">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,600,800,400' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i,900" rel="stylesheet">
+
+
+<!--Main stylesheet-->
+<script src="{{ base_url() }}/assets/js/modernizr.js"></script>
+
+
+<!--agregando estilos para efectos-->
+
+<!--alerts CSS -->
+<link
+	href="{{ base_url() }}/plugins/bower_components/sweetalert/sweetalert.css"
+	rel="stylesheet" type="text/css">
+<link href="{{ base_url() }}/assets/css/bootstrap-rating.css"
+	rel="stylesheet">
+<!--fin-->
+<!--select2-->
+<link href="{{ base_url() }}/plugins/bower_components/bootstrap-select/select2.css" rel="stylesheet" />
+<!--fin-->
+
+    <!-- page CSS -->
+ <link href="{{ base_url() }}/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+
+
+
+<!--Modernizr js-->
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+<script type="text/javascript">
+	/*declarando variables globales*/
+    var DOMAINSITE= '{{constantes.DOMAINSITE}}';
+    //alert(DOMAINSITE);
+
+    </script>
+
+{% endblock %}
+
+
+<!--Se crea esta parte para agregar estilos a cada modulo según sea conveniente -->
+{% block estiloAPP %}
+{% endblock %}
+</head>
+
+<body>
+    <div id="preloader"></div>
+    <div id="page">
+	{% block contenido %}
+	<!--[if lt IE 8]>
+    <p class="browsenrupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+	{% block cabecera %}
+	        
+	{% endblock %} 
+<div class="content">
+	{% block cuerpo %}
+		{% block slider %}
+		 
+		{% endblock %}
+
+        {% block secciones %}
+                
+        {% endblock %}
+
+
+	{% endblock %}
+    </div>
+
+	{% block pie %}
+
+        <!--End Main Footer-->
+    {% endblock %}
+
+	{% endblock %}
+
+</div>
+
+
+
+
+	<!-- jQuery -->
+	{% block javascript %}
+
+    <!-- Libs JS -->
+			<!-- jQuery -->
+
+    <script src="{{ base_url() }}/emmsa/js/jquery.min.js"></script>
+    <script src="{{ base_url() }}/emmsa/js/bootstrap.min.js"></script>
+    <script src="{{ base_url() }}/emmsa/js/parallax.js"></script>
+    <script src="{{ base_url() }}/emmsa/js/revslider.js"></script>
+    <script src="{{ base_url() }}/emmsa/js/common.js"></script>
+    <script src="{{ base_url() }}/emmsa/js/jquery.bxslider.min.js"></script>
+    <script src="{{ base_url() }}/emmsa/js/owl.carousel.min.js"></script>
+    <script src="{{ base_url() }}/emmsa/js/jquery.mobile-menu.min.js"></script>
+    <script src="{{ base_url() }}/emmsa/js/countdown.js"></script>
+
+
+
+
+	<script
+		src="{{ base_url() }}/vendors/waypoints/lib/jquery.waypoints.min.js"></script>
+	<script
+		src="{{ base_url() }}/vendors/waypoints/lib/shortcuts/sticky.min.js"></script>
+	<script src="{{ base_url() }}/vendors/wow/dist/wow.min.js"></script>
+	<script src="{{ base_url() }}/vendors/parallax.js/parallax.js"></script>
+	<script src="{{ base_url() }}/js/jquery.stellar.js"></script>
+
+
+	<script type="text/javascript"
+		src="{{ base_url() }}/vendors/jquery-countTo/jquery.countTo.js"></script>
+	<script type="text/javascript"
+		src="{{ base_url() }}/vendors/slick-carousel/slick/slick.js"></script>
+	<script type="text/javascript"
+		src="{{ base_url() }}/vendors/isotope/dist/isotope.pkgd.min.js"></script>
+	<script type="text/javascript"
+		src="{{ base_url() }}/vendors/imagesloaded/imagesloaded.pkgd.min.js"></script>
+	<script type="text/javascript"
+		src="{{ base_url() }}/vendors/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+	<script type="text/javascript"
+		src="{{ base_url() }}/vendors/jquery-modal/jquery.modal.min.js"></script>
+
+    <script type="text/javascript" src="{{ base_url() }}/js/moment.js"></script>
+    <script type="text/javascript" src="{{ base_url() }}/js/moment-with-locales.js"></script>
+
+<script src="{{ base_url() }}/js/validator.js"></script>
+
+
+    <script>
+        jQuery(document).ready(function() {
+            jQuery('#thm-rev-slider').show().revolution({
+                dottedOverlay: 'none',
+                delay: 5000,
+                startwidth: 0,
+                startheight: 710,
+
+                hideThumbs: 200,
+                thumbWidth: 200,
+                thumbHeight: 50,
+                thumbAmount: 2,
+
+                navigationType: 'thumb',
+                navigationArrows: 'solo',
+                navigationStyle: 'round',
+
+                touchenabled: 'on',
+                onHoverStop: 'on',
+
+                swipe_velocity: 0.7,
+                swipe_min_touches: 1,
+                swipe_max_touches: 1,
+                drag_block_vertical: false,
+
+                spinner: 'spinner0',
+                keyboardNavigation: 'off',
+
+                navigationHAlign: 'center',
+                navigationVAlign: 'bottom',
+                navigationHOffset: 0,
+                navigationVOffset: 20,
+
+                soloArrowLeftHalign: 'left',
+                soloArrowLeftValign: 'center',
+                soloArrowLeftHOffset: 20,
+                soloArrowLeftVOffset: 0,
+
+                soloArrowRightHalign: 'right',
+                soloArrowRightValign: 'center',
+                soloArrowRightHOffset: 20,
+                soloArrowRightVOffset: 0,
+
+                shadow: 0,
+                fullWidth: 'on',
+                fullScreen: 'on',
+
+                stopLoop: 'off',
+                stopAfterLoops: -1,
+                stopAtSlide: -1,
+
+                shuffle: 'off',
+
+                autoHeight: 'on',
+                forceFullWidth: 'off',
+                fullScreenAlignForce: 'off',
+                minFullScreenHeight: 0,
+                hideNavDelayOnMobile: 1500,
+
+                hideThumbsOnMobile: 'off',
+                hideBulletsOnMobile: 'off',
+                hideArrowsOnMobile: 'off',
+                hideThumbsUnderResolution: 0,
+
+                hideSliderAtLimit: 0,
+                hideCaptionAtLimit: 0,
+                hideAllCaptionAtLilmit: 0,
+                startWithSlide: 0,
+                fullScreenOffsetContainer: ''
+            });
+        });
+    </script>
+    <script>
+        function HideMe() {
+            jQuery('.popup1').hide();
+            jQuery('#fade').hide();
+        }
+    </script>
+    <!-- Hot Deals Timer 1-->
+    <script>
+        jQuery(document).ready(function($) {
+
+moment().format();
+moment.locale("en");
+
+        var dateFin = jQuery.trim(jQuery("#fechaFinTemporada").val());
+        //var dateFinFormat = moment(dateFin).format('L LTS');
+        //console.log(dateFin);
+        var dthen1 = Date.parse(dateFin);
+        //var dthen1 = new Date("02/30/20 02:40:00 PM");
+        //var dthen1 = new Date("02/30/20 03:40:00 PM");
+
+var date = new Date();
+var value = date.getTime();
+
+
+
+
+var dateActual=moment().format('L LTS');
+        start = dateActual; //"01/30/20 00:00:00 AM";
+        start_date = Date.parse(start);
+        var dnow1 = new Date(start_date);
+        if (CountStepper > 0)
+            ddiff = new Date((dnow1) - (dthen1));
+        else
+            ddiff = new Date((dthen1) - (dnow1));
+        gsecs1 = Math.floor(ddiff.valueOf() / 1000);
+
+        var iid1 = "countbox_1";
+        CountBack_slider(gsecs1, "countbox_1", 1);
+        });
+       
+    </script>
+
+    <script>
+        jQuery(document).ready(function($) {
+
+            // site preloader -- also uncomment the div in the header and the css style for #preloader
+            $(window).load(function() {
+                $('#preloader').fadeOut('slow', function() {
+                    $(this).remove();
+                });
+            });
+
+            //para cargar los videos en el home
+            $('.videoModal').magnificPopup({
+            type: 'iframe'
+            // other options
+            });
+
+
+                $('#formularioContactenos').validator().on('submit', function(e) {
+
+                    if (e.isDefaultPrevented()) {
+                        // handle the invalid form...
+
+                    } else {
+                        var datitos = $(this).serialize();
+                        $.post("ajax/guardar-contactenos", datitos, function(data) {
+                            console.log(data);
+                            if (data.success) {
+                                $('#formularioContactenos').trigger("reset");
+                            }
+                            swal(data.mensaje);
+                        });
+
+                        return false;
+                    }
+                });
+
+
+
+        });
+    </script>
+
+
+	<script
+		src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCbrPEGvdxIQy1Y4fIZUU1WXf-g3EWl4Js"></script>
+
+    <script type="text/javascript" src="{{ base_url() }}/vendors/jquery-ui/jquery-ui.min.js"></script>
+
+
+	<script src="{{ base_url() }}/assets/js/slimmenu.js"></script>
+	<script src="{{ base_url() }}/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+	<script src="{{ base_url() }}/assets/js/bootstrap-timepicker.js"></script>
+	<script src="{{ base_url() }}/assets/js/bootstrap-datepicker.es.js"></script>
+	<script src="{{ base_url() }}/assets/js/nicescroll.js"></script>
+	<script src="{{ base_url() }}/assets/js/dropit.js"></script>
+	<script src="{{ base_url() }}/assets/js/ionrangeslider.js"></script>
+	<script src="{{ base_url() }}/assets/js/icheck.js"></script>
+	<script src="{{ base_url() }}/assets/js/fotorama.js"></script>
+	<script src="{{ base_url() }}/assets/js/typeahead.js"></script>
+	<script src="{{ base_url() }}/assets/js/card-payment.js"></script>
+	<script src="{{ base_url() }}/assets/js/magnific.js"></script>
+
+	<script src="{{ base_url() }}/assets/js/fitvids.js"></script>
+	<script src="{{ base_url() }}/assets/js/tweet.js"></script>
+	<script src="{{ base_url() }}/assets/js/countdown.js"></script>
+	<script src="{{ base_url() }}/assets/js/gridrotator.js"></script>
+	<script src="{{ base_url() }}/assets/js/bootstrap-rating.js"></script>
+
+
+	<!--End Javascript Library-->
+	<!--Librerias efecto Javascript -->
+	<!-- Sweet-Alert  -->
+	<script
+		src="{{ base_url() }}/plugins/bower_components/sweetalert/sweetalert.min.js"></script>
+	<script
+		src="{{ base_url() }}/plugins/bower_components/sweetalert/jquery.sweet-alert.custom.js"></script>
+
+<!--toastr-master -->
+<script src="{{ base_url() }}/plugins/select2/js/select2.full.js"></script>
+<script src="{{ base_url() }}/plugins/select2/js/select2.multi-checkboxes.js"></script>
+<script src="{{ base_url() }}/plugins/select2/js/i18n/es.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/i18n/defaults-et_EE.js"></script>
+<script src="{{ base_url() }}/plugins/bootstrap-select/js/i18n/defaults-es_ES.js"></script>
+
+    <script src="{{ base_url() }}/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="{{ base_url() }}/vendors/waypoints/lib/jquery.waypoints.min.js"></script>
+    <script src="{{ base_url() }}/vendors/waypoints/lib/shortcuts/sticky.min.js"></script>
+    <script src="{{ base_url() }}/vendors/smoothscroll/SmoothScroll.js"></script>
+    <script src="{{ base_url() }}/vendors/wow/dist/wow.min.js"></script>
+    <script src="{{ base_url() }}/vendors/parallax.js/parallax.js"></script>
+    <script type="text/javascript" src="{{ base_url() }}/vendors/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript" src="{{ base_url() }}/vendors/jquery-modal/jquery.modal.min.js"></script>
+    <script type="text/javascript" src="{{ base_url() }}/assets/js/main.js"></script>
+
+    <link rel="stylesheet" href="{{ base_url() }}/sidebar/style.css">
+
+	{% endblock %}
+    
+    {% block javascriptAPP %}
+    
+	{% endblock %}
+</body>
+
+</html>

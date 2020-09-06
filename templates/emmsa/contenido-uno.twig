@@ -1,0 +1,100 @@
+{% extends 'emmsa/plantilla-interna.twig' %}
+
+{% block seccionContenido %}
+<div class="col-main col-sm-9 col-sm-push-3 product-list">
+{{contenido["data"].contenido|convert_encoding('UTF-8', 'UTF-8')|raw}}
+</div>
+{% endblock %}
+
+{% block seccionOpciones %}  
+
+<aside class="col-left sidebar col-sm-3 col-xs-12 col-sm-pull-9 wow bounceInUp animated"> 
+        <!-- BEGIN SIDE-NAV-CATEGORY -->
+        <div class="side-nav-categories">
+          <div class="block-title">  {{contenido['data'].titulo}}   </div>
+          <!--block-title--> 
+          <!-- BEGIN BOX-CATEGORY -->
+          <div class="box-content box-category">
+
+
+                                        {% set menues = menus.data %}
+{% import _self as forms %}
+  {% set urlNodo = "" %}
+  {% set ruta = rutaPadre %}
+    {{ forms.menuMacro(menus.data, 0, urlNodo, ruta) }}
+
+{% macro menuMacro(menues, level, urlNodo, ruta) %}
+
+
+  {# Set our default level as an integer. #}
+  {% set default_level = 1 %}
+  
+  
+
+  {% if level|default(default_level)==0 %}
+  <ul>
+  {% else %}
+    {% if urlNodo is not empty %}
+    <ul class="level0_415" style="display:block">
+    {% else %}
+    <ul class="level1"> 
+    {% endif %}
+  {% endif %}
+
+  
+    {% set nodo = 0 %}
+    {% for menu_item in menues %}
+      {# Check if this is the active item. #}
+      {% set active = (true) ? ' is-active' : '' %}
+
+      {# Check if this item is in the active trail. #}
+      {% set active = active ~ ((true) ? ' is-active-trail' : '') %}
+
+
+      <li>
+        {% if menu_item.hijos_menus %}
+            <a href="{{base_url()}}/{{ruta}}/{{ menu_item.url }}"  >{{ menu_item.titulo }}</a><span class="subDropdown minus"></span>
+            {# Since this menu item has a submenu, recall function and increment counter. #}
+          
+          {{ _self.menuMacro(menu_item.hijos_menus, level|default(default_level) + 1, menu_item.url, ruta ~ "/" ~ menu_item.url ) }}
+        {% set nodo = nodo + 1 %}
+        {% else %}
+            <a href="{{base_url()}}/{{ruta}}/{{ menu_item.url }}"> <i class="fa fa-angle-right" aria-hidden="true"></i> {{ menu_item.titulo }}</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+
+
+{% endmacro %}
+
+
+            
+          </div>
+          <!--box-content box-category--> 
+        </div>
+
+        </div>
+          <!--block-content--> 
+        </div>
+        <!--block block-list block-compare--> 
+       
+
+        
+      
+      </aside>
+        <!--col-right sidebar--> 
+
+        
+
+   {% endblock %}
+
+{% block pie %}
+    {% for plantilla in plantillas.data %}
+        {% if plantilla.tipo == "pie" %}
+            {% include plantilla.archivo_portal_web %}
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+

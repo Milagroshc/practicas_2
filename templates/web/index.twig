@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html class="no-js">
+<!-- Mirrored from demo.osthemes.biz/megatron/homepage-agency-3.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Apr 2018 15:19:59 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Municipalidad de Lima</title>
+    <meta name="description" content="Megatron - Multipurpose Responsive HTML5 Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="57x57" href="{{base_url()}}/favicon/apple-touch-icon-57x57.html">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{base_url()}}/favicon/apple-touch-icon-60x60.html">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{base_url()}}/favicon/apple-touch-icon-72x72.html">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{base_url()}}/favicon/apple-touch-icon-76x76.html">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{base_url()}}/favicon/apple-touch-icon-114x114.html">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{base_url()}}/favicon/apple-touch-icon-120x120.html">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{base_url()}}/favicon/apple-touch-icon-144x144.html">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{base_url()}}/favicon/apple-touch-icon-152x152.html">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{base_url()}}/favicon/apple-touch-icon-180x180.html">
+    <link rel="icon" type="image/png" href="{{base_url()}}/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{base_url()}}/favicon/favicon-194x194.html" sizes="194x194">
+    <link rel="icon" type="image/png" href="{{base_url()}}/favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="{{base_url()}}/favicon/android-chrome-192x192.html" sizes="192x192">
+    <link rel="icon" type="image/png" href="{{base_url()}}/favicon/favicon-16x16.png" sizes="16x16">
+    {# <link rel="manifest" href="{{base_url()}}/favicon/manifest.json"> #}
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="{{base_url()}}/favicon/mstile-144x144.html">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>{% block title %}{% endblock %}</title>
+ 
+
+        <!-- Google Fonts --> 
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300italic,800italic,800,700italic,700,600italic,600,400italic,300%7CRoboto+Condensed:400,400i,700,700i%7CGreat+Vibes" rel="stylesheet"> 
+        
+        <!-- Bootstrap Stylesheet --> 
+        <link rel="stylesheet" href="{{ base_url() }}/css/bootstrap.min.css">
+        
+        <!-- Font Awesome Stylesheet -->
+        <link rel="stylesheet" href="{{ base_url() }}/css/fontawesome-all.min.css">
+
+        <!-- Flex Slider Stylesheets -->  
+        <link rel="stylesheet" href="{{ base_url() }}/css/flexslider.css">
+        
+        <!-- OWL Stylesheets -->  
+        <link rel="stylesheet" href="{{ base_url() }}/css/owl.carousel.css">
+        <link rel="stylesheet" href="{{ base_url() }}/css/owl.theme.css">
+        <link rel="stylesheet" href="{{ base_url() }}/css/reloj.css">
+        <!-- Stylesheets -->
+<link href="{{ base_url() }}/css/miraflores/bootstrap.css" rel="stylesheet">
+
+<link href="{{ base_url() }}/plugins/revolution/css/settings.css" rel="stylesheet" type="text/css"><!-- REVOLUTION SETTINGS STYLES -->
+<link href="{{ base_url() }}/plugins/revolution/css/layers.css" rel="stylesheet" type="text/css"><!-- REVOLUTION LAYERS STYLES -->
+<link href="{{ base_url() }}/plugins/revolution/css/navigation.css" rel="stylesheet" type="text/css"><!-- REVOLUTION NAVIGATION STYLES -->
+
+<!--alerts CSS -->
+    <link href="{{ base_url() }}/plugins/bower_components/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+<link href="{{ base_url() }}/css/miraflores/style.css" rel="stylesheet">
+
+<link href="{{ base_url() }}/css/miraflores/responsive.css" rel="stylesheet">
+<!--Color Switcher Mockup-->
+<link href="{{ base_url() }}/css/miraflores/color-switcher-design.css" rel="stylesheet">
+<!--Color Themes-->
+<link id="theme-color-file" href="{{ base_url() }}/css/miraflores/color-themes/default-theme.css" rel="stylesheet">
+
+<link rel="shortcut icon" href="{{ base_url() }}/miraflores/images/favicon.png" type="image/x-icon">
+<link rel="icon" href="{{ base_url() }}/miraflores/images/favicon.png" type="image/x-icon">
+
+
+    <link rel="stylesheet" href="{{base_url()}}/vendors/animate.css/animate.min.css">
+
+
+    <link rel="stylesheet" href="{{base_url()}}/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{base_url()}}/assets/fonts/megatron/styles.css">
+
+{# ESTILOS DEL ACORDION Bootstrap #}
+<link rel="stylesheet" href="{{base_url()}}/css/mml/acordion.css">
+
+
+
+    <!--Main stylesheet-->
+   {% block estilo %}
+    <link rel="stylesheet" href="{{base_url()}}/assets/css/main.css">
+  {% endblock %}
+    <!--Modernizr js-->
+<!--     <script src="{{base_url()}}/assets/js/modernizr.min.js"></script> -->
+
+
+    
+
+
+
+  <script type="text/javascript">
+    /*declarando variables globales*/
+    var DOMAINSITE= '{{constantes.DOMAINSITE}}';
+    //alert(DOMAINSITE);
+  </script>
+   
+
+<!--Se crea esta parte para agregar estilos a cada modulo segun sea conveniente -->
+{% block estiloAPP %}
+
+{% endblock %}
+  </head>
+  <body>
+
+<!--=============MODAL INICIANDO================-->
+
+{% if popups["success"] == true %}
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+                <section class="featured-section">
+                <div id="slider"><a class="control_next">&gt;&gt;</a> <a class="control_prev">&lt;</a>
+                <ul class="news-carousel owl-carousel owl-theme">
+                    {% for popup in popups["data"] %}
+                <li>
+                    <img src="{{popup['c_resumen']}}" class="img-responsive">
+                </li>
+                    {% endfor %}
+                </ul>
+                </div>
+                </section>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+
+
+
+<!--=============MODAL FINAL================-->
+
+    <!--[if lt IE 8]>
+    <p class="browsenrupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!--Page Content-->
+    <div class="page-content">
+    {% block menuTematica %}
+      <!-- Page Navigation-->
+      <div class="main-nav nav-absolute">
+        <div class="__middle bgc-azul-o-5  ">
+         <div class="pull-left detalle-left"><img src="{{base_url()}}/images/detalle-left.png"/></div>
+          <div class="pull-right detalle-right"><img src="{{base_url()}}/images/detalle-right.png"/></div>
+          <div class="container">
+            <div class="nav-content-wrapper">
+              <div class="pull-left">
+                <div class="megatron inline">
+                  <div class="cell-vertical-wrapper">
+                    <div class="cell-middle">
+                    <a href="{{base_url()}}">
+                        <div class="logo"><img src="{{base_url()}}/images/logo.png"/> </div>
+                    </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="pull-right transparencia-estandar">
+                
+                <div class="nav-function nav-item">
+                  
+                  {# <div class="__search"><a href="__modal-search.html" data-modal-open="data-modal-open" class="icon-search-icon"></a>
+                  </div>  #}
+
+                  <div class="__search"><a href="http://www.transparencia.munlima.gob.pe/" target="_blank"><img src="{{base_url()}}/images/icons/busqueda-transporte.png"/></a>
+                  </div>
+                  
+                 </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    {% endblock %}
+
+      {% block menuEstaticoTop %}
+      <div class="main-nav small-nav bgc-light fixed-tranformed-bg-light nav-fixed border-bottom">
+        <div class="container">
+          <div class="nav-content-wrapper">
+            <div class="pull-left">
+              <div class="megatron inline logo-dark">
+                <div class="cell-vertical-wrapper">
+                  <div class="cell-middle"><a href="{{base_url()}}/">
+                      <div class="logo">
+                      <img src="images/logo-negro.png"/>
+                      </div></a></div>
+                </div>
+              </div>
+            </div>
+            <div class="pull-right visible-lg">
+              <nav class="os-menu main-menu2">
+                <ul> 
+                    <li><a href="{{base_url()}}/"> INICIO</a></li>
+                    <li><a href="{{base_url()}}/municipalidad/12">LA MUNICIPALIDAD</a></li>
+                    <li><a href="{{base_url()}}/ciudad/11247">LIMA</a></li>
+                    <li><a href="{{base_url()}}/tramites/28985">SERVICIOS</a></li>
+                    <li><a href="{{base_url()}}/catalogonoticias/0">NOTICIAS</a></li>
+                    <li><a href="{{base_url()}}/images/descargas/2019-documentos/Tupa/TUPA-03-01-2019.pdf" target="_blank">ATENCIÓN AL CIUDADANO</a></li>
+                    <li><a href="{{base_url()}}/extras/11107">GOBIERNO ABIERTO</a></li>
+                    <li><a href="{{base_url()}}/limatv/11123">LIMA TV</a></li>
+                </ul>
+              </nav>
+            </div>
+            
+              <div class="nav-function nav-item">
+                
+                <div class="__search"><a href="__modal-search.html" data-modal-open="data-modal-open" class="icon-search-icon"></a>
+                </div>
+                <div class="__offcanvas-button"><a href="#" class="offcanvas-nav-toggle icon-menu27"></a></div>
+              </div>
+            <div class="pull-right nav-item hidden-lg"><a href="#" class="mobile-nav-toggle nav-hamburger"><span></span></a></div>
+          </div>
+        </div>
+      </div>
+      {% endblock %}
+
+
+      {% block menuDerecha %}
+      <nav class="offcanvas-nav bgc-secondary"><a href="#" class="offcanvas-nav-toggle"><i class="icon-wrong6"></i></a>
+        <h6 class="size-s smb">MEN&Uacute; PRINCIPAL</h6>
+        <nav class="nav-single nav-item">
+          <ul>
+                <li><a href="{{base_url()}}/">INICIO</a></li>
+                <li><a href="{{base_url()}}/municipalidad/12">MUNICIPALIDAD</a></li>
+                <li><a href="{{base_url()}}/ciudad/11247">LIMA</a></li>
+                <li><a href="{{base_url()}}/tramites/28985">SERVICIOS</a></li>
+                <li><a href="{{base_url()}}/catalogonoticias/0">NOTICIAS</a></li>
+                <li><a href="{{base_url()}}/images/descargas/2019-documentos/Tupa/TUPA-03-01-2019.pdf" target="_blank">ATENCIÓN AL CIUDADANO</a></li>
+                <li><a href="{{base_url()}}/extras/11107">GOBIERNO ABIERTO</a></li>
+                <li><a href="{{base_url()}}/limatv/11123">LIMA TV</a></li>
+          </ul>
+        </nav>
+        <h6 class="size-s smb">OTROS SERVICIOS</h6>
+        <nav class="nav-single nav-item">
+          <ul>
+            <li><i  class="fa fa-weixin" ></i><a onclick="if(navigator.userAgent.toLowerCase().indexOf('opera') != -1 &amp;&amp; window.event.preventDefault) window.event.preventDefault();this.newWindow = window.open('//chat.miraflores.gob.pe/chat/client.php?locale=es&amp;url='+escape(document.location.href)+'&amp;referrer='+escape(document.referrer), 'mibew', 'toolbar=0,scrollbars=0,location=0,status=1,menubar=0,width=640,height=480,resizable=1');this.newWindow.focus();this.newWindow.opener=window;return false;" href="http://chat.miraflores.gob.pe/chat/client.php?locale=es" id="lg_chat" target="_blank" onmouseover="animaBoton('lg_chat',30)" onmouseout="animaBoton('lg_chat',-30)">Chatea con un operador</a></li>
+            <li><i  class="fa fa-sitemap" ></i><a href="https://digital.miraflores.gob.pe:8443/miraflores/inicio.muni" id="lg_intranet" target="_blank" onmouseover="animaBoton('lg_intranet',30)" onmouseout="animaBoton('lg_intranet',-30)" accesskey="i"> Intranet</a></li>
+            <li><i class="fa fa-envelope"></i><a href="http://webmail.miraflores.gob.pe" id="lg_email" target="_blank" onmouseover="animaBoton('lg_email',30)" onmouseout="animaBoton('lg_email',-30)">Email</a></li>
+            <li><i class="fa fa-map-o"></i><a href="http://www.miraflores.gob.pe/videoguiaEsculturas.html" id="lg_mturistico" target="_blank" onmouseover="animaBoton('lg_mturistico',30)" onmouseout="animaBoton('lg_mturistico',-30)" accesskey="i">Mapa tur&iacute;stico</a></li>
+            <li><i class="fa fa-file-text-o"></i><a href="http://www.miraflores.gob.pe/web-facturacione.php" id="lb_buscomprobante" target="_self" onmouseover="animaBoton('lb_buscomprobante',30)" onmouseout="animaBoton('lb_buscomprobante',-30)" accesskey="i">B&uacute;squeda de comprobantes</a></li>
+            <li><i class="fa fa-sun-o"></i><a href="https://digital.miraflores.gob.pe:8443/seh/" id="lg_ecohogares" target="_blank" onmouseover="animaBoton('lg_ecohogares',30)" onmouseout="animaBoton('lg_ecohogares',-30)" accesskey="i">EcoHogares</a></li>
+            <li><i class="fa fa-car"></i><a href="http://www.miraflores.gob.pe/consulta_vehiculos.php" id="lg_consultav_i" target="_blank" onmouseover="animaBoton('lg_consultav_i',30)" onmouseout="animaBoton('lg_consultav_i',-30)" accesskey="i">Informaci&oacute;n Vehicular</a></li>
+            <li><i class="fa fa-medkit"></i><a href="http://www.miraflores.gob.pe/_contenTempl2.php?idpadre=9977&amp;idcontenido=10287" id="lg_djcomercioso" target="_self" onmouseover="animaBoton('lg_djcomercioso',30)" onmouseout="animaBoton('lg_djcomercioso',-30)" accesskey="i">Seguridad en establecimiento</a></li>
+            <li><i class="fa fa-shield"></i><a href="_contenTempl2.php?idpadre=5300&amp;idhijo=5301&amp;idcontenido=5302" id="lg_seguridad" onmouseover="animaBoton('lg_seguridad',30)" onmouseout="animaBoton('lg_seguridad',-30)" accesskey="s">Seguridad ciudadana</a></li>
+            <li><i class="fa fa-picture-o"></i><a href="_contenTempl2.php?idpadre=4995&amp;idcontenido=6110" id="lg_obras" onmouseover="animaBoton('lg_obras',30)" onmouseout="animaBoton('lg_obras',-30)" accesskey="s">Obras </a></li>
+            <li><i class="fa fa-handshake-o"></i><a href="http://www.miraflores.gob.pe/reservacentropromotor/" id="lg_reservac" target="_blank" onmouseover="animaBoton('lg_reservac',30)" onmouseout="animaBoton('lg_reservac',-30)" accesskey="i">Reservas canchas de tenis</a></li>
+          </ul>
+        </nav>
+
+        <ul class="social circle gray">
+          <li><a href="#"><i class="icon icon-facebook-1"></i></a></li>
+          <li><a href="#"><i class="icon icon-pinterest"></i></a></li>
+          <li><a href="#"><i class="icon icon-twitter-1"></i></a></li>
+          <li><a href="#"><i class="icon icon-linkedin-1"></i></a></li>
+        </ul>
+      </nav>
+      {% endblock %}
+
+      {% block menuMobile %}
+      <div class="mobile-nav"><a href="#" class="mobile-nav-toggle"><i class="icon-close47"></i></a>
+      <a href="{{base_url()}}/" class="megatron">
+                        <div class="logo"><img src="images/logo.png"/> </div>
+                    </a>
+        <nav class="os-menu mobile-menu">
+          <ul>
+
+              <li><a href="{{base_url()}}/">INICIO</a></li>
+              <li><a href="{{base_url()}}/municipalidad/12">LA MUNICIPALIDAD</a></li>
+              <li><a href="{{base_url()}}/ciudad/11247">LIMA</a></li>
+              <li><a href="{{base_url()}}/tramites/28985">SERVICIOS</a></li>
+              <li><a href="{{base_url()}}/catalogonoticias/0">NOTICIAS</a></li>
+              <li><a href="{{base_url()}}/images/descargas/2019-documentos/Tupa/TUPA-03-01-2019.pdf" target="_blank">ATENCIÓN AL CIUDADANO</a></li>
+              <li><a href="{{base_url()}}/extras/11107">GOBIERNO ABIERTO</a></li>
+              <li><a href="{{base_url()}}/limatv/11123">LIMA TV</a></li>
+
+          </ul>
+        </nav>
+        <div class="search-area">
+          <form method="post" class="search-box">
+            <input type="search" placeholder="Search..."/>
+            <button type="submit"><i class="icon-search-icon"></i></button>
+          </form>
+        </div>
+        <div class="social-area">
+          <ul class="social circle gray">
+            <li><a href="#"><i class="icon icon-facebook-1"></i></a></li>
+            <li><a href="#"><i class="icon icon-pinterest"></i></a></li>
+            <li><a href="#"><i class="icon icon-twitter-1"></i></a></li>
+            <li><a href="#"><i class="icon icon-linkedin-1"></i></a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- Page Navigation-->
+      {% endblock %}
+
+      {% block slider %}
+      <!--Page Header-->
+      <header style="height:70vh" class="page-header home home-slider-1">
+        <div class="slider caption-slider direction-nav">
+          <div class="block-caption-slider overlay-container">
+            <div style="background-image: url(assets/images/background/background-16.jpg); background-position: undefined" class="__img-background"></div>
+            <div class="overlay bgc-dark-o-5">
+              <div class="cell-vertical-wrapper">
+                <div class="cell-middle">
+                  <div class="caption-preset-simple-5 text-center-sm-max">
+                    <div class="container">
+                      <div class="caption-wrapper">
+                        <h1 class="text-responsive size-ll caption">PARQUE UNIVERSITARIO</h1>
+                        <!--<p class="font-serif-italic fz-3 caption">Bienvenidos al emblem&aacute;tico Parque Universitario</p>-->
+                        <!--<div class="__buttons caption"><a href="index.html" class="btn btn-primary fullwidth">SELECT DEMO</a><br/><a href="http://goo.gl/fi9Eas" target="_blank" class="btn btn-secondary fullwidth">PURCHASE NOW</a></div>-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="block-caption-slider overlay-container">
+            <div style="background-image: url(assets/images/background/background-5.jpg); background-position: undefined" class="__img-background"></div>
+            <div class="overlay bgc-dark-o-2">
+              <div class="cell-vertical-wrapper">
+                <div class="cell-middle">
+                  <div class="caption-preset-simple-5 text-center-sm-max">
+                    <div class="container">
+                      <div class="caption-wrapper">
+                        <h1 class="text-responsive size-ll caption">PARQUE DE LAS AGUAS</h1>
+                        <!--<p class="font-serif-italic fz-3 caption">Vis&iacute;tanos con toda la familia al Parque de las Aguas</p>-->
+                        <!--<div class="__buttons caption"><a href="index.html" class="btn btn-gray-base fullwidth">SELECT DEMO</a><br/><a href="http://goo.gl/fi9Eas" target="_blank" class="btn-border btn-light fullwidth">PURCHASE NOW</a></div>-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="block-caption-slider overlay-container">
+            <div style="background-image: url(assets/images/background/background-45.jpg); background-position: undefined" class="__img-background"></div>
+            <div class="overlay bgc-dark-o-5">
+              <div class="cell-vertical-wrapper">
+                <div class="cell-middle">
+                  <div class="caption-preset-simple-6 text-center-sm-max">
+                    <div class="container">
+                      <div class="caption-wrapper">
+                      <!--<a href="index.html" class="megatron logo-light size-3 caption"> <div class="brand">CENTRO DE LIMA</div></a>-->
+                        <h1 class="text-responsive size-ll caption">PLAZA DE ARMAS</h1>
+                        <!--<p class="font-serif-italic fz-3 caption"> En 1988 fue declarada Patrimonio de la Humanidad por la UNESCO por ser uno de los espacios p&uacute;blicos m&aacute;s representativos de LIMA, Per&uacute;. </p>-->
+                        <!--<div class="__buttons caption"><a href="index.html" class="btn btn-primary fullwidth">SELECT DEMO</a><br/><a href="http://goo.gl/fi9Eas" target="_blank" class="btn-border btn-light fullwidth">PURCHASE NOW</a></div>-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!--End Page Header-->
+      {% endblock %}
+      {% block menuHome %}
+        <div class="main-nav main-lima">
+        <div class="__middle  bgc-verde">
+          <div class="container bgc-orange-o-5">
+            <div class="nav-content-wrapper">
+             
+              <div class="pull-left">
+                <nav class="os-menu main-menu text-center">
+                  <ul style="margin:auto;">
+                    <li><a href="{{base_url()}}/">INICIO</a></li>
+                    <li><a href="{{base_url()}}/municipalidad/12">MUNICIPALIDAD</a></li>
+                    <li><a href="{{base_url()}}/ciudad/11247">LIMA</a></li>
+                    <li><a href="{{base_url()}}/tramites/28985">SERVICIOS</a></li>
+                    <li><a href="{{base_url()}}/catalogonoticias/0">NOTICIAS</a></li>
+                    <li><a href="{{base_url()}}/atencion/11283">ATENCION AL CIUDADANO</a></li>
+                    <li><a href="{{base_url()}}/extras/11107">GOBIERNO ABIERTO</a></li>
+                    <li><a href="{{base_url()}}/limatv/11123">LIMA TV</a></li>
+                  </ul>
+                </nav>
+              </div>
+              
+                <div class="nav-function nav-item">
+                  <div class="__search"><a href="__modal-search.html" data-modal-open="data-modal-open" class="icon-search-icon"></a></div>
+                  <div class="__offcanvas-button"><a href="#" class="offcanvas-nav-toggle icon-menu27"></a></div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endblock %}
+
+      {% block cuerpo %}
+      <!--Page Body-->      
+      <div id="page-body" class="page-body">
+
+      <section class="page-section bgc-light">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-2 section-block"><img src="assets/images/team/alcalde-avatar.jpg" alt="avatar" class="img-responsive center-block avatar-alcalde"></div>
+            <div class="col-md-10 section-block-p">
+
+              <div class="row">
+                <div class="col-sm-2" >
+
+                  <div class="bg-azul">
+                    <a href="{{base_url()}}/catalogoobras/0"><span class="lic icono-obras"></span>Obras<br>&nbsp;</a>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="bg-verde">
+                    <a href="http://www.metropolitano.com.pe/" target="_blank"><span class="lic icono-transporte"></span>Transporte<br>&nbsp;</a>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="bg-azul">
+                    <a href="http://www.solidaridadsalud.gob.pe/hospitales" target="_blank"><span class="lic icono-seguridad"></span>Seguridad<br>Ciudadana</a>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="bg-verde">
+                    <a href="http://www.solidaridadsalud.gob.pe/hospitales" target="_blank"><span class="lic icono-limpia"></span>Lima<br>Limpia</a>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="bg-azul">
+                    <a href="http://www.solidaridadsalud.gob.pe/hospitales" target="_blank"><span class="lic icono-defensa-civil"></span>Defensa<br>Civil</a>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="bg-verde">
+                    <a href="http://www.solidaridadsalud.gob.pe/hospitales" target="_blank"><span class="lic icono-seguridad"></span>Datos<br>Abiertos</a>
+                  </div>
+                </div>
+              </div>
+             
+              <div class="row">
+               
+                <div class="col-sm-2">
+                  <div class="bg-verde">
+                    <a href="#"><span class="lic icono-desarrollo-social"></span>Desarrollo<br>Social </a>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="bg-azul">
+                    <a href="{{base_url()}}/cultura/34493"><span class="lic icono-cultura"></span>Cultura <br>&nbsp;</a>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="bg-verde">
+                    <a href="{{base_url()}}/limatv/11123"><span class="lic icono-ambiente"></span>Ambiente <br>&nbsp;</a>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="bg-azul">
+                    <a href="{{base_url()}}/consultasenlinea/11137"><span class="lic icono-mujer"></span>Mujer<br> &nbsp;</a>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="bg-verde">
+                    <a href="#"><span class="lic icono-lima-tv"></span>Educación<br> &nbsp; </a>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="bg-azul">
+                    <a href="#"><span class="lic icono-lima-tv"></span>Deporte<br> &nbsp; </a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+<section class="page-section bgc-gray-lighter">
+          <div class="container">
+          <div class="col-lg-8 col-xs-12 section-block">
+
+<div class="row bloque">
+        <h3 class="titulo-home">NOTICIAS</h3>
+        <div class="bloque-blanco">
+            <div class="__item pt-35 pb-35 pl-40 pr-40" >
+                <div class="list-group panel">
+
+              {% set cn=0 %}
+{% for contenido in contenidos['data'] %}
+
+{% if cn == 0 %}
+<!--inicio-->
+<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <div class="block-portfolio overlay-container basic">
+            <a href="{{base_url()}}/noticia/{{contenido.N_ID_CONTENIDO}}">
+                <img src="{{contenido.C_RUTA}}{{contenido.C_NOMBRE_FILE}}" alt="{{contenido.C_TITULO}}" class="__image"/>
+                <div class="overlay-noticia">
+                    <!--<div class="fecha-noticia">
+                        <i class="fa fa-calendar"></i>
+                        {{contenido.F_FECHA_CREACION|date("d-m-Y")}}</div>-->
+                    <div class="cell-vertical-wrapper">
+                        <div class="cell-middle">
+                            <h3 class="__title">
+                                {{contenido.C_TITULO}} <span class="ver-mas"><i  class="fa fa-hand-o-right" aria-hidden="true"></i> Ver mas<span></h3>
+                            <!--<div class="__caption font-serif contenido-noticia">
+                                {{ contenido.C_RESUMEN|striptags|length > 150 ? contenido.C_RESUMEN|striptags|slice(0, 150) ~ '...' : contenido.C_RESUMEN|striptags }}</div>-->
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+<!--fin ddd-->
+{% else %}
+  {% if cn % 2 == 1 %}
+  <!--inicio 1-->
+  <div class="row">
+  {% endif %}
+
+
+
+      <div class="col-md-6 col-xs-12">
+           <div class="masonry-item">
+                    <div class="post post-masonry">
+                      <div class="__header"><a href="{{base_url()}}/noticia/{{contenido.N_ID_CONTENIDO}}"><img src="{{contenido.C_RUTA}}{{contenido.C_NOMBRE_FILE}}" alt="{{contenido.C_TITULO}}" class="__image"/></a>
+                      </div>
+                      <div class="__main">
+                        <div class="__title"><a href="{{base_url()}}/noticia/{{contenido.N_ID_CONTENIDO}}">{{contenido.C_TITULO}} </a></div>
+                        <div class="__meta"><span>Publicado:&nbsp;<span class="__value"> <i class="fa fa-calendar"></i>  {{contenido.F_FECHA_CREACION|date("d-m-Y")}} </span></span><span>Por:&nbsp;<span class="__value">Municipalidad de Lima</span></span>
+                        </div>
+                        <div class="__content"> {{ contenido.C_RESUMEN|striptags|length > 150 ? contenido.C_RESUMEN|striptags|slice(0, 150) ~ '...' : contenido.C_RESUMEN|striptags }}</div>
+                      </div>
+                    </div>
+                  </div>        
+      {% if cn % 2 == 0 %}
+      </div>
+      <!--fin-->
+      {% endif %}     
+{% endif %}
+</div>
+
+{% set cn=cn+1 %}       
+{% endfor %}
+</div>
+
+                </div>
+              </div>
+              </div>
+            </div>
+
+<div class="col-lg-4 col-xs-12 section-block">
+
+<div class="row bloque">
+        <h3 class="titulo-home">AGENDA</h3>
+        <div class="bloque-blanco">
+            <div class="__item pt-35 pb-35 pl-40 pr-40" >
+                <div class="list-group panel">
+                <div class="steamline">
+                    {% for actividad in agenda["data"] %}
+                        {% set tmp = actividad.F_FECHA_CREACION|date("m") %}
+                        {% set mes = "" %}
+                        {% if tmp == "01" %}
+                            {% set mes = "ENE" %}
+                        {% endif %}
+                        {% if tmp == "02" %}
+                            {% set mes = "FEB" %}
+                        {% endif %}
+                        {% if tmp == "03" %}
+                            {% set mes = "MAR" %}
+                        {% endif %}
+                        {% if tmp == "04" %}
+                            {% set mes = "ABR" %}
+                        {% endif %}
+                        {% if tmp == "05" %}
+                            {% set mes = "MAY" %}
+                        {% endif %}
+                        {% if tmp == "06" %}
+                            {% set mes = "JUN" %}
+                        {% endif %}
+                        {% if tmp == "07" %}
+                            {% set mes = "JUL" %}
+                        {% endif %}
+                        {% if tmp == "08" %}
+                            {% set mes = "AGO" %}
+                        {% endif %}
+                        {% if tmp == "09" %}
+                            {% set mes = "SEP" %}
+                        {% endif %}
+                        {% if tmp == "10" %}
+                            {% set mes = "OCT" %}
+                        {% endif %}
+                        {% if tmp == "11" %}
+                            {% set mes = "NOV" %}
+                        {% endif %}
+                        {% if tmp == "12" %}
+                            {% set mes = "DIC" %}
+                        {% endif %}
+                        {% set diftmp = "" %}
+                        {% set difference = date("now").diff(date(actividad.F_FECHA_CREACION)) %}
+                        {% set leftDays = difference.days %}
+                        {# {{dump(difference)}}<br> #}
+                        {% if leftDays == 1 %}
+                            {% set diftmp = "Hace 1 día" %}
+                        {% endif %}
+                        {% if leftDays > 1 %}
+                            {% set diftmp = "Hace " ~ leftDays ~ " días" %}
+                        {% endif %}
+                        {% if leftDays == 0 %}
+                            {% set nowH = "now"|date("H")|number_format %}
+                            {% set nowI = "now"|date("i")|number_format %}
+                            {% set actH = actividad.F_FECHA_CREACION|date("H")|number_format %}
+                            {% set actI = actividad.F_FECHA_CREACION|date("i")|number_format %}
+                            {% if nowH == actH %}
+                                {% set difH = 0 %}
+                                {% else %}
+                                {% set difH = nowH - actH %}
+                            {% endif %}
+                            {% if nowI == actI %}
+                                {% set difI = 0 %}
+                                {% else %}
+                                {% set difI = nowI - actI %}
+                            {% endif %}
+                            {% if difI < 0 %}
+                                {% set difH = difH - 1 %}
+                                {% set nowI = nowI + 60 %}
+                                {% set difI = nowI - actI %}
+                            {% endif %}
+                            {% if difH > 0 and difI > 0 %}
+                                {% set diftmp = "Hace " ~ difH ~ " horas con " ~ difI ~ " minutos" %}
+                            {% endif %}
+                            {% if difH > 0 and difI == 0 %}
+                                {% set diftmp = "Hace " ~ difH ~ " horas" %}
+                            {% endif %}
+                            {% if difH == 0 and difI > 0 %}
+                                {% set diftmp = "Hace " ~ difI ~ " minutos" %}
+                            {% endif %}
+                            {% if difH == 0 and difI == 0 %}
+                                {% set diftmp = "Ahora" %}
+                            {% endif %}
+                        {% endif %}
+                        <div class="sl-item">
+                            <div class="sl-left">
+                                <div class="sl-mes">
+                                    {{mes}}</div>
+                                <div class="sl-dia">
+                                    {{actividad.F_FECHA_CREACION|date("d")}}</div>
+                            </div>
+                            <div class="sl-right">
+                                <div class="m-l-40">
+                                    <div class="m-t-20 row">
+                                    <a href="{{base_url()}}/agendacultural/{{actividad.N_ID_CONTENIDO}}" class="text-info">
+                                        {{actividad.C_TITULO}}</a>
+                                    <span class="sl-date">
+                                        {#<i class="fa fa-clock-o"></i>
+                                        {{diftmp|raw}}</span>#}
+                                    <div class="m-t-20 row">
+                                      {#{{actividad.C_RESUMEN|raw|striptags|length > 75 ? actividad.C_RESUMEN|striptags|slice(0, 75) ~ '...' : actividad.C_RESUMEN|striptags}} &nbsp;
+                                      {# <a href="{{base_url()}}/agendacultural/{{actividad.N_ID_CONTENIDO}}"><font color="red">Leer m&aacute;s</font></a> #}
+                                    </div>
+                                </div>
+                                {% if (actividad.C_RUTA == "" or actividad.C_RUTA == null) and (actividad.C_NOMBRE_FILE == "" or actividad.C_NOMBRE_FILE == null) %}
+                                  <div class="__image">
+                                  </div>
+                                {% else %}
+                                  <div class="grid-item web-design branding content-marketing">
+                                    <div class="block-portfolio overlay-container basic"><img src="{{actividad.C_RUTA}}{{actividad.C_NOMBRE_FILE}}" alt="{{actividad.C_TITULO}}" class="__image"/>
+                                      <div class="overlay bgc-dark-o-7">
+                                        <div class="cell-vertical-wrapper">
+                                          <div class="cell-middle">
+                                            <div class=" col-lg-3 col-md-3 col-sm-6 col-xs-12"></div>
+                                            <div class=" col-lg-6 col-md-3 col-sm-6 col-xs-12">
+                                              <a href="{{base_url()}}/agendacultural/{{actividad.N_ID_CONTENIDO}}" class="fullwidth btn-border btn-light">Leer m&aacute;s</a>
+                                            </div>
+                                            <div class=" col-lg-3 col-md-3 col-sm-6 col-xs-12"></div>
+                                          </div>                                          
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            </div>
+            </div>
+            
+    </div>
+</div>
+</div>
+</div>
+<div class="clearfix"></div>
+
+<div class="row bloque">
+        <h3 class="titulo-home">NOVEDADES</h3>
+        <div class="bloque-blanco">
+            <div class="__item pt-35 pb-35 pl-40 pr-40" >
+                <div class="list-group panel">
+                    <ol class="style-2 list-primary">
+                        {% for novedad in novedades["data"] %}
+                            <li>
+                                <a href="{{ novedad.C_URL|e }}">
+                                    {{ novedad.C_NOMBRE|e }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ol>
+                </div>
+                <div class="image-slider">
+                  <div class="slider slide direction-nav control-nav">
+                    <div class="__item">
+                      <div class="__image"><img src="assets/images/image-slider/agenda-cultural-2019.png" alt="portfolio image"/></div>
+                    </div>
+                    <div class="__item">
+                      <div class="__image"><img src="assets/images/image-slider/asamblea-metropolitana.png" alt="portfolio image"/></div>
+                    </div>
+                    <div class="__item">
+                      <div class="__image"><img src="assets/images/image-slider/sugerencia-plan-maestro-2019.png" alt="portfolio image"/></div>
+                    </div>
+
+                    <div class="__item">
+                      <div class="__image"><img src="assets/images/image-slider/convenio-panamericanos.png" alt="portfolio image"/></div>
+                    </div>
+
+                  </div>
+                </div>
+
+
+                <div class="image-slider">
+                  <div class="slider slide direction-nav control-nav">
+
+                    <div class="__item">
+                      <div class="__image"><img src="assets/images/image-slider/logo-visor-web gde.png" alt="portfolio image"/></div>
+                    </div>
+
+                    <div class="__item">
+                      <div class="__image"><img src="assets/images/image-slider/mml-normas-emitidas.png" alt="portfolio image"/></div>
+                    </div>
+                    <div class="__item">
+                      <div class="__image"><img src="assets/images/image-slider/presupuesto-participativo-2020.png" alt="portfolio image"/></div>
+                    </div>
+                    <div class="__item">
+                      <div class="__image"><img src="assets/images/image-slider/plan-maestro-centro-historico.png" alt="portfolio image"/></div>
+                    </div>
+                    <div class="__item">
+                      <div class="__image"><img src="assets/images/image-slider/paga-tus-tributos-sat.png" alt="portfolio image"/></div>
+                    </div>
+
+                  </div>
+                </div>
+
+
+            </div>
+
+
+            
+
+
+        </div>
+</div>
+</div>
+
+           <!-- <div class="col-lg-4 col-xs-12 section-block">
+              <div id="tabs-3" data-active='3' class="tabs right">
+                <div class="tabs-nav">
+                  <ul>
+                    <li><a href="#tabs-3-item-0" class="fz-6-s font-heading">TWEETS</a></li>
+                    <li><a href="#tabs-3-item-1" class="fz-6-s font-heading">FACEBOOK</a></li>
+                  </ul>
+                </div>
+                <div class="tabs-content">
+                  <div id="tabs-3-item-0" class="__item">
+                  <div class="row"><div class="col-sm-12"><a class="twitter-timeline" href="https://twitter.com/MuniLima" data-tweet-limit="2" data-aria-polite="assertive" height="100" lang="ES">Tweets por el @MuniLima.</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div></div>
+         
+                  </div>
+
+                  <div id="tabs-3-item-1" class="__item">
+                  <div class="row"><div class="col-sm-12">
+    <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FMuniLima%2F&tabs=timeline&width=478&height=475&small_header=false&adapt_container_width=false&hide_cover=false&show_facepile=false&appId=1739117239674604" width="100%" height="475" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+                  </div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>-->
+         <!-- <div class="col-lg-4 col-xs-12 section-block">
+              <div id="tabs-3" data-active='3' class="tabs right">
+                <div class="tabs-nav">
+                  <ul>
+                    <li><a href="#tabs-3-item-0" class="fz-6-s font-heading">AGENDA CULTURAL</a></li>
+                    <li><a href="#tabs-3-item-1" class="fz-6-s font-heading">FACEBOOK</a></li>
+                  </ul>
+                </div>
+                <div class="tabs-content">
+                  <div id="tabs-3-item-0" class="__item">
+                  <div class="row"><div class="col-sm-12"><a class="twitter-timeline" href="https://twitter.com/MuniLima" data-tweet-limit="2" data-aria-polite="assertive" height="100" lang="ES">Tweets por el @MuniLima.</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div></div>
+         
+                  </div>
+
+                  <div id="tabs-3-item-1" class="__item">
+                  <div class="row"><div class="col-sm-12">
+    <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FMuniLima%2F&tabs=timeline&width=478&height=475&small_header=false&adapt_container_width=false&hide_cover=false&show_facepile=false&appId=1739117239674604" width="100%" height="475" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+
+
+                  </div></div>
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>-->
+
+
+        </section>
+
+<section class="page-section">
+          <div class="container section-block-p">
+            <div data-item-width='400' class="slider slide direction-nav outer-direction arrow-gray swipe-to-slide ">
+              <div data-wow-delay="0.2s" class="block-icon-box wow fadeInUp">
+                <a href="http://www.cajametropolitana.com.pe/principal" target="_blank">
+                  <img class="img-responsive" src="{{base_url()}}/images/logo/caja-metropolitana-mml.png"/>
+                </a>
+              </div>
+              <div data-wow-delay="0.2s" class="block-icon-box wow fadeInUp">
+                <a href="https://www.facebook.com/CICLOLIMA.munlima/" target="_blank">
+                  <img class="img-responsive" src="{{base_url()}}/images/logo/ciclovia-mml.png"/>
+                </a>
+              </div>
+              <div data-wow-delay="0.2s" class="block-icon-box wow fadeInUp">
+                <a href="http://www.apcvperu.gob.pe/index.php/apcv/que-es-la-costa-verde" target="_blank">
+                  <img class="img-responsive" src="{{base_url()}}/images/logo/costa-verde-mml.png"/>
+                </a>
+              </div>
+              <div data-wow-delay="0.2s" class="block-icon-box wow fadeInUp">
+                <a href="http://www.emape.gob.pe/" target="_blank">
+                  <img class="img-responsive" src="{{base_url()}}/images/logo/emape-mml.png"/>
+                </a>
+              </div>
+              <div data-wow-delay="0.2s" class="block-icon-box wow fadeInUp">
+                <a href="http://emilima.com.pe/" target="_blank">
+                  <img class="img-responsive" src="{{base_url()}}/images/logo/emilima-mml.png"/>
+                </a>
+              </div>
+              <div data-wow-delay="0.2s" class="block-icon-box wow fadeInUp">
+                <a href="http://www.emmsa.com.pe/" target="_blank">
+                  <img class="img-responsive" src="{{base_url()}}/images/logo/emmsa-mml.png"/>
+                </a>
+              </div>
+              <div data-wow-delay="0.2s" class="block-icon-box wow fadeInUp">
+                <a href="http://www.gtu.munlima.gob.pe/" target="_blank">
+                  <img class="img-responsive" src="{{base_url()}}/images/logo/GTU.png"/>
+                </a>
+              </div>
+              <div data-wow-delay="0.2s" class="block-icon-box wow fadeInUp">
+                <a href="http://www.icl.gob.pe/" target="_blank">
+                  <img class="img-responsive" src="{{base_url()}}/images/logo/icl-mml.png"/>
+                </a>
+              </div>
+              <div data-wow-delay="0.2s" class="block-icon-box wow fadeInUp">
+                <a href="http://www.invermet.gob.pe/" target="_blank">
+                  <img class="img-responsive" src="{{base_url()}}/images/logo/invermet-mml.png"/>
+                </a>
+              </div>
+              <div data-wow-delay="0.2s" class="block-icon-box wow fadeInUp">
+                <a href="http://www.circuitomagicodelagua.com.pe/" target="_blank">
+                  <img class="img-responsive" src="{{base_url()}}/images/logo/Logo-CMA-para-web-MML.png"/>
+                </a>
+              </div>
+              <div data-wow-delay="0.2s" class="block-icon-box wow fadeInUp">
+                <a href="http://www.metropolitano.com.pe/" target="_blank">
+                  <img class="img-responsive" src="{{base_url()}}/images/logo/metrpolitano-mml.png"/>
+                </a>
+              </div>
+              <div data-wow-delay="0.2s" class="block-icon-box wow fadeInUp">
+                <a href="http://www.metropolitano.com.pe/" target="_blank">
+                  <img class="img-responsive" src="{{base_url()}}/images/logo/parque-leyendas-mml.png"/>
+                </a>
+              </div>
+              <div data-wow-delay="0.2s" class="block-icon-box wow fadeInUp">
+                <a href="http://www.metropolitano.com.pe/" target="_blank">
+                  <img class="img-responsive" src="{{base_url()}}/images/logo/PGRLM.png"/>
+                </a>
+              </div>
+              <div data-wow-delay="0.2s" class="block-icon-box wow fadeInUp">
+                <a href="http://www.metropolitano.com.pe/" target="_blank">
+                  <img class="img-responsive" src="{{base_url()}}/images/logo/provilla-mml.png"/>
+                </a>
+              </div>
+              <div data-wow-delay="0.2s" class="block-icon-box wow fadeInUp">
+                <a href="http://www.metropolitano.com.pe/" target="_blank">
+                  <img class="img-responsive" src="{{base_url()}}/images/logo/sat-mml.png"/>
+                </a>
+              </div>
+              <div data-wow-delay="0.2s" class="block-icon-box wow fadeInUp">
+                <a href="http://www.metropolitano.com.pe/" target="_blank">
+                  <img class="img-responsive" src="{{base_url()}}/images/logo/serpar-mml.png"/>
+                </a>
+              </div>
+              <div data-wow-delay="0.2s" class="block-icon-box wow fadeInUp">
+                <a href="http://www.metropolitano.com.pe/" target="_blank">
+                  <img class="img-responsive" src="{{base_url()}}/images/logo/sisol-mml.png"/>
+                </a>
+              </div>
+              <div data-wow-delay="0.2s" class="block-icon-box wow fadeInUp">
+                <a href="http://www.metropolitano.com.pe/" target="_blank">
+                  <img class="img-responsive" src="{{base_url()}}/images/logo/visita-lima-mml.jpg"/>
+                </a>
+              </div>
+              
+            </div>
+          </div>
+        </section>
+
+      </div>
+      <!--End Page Body-->
+ {% endblock %}
+<!--Page Footer-->
+      <footer id="footer" class="page-footer footer-preset-1">
+      <!--  <div class="footer-body parallax-wrapper">
+          <div data-parallax="scroll" data-position="top" data-image-src="{{base_url()}}/assets/images/background/background-41.jpg" data-speed="0.3" ></div>
+
+          <div class="footer-widget-logo text-center bgc-dark-o-6"><a href="index.html" class="megatron logo-light size-2 wow fadeInUp">
+              <div class="logo">
+              <img src="{{base_url()}}/images/logo.png"/>
+              </div>
+             </a>
+            <p data-wow-delay="0.4s" class="fz-6-s font-heading wow fadeInUp">CENTRAL &nbsp;<i class="color-primary fa fa-phone"></i><span class="color-primary">6321300</span></p>
+          </div>
+        </div>-->
+        <div class="footer-foot-4 bgc-gray-base">
+          <div class="container">
+            <div class="row">
+              &nbsp;
+            </div>
+           
+            <div class="row">
+              <div class="col-md-2">
+                 <ul class="social circle social-pie">
+                  <li><a href="#"><i class="icon icon-facebook-1"></i></a></li>
+                  <li><a href="#"><i class="icon icon-twitter-1"></i></a></li>
+                  <li><a href="#"><i class="icon icon-flickr"></i></a></li>
+                  <li><a href="#"><i class="icon icon-linkedin-1"></i></a></li>
+                </ul>
+              </div>
+            <div class="col-md-7">
+              <div class="col-md-3">
+                <a href="http://www.bolsalaboral.munlima.gob.pe/" target="_blank">
+                  <img src="{{base_url()}}/images/portal_anterior/home-bolsa-laboral.png" alt="home-bolsa-laboral.png" width="75" height="62">
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="https://correomml.munlima.gob.pe/owa/" target="_blank">
+                  <img src="{{base_url()}}/images/portal_anterior/home-correo.png" alt="home-correo.png" width="53" height="62">
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="{{base_url()}}/libroreclamaciones/11124" target="_blank">
+                  <img src="{{base_url()}}/images/portal_anterior/home-libro-reclamaciones.png" alt="home-libro-reclamaciones.png" width="100" height="50">
+                </a>
+              </div>
+              <div class="col-md-3">
+                <a href="http://www.munlima.gob.pe/images/descargas/informa-mml/PLIEGO-INTERP--RESPUESTAS.pdf" target="_blank">
+                <img src="{{base_url()}}/images/portal_anterior/home-informa.png" alt="home-informa.png" width="53" height="62">
+              </a>
+              </div>
+            </div>
+
+              <div class="col-md-3 alerta-central">
+                <h3>Central:</h3>
+                <p> 632- 1300</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-foot-4 bgc-gray-base bgc-secondary-base">
+        </div> 
+      </footer>
+      <div class="pull-right detalle-right logo-pie"></div>
+      <!--End Page Footer-->
+
+    </div>
+    <!--End Page content-->
+    <!--Javascript Library-->
+    <button id="back-to-top-btn"><i class="icon-up-open-big"></i></button>
+
+
+      <!-- Page Scripts Starts -->
+        <script src="{{ base_url() }}/js/jquery.min.js"></script>
+        <script src="{{ base_url() }}/js/bootstrap.min.js"></script>
+        <script src="{{ base_url() }}/js/jquery.flexslider.js"></script>
+        <script src="{{ base_url() }}/js/owl.carousel.min.js"></script>
+        <script src="{{ base_url() }}/js/custom-navigation.js"></script>
+        <script src="{{ base_url() }}/js/custom-owl.js"></script>
+        <!-- Page Scripts Ends -->
+            <!-- Sweet-Alert  -->
+    <script src="{{ base_url() }}/plugins/bower_components/sweetalert/sweetalert.min.js"></script>
+    <script src="{{ base_url() }}/plugins/bower_components/sweetalert/jquery.sweet-alert.custom.js"></script>
+
+
+    <script src="{{base_url()}}/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="{{base_url()}}/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="{{base_url()}}/vendors/waypoints/lib/jquery.waypoints.min.js"></script>
+    <script src="{{base_url()}}/vendors/waypoints/lib/shortcuts/sticky.min.js"></script>
+    <script src="{{base_url()}}/vendors/smoothscroll/SmoothScroll.js"></script>
+    <script src="{{base_url()}}/vendors/wow/dist/wow.min.js"></script>
+    <script src="{{base_url()}}/vendors/parallax.js/parallax.js"></script>
+    <script type="text/javascript" src="{{base_url()}}/vendors/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="{{base_url()}}/vendors/jquery-countTo/jquery.countTo.js"></script>
+    <script type="text/javascript" src="{{base_url()}}/vendors/slick-carousel/slick/slick.js"></script>
+    <script type="text/javascript" src="{{base_url()}}/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <script type="text/javascript" src="{{base_url()}}/vendors/Chart.js/Chart.min.js"></script>
+    <script type="text/javascript" src="{{base_url()}}/vendors/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript" src="{{base_url()}}/vendors/jquery-modal/jquery.modal.min.js"></script>
+    <script type="text/javascript" src="{{base_url()}}/assets/js/main.js"></script>
+    
+    {# SCRIPT DEL ACORDION Bootstrap #}
+    <script type="text/javascript" src="{{base_url()}}/js/mml/acordion.js"></script>
+    <!-- Google analytics-->
+     <!--End Javascript Library-->
+  </body>
+
+<!-- Mirrored from demo.osthemes.biz/megatron/homepage-agency-3.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Apr 2018 15:20:56 GMT -->
+</html>

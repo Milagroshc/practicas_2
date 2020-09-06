@@ -1,0 +1,124 @@
+{% extends 'emmsa/plantilla-interna.twig' %}
+
+{% block estiloAPP %}
+
+    <link href="{{ base_url() }}/plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{ base_url() }}/css/componentes/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Date picker plugins css -->
+    <link href="{{base_url()}}/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+    <!-- Daterange picker plugins css -->
+    <link href="{{base_url()}}/plugins/bower_components/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+    <link href="{{base_url()}}/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascriptAPP %}
+    <script src="{{ base_url() }}/plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
+    <!-- start - This is for export functionality only -->
+    <script src="{{ base_url() }}/js/componentes/dataTables.buttons.min.js"></script>
+    <script src="{{ base_url() }}/js/componentes/buttons.flash.min.js"></script>
+    <script src="{{ base_url() }}/js/componentes/jszip.min.js"></script>
+    <script src="{{ base_url() }}/js/componentes/pdfmake.min.js"></script>
+    <script src="{{ base_url() }}/js/componentes/vfs_fonts.js"></script>
+    <script src="{{ base_url() }}/js/componentes/buttons.html5.min.js"></script>
+    <script src="{{ base_url() }}/js/componentes/buttons.print.min.js"></script>
+
+
+
+	<script src="{{ base_url() }}/plugins/bower_components/highcharts/highcharts.js"></script>
+	<script src="{{ base_url() }}/plugins/bower_components/highcharts/modules/series-label.js"></script>
+	<script src="{{ base_url() }}/plugins/bower_components/highcharts/modules/exporting.js"></script>
+	<script src="{{ base_url() }}/plugins/bower_components/highcharts/modules/export-data.js"></script>
+<script src="{{ base_url() }}/smia/js/jquery.parseparams.js"></script>
+ <!-- Date range Plugin JavaScript -->
+    <script src="{{base_url()}}/plugins/bower_components/timepicker/bootstrap-timepicker.min.js"></script>
+    <script src="{{base_url()}}/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="{{base_url()}}/emmsa/js/estadistica/historico-volumen.js"></script>
+{% endblock %}
+
+{% block seccionContenido %}
+<div class="col-md-12 col-sm-12 m-b-50 product-detail">
+<section class="page-section bgc-light">
+          <div class="container">
+            <div class="row group-contact-left-header">
+              <div class="col-md-12 col-xs-12">
+
+                <form id="form_precio">
+                  <div class="row">
+                  <div class="col-md-6">
+                                  <header class="hr-header">
+                  <h2 class="smb"> SERIE HISTÓRICA POR  VOLUMEN DE LOS PRINCIPALES PRODUCTOS </h2>
+                  <p class="common-serif __caption">Usted podrá consultar la variación de los precios de todos nuestros productos diariamente.</p>
+                  <div class="separator-2-color"></div>
+                </header>
+                  </div>
+                    <div class="form-group col-md-3">
+										<label for="indicador">Seleccione el año</label>
+										<select class="form-control simple" id="anio" name="anio">
+											{% for anio in anios.data %}
+												<option value="{{anio.annio}}">{{anio.annio}}</option>
+											{% endfor %}
+										</select>
+									</div>
+                    <div class="col-md-3 form-group text-center-md-max">
+                    	<label for="indicador">&nbsp;</label><br/>
+                      <button type="button" class="btn btn-size-1 btn-primary" id="graficarHistorico">Ver reporte</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="col-md-12 col-xs-12">
+              <div id="container" style="min-width: 310px; max-width: 1000px; height: 800px; max-height: 1000px; margin: 0 auto"></div>
+              <div class="reporte-tabla">
+
+                <table id="example" class="table-primary">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Enero</th>
+                <th>Febrero</th>
+                <th>Marzo</th>
+                <th>Abril</th>
+                <th>Mayo</th>
+                <th>Junio</th>
+                <th>Julio</th>
+                <th>Agosto</th>
+                <th>Setiembre</th>
+                <th>Octubre</th>
+                <th>Noviembre</th>
+                <th>Diciembre</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Producto</th>
+                <th>Enero</th>
+                <th>Febrero</th>
+                <th>Marzo</th>
+                <th>Abril</th>
+                <th>Mayo</th>
+                <th>Junio</th>
+                <th>Julio</th>
+                <th>Agosto</th>
+                <th>Setiembre</th>
+                <th>Octubre</th>
+                <th>Noviembre</th>
+                <th>Diciembre</th>
+            </tr>
+        </tfoot>
+    </table>
+    </div>
+              </div>
+            </div>
+          </div>
+        </section>
+</div>
+{% endblock %}
+
+{% block pie %}
+    {% for plantilla in plantillas.data %}
+        {% if plantilla.tipo == "pie" %}
+            {% include plantilla.archivo_portal_web %}
+        {% endif %}
+    {% endfor %}
+{% endblock %}

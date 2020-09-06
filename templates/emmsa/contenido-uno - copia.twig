@@ -1,0 +1,242 @@
+{% extends 'emmsa/plantilla-interna.twig' %}
+
+{% block seccionContenido %}
+<div class="col-md-9 col-sm-12 m-b-50 product-detail">
+{{contenido["data"].contenido|convert_encoding('UTF-8', 'UTF-8')|raw}}
+</div>
+{% endblock %}
+
+{% block seccionOpciones %}   
+   <div class="col-md-3 col-sm-12 m-b-50">
+                            <div class="sidebar sidebar-collection" >
+                                <!-- Categories -->
+                                <div class="sidebar-block">
+                                    <div class="sub-title">
+                                        <h4>{{contenido['data'].titulo}}</h4>
+                                    </div>
+
+                                    <div class="block-content">
+                                       
+                                       
+                                        {% set menues = menus.data %}
+{% import _self as forms %}
+  {% set urlNodo = "" %}
+<div class="sidebar" id="sidebar">
+    {{ forms.menuMacro(menus.data, 0, urlNodo) }}
+</div>
+
+{% macro menuMacro(menues, level, urlNodo) %}
+
+
+  {# Set our default level as an integer. #}
+  {% set default_level = 1 %}
+  {% if urlNodo is not empty %}
+  <ul class="list-unstyled collapse" id="{{urlNodo}}">
+  {% else %}
+  <ul class="list-unstyled components">
+  {% endif %}
+    {% set nodo = 0 %}
+    {% for menu_item in menues %}
+      {# Check if this is the active item. #}
+      {% set active = (true) ? ' is-active' : '' %}
+
+      {# Check if this item is in the active trail. #}
+      {% set active = active ~ ((true) ? ' is-active-trail' : '') %}
+
+
+      <li>
+        {% if menu_item.hijos_menus %}
+            <a href="#{{ menu_item.url }}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed" >{{ menu_item.titulo }}</a>
+            {# Since this menu item has a submenu, recall function and increment counter. #}
+          {{ _self.menuMacro(menu_item.hijos_menus, level|default(default_level) + 1, menu_item.url) }}
+        {% set nodo = nodo + 1 %}
+        {% else %}
+            <a href="{{ menu_item.url }}"> {{ menu_item.titulo }}</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+
+
+{% endmacro %}
+
+
+                                
+
+
+                                    </div>
+                                </div>
+
+                                <!-- Latest Posts -->
+                                <div class="sidebar-block blogs-recent">
+                                    <div class="sub-title">
+                                        <h4>Latest Posts</h4>
+                                    </div>
+
+                                    <div class="recent-article">
+                                        <div class="ra-item-inner">
+                                            <div class="article-item clearfix d-flex">
+                                                <div class="article-image">
+                                                    <a href="blog-detail.html">
+                                                        <img class="img-fluid" src="{{base_url()}}/emmsa/img/blog/blog8.png" alt="">
+                                                    </a>
+                                                </div>
+
+                                                <div class="articleinfo-group">
+                                                    <div class="blog-title-group">
+                                                        <a class="blog-title" href="blog-category-grid-sidebar.html">
+                                                            Lifestyle
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="article-title">
+                                                        <h2 class="article-name">
+                                                            <a href="blog-detail.html">The world’s oldest skyscrapers?
+                                                            </a>
+                                                        </h2>
+                                                    </div>
+
+                                                    <ul class="article-info list-inline">
+                                                        <li class="article-date">Apr 18, 2018</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div class="article-item clearfix d-flex">
+                                                <div class="article-image">
+                                                    <a href="blog-detail.html">
+                                                        <img class="img-fluid" src="{{base_url()}}/emmsa/img/blog/blog3.png" alt="">
+                                                    </a>
+                                                </div>
+
+                                                <div class="articleinfo-group">
+                                                    <div class="blog-title-group">
+                                                        <a class="blog-title" href="blog-category-grid-sidebar.html">
+                                                            Photography
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="article-title">
+                                                        <h2 class="article-name">
+                                                            <a href="blog-detail.html">Will outdoor offices take off?</a>
+                                                        </h2>
+                                                    </div>
+
+                                                    <ul class="article-info list-inline">
+                                                        <li class="article-date">Apr 18, 2018</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div class="article-item clearfix d-flex">
+                                                <div class="article-image">
+                                                    <a href="blog-detail.html">
+                                                        <img class="img-fluid" src="{{base_url()}}/emmsa/img/blog/blog5.png" alt="">
+                                                    </a>
+                                                </div>
+
+                                                <div class="articleinfo-group">
+                                                    <div class="blog-title-group">
+                                                        <a class="blog-title" href="blog-category-grid-sidebar.html">
+                                                            Lifestyle
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="article-title">
+                                                        <h2 class="article-name">
+                                                            <a href="blog-detail.html">The weird sheep that baffled scientists</a>
+                                                        </h2>
+                                                    </div>
+
+                                                    <ul class="article-info list-inline">
+                                                        <li class="article-date">Apr 18, 2018</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div class="article-item clearfix d-flex">
+                                                <div class="article-image">
+                                                    <a href="blog-detail.html">
+                                                        <img class="img-fluid" src="{{base_url()}}/emmsa/img/blog/blog9.png" alt="">
+                                                    </a>
+                                                </div>
+
+                                                <div class="articleinfo-group">
+                                                    <div class="blog-title-group">
+                                                        <a class="blog-title" href="blog-category-grid-sidebar.html">
+                                                            Lifestyle
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="article-title">
+                                                        <h2 class="article-name">
+                                                            <a href="blog-detail.html">How army rations helped change food</a>
+                                                        </h2>
+                                                    </div>
+
+                                                    <ul class="article-info list-inline">
+                                                        <li class="article-date">Apr 18, 2018</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Latest Tweets -->
+                                <div class="widget-twitter">
+                                    <div class="sub-title">
+                                        <h4>Latest Tweets</h4>
+                                    </div>
+
+                                    <div class="widget-twitter-wrapper">
+                                        <div class="widget-twitter-item">
+                                            <div class="twitter-content">
+                                                Did you know an
+                                                <a href="#">@envatoelements </a> subscription now gets you access to 1000+
+                                                <a href="#">@tutsplus</a> courses? Learn more at
+                                                <a href="#">@envatoelements</a>
+                                            </div>
+                                            <div class="twitter-meta">
+                                                <i class="fa fa-twitter"></i>
+                                                <div class="twitter-date">
+                                                    <span>Tweeted on </span>2:21 AM Jul 26 </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="widget-twitter-item">
+                                            <div class="twitter-content">
+                                                Did you know an
+                                                <a href="#">@envatoelements </a> subscription now gets you access to 1000+
+                                                <a href="#">@tutsplus</a> courses? Learn more at
+                                                <a href="#">@envatoelements</a>
+                                            </div>
+                                            <div class="twitter-meta">
+                                                <i class="fa fa-twitter"></i>
+                                                <div class="twitter-date">
+                                                    <span>Tweeted on </span>2:21 AM Jul 26 </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="widget-twitter-item">
+                                            <div class="twitter-content">
+                                                Did you know an
+                                                <a href="#">@envatoelements </a> subscription now gets you access to 1000+
+                                                <a href="#">@tutsplus</a> courses? Learn more at
+                                                <a href="#">@envatoelements</a>
+                                            </div>
+                                            <div class="twitter-meta">
+                                                <i class="fa fa-twitter"></i>
+                                                <div class="twitter-date">
+                                                    <span>Tweeted on </span>10:00 AM Jun 21 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         
+{% endblock %}
+
+

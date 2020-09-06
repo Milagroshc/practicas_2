@@ -1,0 +1,79 @@
+{% extends 'cms/plantilla.twig' %}
+
+{% block javascriptAPP %}
+	<script src="{{ base_url() }}/js/aplicativo/admin.js"></script>
+	<script src="{{ base_url() }}/js/aplicativo/funciones_general.js"></script>
+	<script src="{{ base_url() }}/js/aplicativo/inicio.js"></script>
+
+	<script language="javascript"> 
+		window.onload = function() {
+			var tmp = '{{session.primera_conexion}}';
+			var url = '{{constantes.DOMAINSITE}}';
+			CapturarVariable(url);
+			if (tmp == '1') {
+				$('#mPrimeraConexion').modal({backdrop: 'static', keyboard: false});
+				$('#mPrimeraConexion').modal('show');
+			}
+			var btnMenu = '{{session.MenuColap}}';
+			if (btnMenu == true) {
+				$('#idBtncolapseMenu').click();
+			}
+		};
+	</script>
+{% endblock %}
+
+
+{% block contenido %}
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="white-box">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-info">
+							<div class="panel-heading">{{ saludo }}</div>
+							<div class="panel-wrapper collapse in" aria-expanded="true">
+								<div class="panel-body"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- MODAL EDITAR PASSWORD POR PRIMERA VEZ -->
+	<div class="modal fade" id="mPrimeraConexion"  role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="tituloEvento">PRIMERA CONEXION: CAMBIAR PASSWORD</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-2"></div>
+						<div class="col-md-8">
+							<div class="form-group">
+								<label class="control-label">Password</label>
+								<input type="password" name="primera_conexion_password" id="primera_conexion_password" class="form-control" placeholder="Escribe una contraseña..." onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="col-md-2"></div>
+					</div>
+					<div class="row">
+						<div class="col-md-2"></div>
+						<div class="col-md-8">
+							<div class="form-group">
+								<label class="control-label">Repita Password</label>
+								<input type="password" name="primera_conexion_repite_password" id="primera_conexion_repite_password" class="form-control" placeholder="Repite la contraseña..." onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="col-md-2"></div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" id="btnGuardarPrimeraConexion">Guardar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

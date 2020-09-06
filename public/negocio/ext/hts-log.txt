@@ -1,0 +1,20 @@
+HTTrack3.49-2+htsswf+htsjava launched on Thu, 23 Apr 2020 12:04:21 at http://eliteadmin.themedesigner.in/demos/bt4/colors/index.html +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "es, en, *" http://eliteadmin.themedesigner.in/demos/bt4/colors/index.html -O1 "C:\Mis lugares Web\negocio" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+12:12:37	Error: 	"Not Found" (404) at link eliteadmin.themedesigner.in/demos/assets/images/users/1.jpg (from eliteadmin.themedesigner.in/demos/bt4/colors/ui-list-media.html)
+12:12:37	Error: 	"Not Found" (404) at link eliteadmin.themedesigner.in/demos/assets/images/users/2.jpg (from eliteadmin.themedesigner.in/demos/bt4/colors/ui-list-media.html)
+12:12:37	Error: 	"Not Found" (404) at link eliteadmin.themedesigner.in/demos/assets/images/users/3.jpg (from eliteadmin.themedesigner.in/demos/bt4/colors/ui-list-media.html)
+12:12:37	Error: 	"Not Found" (404) at link eliteadmin.themedesigner.in/demos/assets/images/users/4.jpg (from eliteadmin.themedesigner.in/demos/bt4/colors/ui-list-media.html)
+12:12:37	Error: 	"Not Found" (404) at link eliteadmin.themedesigner.in/demos/assets/images/big/img1.jpg (from eliteadmin.themedesigner.in/demos/bt4/colors/ui-list-media.html)
+12:12:42	Error: 	"Not Found" (404) at link eliteadmin.themedesigner.in/demos/bt4/colors/cropped.jpg (from eliteadmin.themedesigner.in/demos/bt4/colors/form-img-cropper.html)
+12:12:42	Error: 	"Not Found" (404) at link eliteadmin.themedesigner.in/demos/bt4/assets/node_modules/sweetalert/sweetalert.min.js (from eliteadmin.themedesigner.in/demos/bt4/colors/form-wizard.html)
+12:12:44	Error: 	"Not Found" (404) at link eliteadmin.themedesigner.in/demos/bt4/assets/node_modules/datatables/media/js/dataTables.bootstrap.js (from eliteadmin.themedesigner.in/demos/bt4/colors/table-editable-table.html)
+12:12:44	Error: 	"Not Found" (404) at link eliteadmin.themedesigner.in/demos/bt4/colors/www.youtube.com/watch?v=sK7riqg2mr4 (from eliteadmin.themedesigner.in/demos/bt4/colors/pages-lightbox-popup.html)
+
+HTTrack Website Copier/3.49-2 mirror complete in 8 minutes 50 seconds : 488 links scanned, 478 files written (23646254 bytes overall) [16725324 bytes received at 31557 bytes/sec], 10262828 bytes transferred using HTTP compression in 230 files, ratio 30%, 12.8 requests per connection
+(9 errors, 0 warnings, 0 messages)

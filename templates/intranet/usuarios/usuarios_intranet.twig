@@ -1,0 +1,406 @@
+{% extends 'plantilla.twig' %}
+
+{% block javascriptAPP %}
+	<script src="{{ base_url() }}/js/aplicativo/usuarios/usuarios.js"></script>
+	<script src="{{ base_url() }}/js/aplicativo/inicio.js"></script>
+	<script src="{{ base_url() }}/js/aplicativo/inicio-mapa.js"></script>
+	<script language="javascript">
+			ListarUsuarios(1);
+			CargarComboPersonas('#usuario_persona_nuevo');
+			CargarComboPersonas('#usuario_persona_editar');
+			//CargarComboUsuarios('#usuario_asignar_idusuario',1);
+			CargarComboRoles('#usuario_asignar_idrol');
+			$('#usuario_email_nuevo').blur(function(){
+				caracteresCorreoValido($(this).val());
+			});
+			$('#persona_email_editar').blur(function(){
+				caracteresCorreoValido($(this).val());
+			});
+	</script>
+{% endblock %}
+
+{% block contenido %}
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">{{titulo}}</div>
+				<!-- ************************************************************************************************************************************************************ -->
+				<!-- VISTA MANTENIMIENTO DE USUARIOS -->
+				<div class="panel-wrapper collapse in" aria-expanded="true">
+					<div class="panel-body">
+						<div id="load"></div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Correo</label>
+									<input class="form-control" type="text" name="usuario_email_buscar" id="usuario_email_buscar" onkeyup="javascript:this.value=this.value.toUpperCase();">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">Nombres</label>
+									<input type="text" name="usuario_nombres_buscar" id="usuario_nombres_buscar" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">Ape. Paterno</label>
+									<input type="text" name="usuario_apepat_buscar" id="usuario_apepat_buscar" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">Ape. Materno</label>
+									<input type="text" name="usuario_apemat_buscar" id="usuario_apemat_buscar" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">Estado</label>
+									<select class="form-control select2" id="usuario_estado_buscar" style="width: 100%">
+										<option value="">-- SELECCIONE --</option>
+										<option value="A">ACTIVO</option>
+										<option value="I">INACTIVO</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-1">
+								<div class="form-group">
+									<br>
+									<button type="button" id="btnBuscarUsuarios" class="btn btn-default" style="width: 100%"> <i class="fa fa-search"></i> Buscar</button>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="table-responsive">
+								<table id="tblusuarios" class="table toggle-circle table-hover table-MML" data-page-size="20">
+									<caption><button class="btn btn-primary btn-sm fa fa-plus" id="btnmNuevaPersona" data-toggle="modal" data-target="#mNuevaPersona" title="Crear Nuevo Usuario" onclick="LimpiarDatosNuevaPersona();">&nbsp;Nuevo Usuario</button></caption>
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th data-sort-ignore="true">CORREO</th>
+											<th data-sort-ignore="true">NOMBRES</th>
+											<th data-sort-ignore="true">APE. PATERNO</th>
+											<th data-sort-ignore="true">APE. MATERNO</th>
+											<th data-sort-ignore="true">ROLES</th>
+											<th data-sort-ignore="true">ESTADO</th>
+											<th data-sort-ignore="true">ACCIONES</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+								<div id="paginador_tbl1" style="text-align: center;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END VISTA MANTENIMIENTO DE USUARIOS -->
+			</div>
+		</div>
+	</div>
+
+<!-- ***************************************************************** MODALES DEL MANTENIMIENTO DE USUARIOS ******************************************************************* -->
+<!-- MODAL NUEVO USUARIO -->
+	<div class="modal fade" id="mNuevoUsuario" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">NUEVO USUARIO</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">Empleado</label>&nbsp;<button class="btn btn-primary btn-xs fa fa-plus" data-toggle="modal" data-target="#mNuevaPersona" title="Agregar Persona" onclick="LimpiarDatosNuevaPersona();">&nbsp;Nuevo</button>
+								<select class="form-control select2" name="usuario_persona_nuevo" id="usuario_persona_nuevo" style="width: 100%">
+									<option value="">-- SELECCIONE --</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label class="control-label">Fecha Nacimiento</label>
+								<div class="input-group">
+									<input name="persona_fechanac_nuevo" id="persona_fechanac_nuevo" type="text" class="form-control mydatepicker" placeholder="dd/mm/yyyy" onchange="CalcularEdad('#persona_fechanac_nuevo','#persona_edad_nuevo');" disabled="">
+									<span class="input-group-addon"><i class="icon-calender"></i></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group">
+								<label class="control-label">Edad</label>
+								<input type="text" name="persona_edad_nuevo" id="persona_edad_nuevo" class="form-control" disabled="">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="btnGuardarNuevoUsuario">Guardar</button>
+					<button type="button" class="btn btn-default" id="btn-cancelar-nuevo-usuario" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- MODAL PARA REGISTRAR UNA NUEVA PERSONA -->
+	<div class="modal fade" id="mNuevaPersona" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-xlg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">NUEVO USUARIO</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-3">
+							<div class="form-group">
+								<label class="control-label">Tipo Documento</label>
+								<select class="form-control select2" name="persona_tipodoc_nuevo" id="persona_tipodoc_nuevo" style="width: 100%">
+									<option value="" desc="SIN NUMERO DE DOCUMENTO">-- SELECCIONE --</option>
+								{% for tpdoc in tipodoc.data %}
+									{% if tpdoc.IDTABLA == '2' or tpdoc.IDTABLA == '3' %}
+									<option value="{{tpdoc.IDTABLA}}" desc="{{tpdoc.DESCRIPCION}}">{{tpdoc.NOMBRE}}</option>
+									{% endif %}
+								{% endfor %}
+								</select>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label class="control-label">N° Documento</label>
+								<input type="text" name="persona_numdoc_nuevo" id="persona_numdoc_nuevo" class="form-control" disabled="" onkeyup="BuscarCoincidencia();" onkeypress="return validarnu(event)" >
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">Correo</label>
+								<input class="form-control" type="text" id="usuario_email_nuevo" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Nombres</label>
+								<input type="text" name="persona_nombres_nuevo" id="persona_nombres_nuevo" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();" disabled="">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Ape. Paterno</label>
+								<input type="text" name="persona_apepat_nuevo" id="persona_apepat_nuevo" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();" disabled="">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Ape. Materno</label>
+								<input type="text" name="persona_apemat_nuevo" id="persona_apemat_nuevo" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();" disabled="">
+							</div>
+						</div>
+						
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="control-label">Unidad Orgánica</label>
+								<select class="form-control select2" name="usuario_unidadorganica_nuevo" id="usuario_unidadorganica_nuevo" style="width: 100%">
+									<option value="">-- SELECCIONE --</option>
+									{% for item in estructura_organica.data %}
+										<option value="{{item.IDUNIDADORGANICA}}" title="{{item.RUTA}}">{{item.NOMBRE}}</option>
+									{% endfor %}
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" id="btnGuardarNuevaPersona">Guardar</button>
+					<button type="button" class="btn btn-default" id="btn-cancelar-nueva-persona" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- MODAL EDITAR USUARIO -->
+	<div class="modal fade" id="mEditarUsuario" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">EDITAR USUARIO</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-3">
+							<div class="form-group">
+								<label class="control-label">Tipo Documento</label>
+								<select class="form-control select2" name="persona_tipodoc_editar" id="persona_tipodoc_editar" style="width: 100%" disabled="">
+									<option value="" desc="SIN NUMERO DE DOCUMENTO">-- SELECCIONE --</option>
+								{% for tpdoc in tipodoc.data %}
+									{% if tpdoc.IDTABLA == '2' or tpdoc.IDTABLA == '3' %}
+									<option value="{{tpdoc.IDTABLA}}" desc="{{tpdoc.DESCRIPCION}}">{{tpdoc.NOMBRE}}</option>
+									{% endif %}
+								{% endfor %}
+								</select>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<input type="text" id="id_usuario_editar" hidden="">
+								<input type="text" id="id_personal_editar" hidden="">
+								<input type="text" id="id_persona_editar" hidden="">
+								<input type="text" id="id_unidad_editar" hidden="">
+								<label class="control-label">N° Documento</label>
+								<input type="text" name="persona_numdoc_editar" id="persona_numdoc_editar" class="form-control" disabled="" onkeypress="return validarnu(event)" >
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">Correo</label>&nbsp;<button class="btn btn-primary btn-xs" title="Editar Correo" id="btnEditarCorreo">&nbsp;Editar Correo</button>
+								<input class="form-control" type="text" id="persona_email_editar" onkeyup="javascript:this.value=this.value.toUpperCase();" disabled="">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Nombres</label>
+								<input type="text" name="persona_nombres_editar" id="persona_nombres_editar" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();" >
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Ape. Paterno</label>
+								<input type="text" name="persona_apepat_editar" id="persona_apepat_editar" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();" >
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Ape. Materno</label>
+								<input type="text" name="persona_apemat_editar" id="persona_apemat_editar" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();" >
+							</div>
+						</div>	
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="control-label">Unidad Orgánica</label>
+								<select class="form-control select2" name="persona_unidadorganica_editar" id="persona_unidadorganica_editar" style="width: 100%">
+									<option value="">-- SELECCIONE --</option>
+									{% for item in estructura_organica.data %}
+										<option value="{{item.IDUNIDADORGANICA}}" title="{{item.RUTA}}">{{item.NOMBRE}}</option>
+									{% endfor %}
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="btnEditarUsuario">Guardar</button>
+					<button type="button" class="btn btn-default" id="btn-cancelar-editar-usuario" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- MODAL VER USUARIO - ROL -->
+	<div class="modal fade" id="mVerUsuarioRol" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">USUARIO - ROL</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<input type="text" id="id_usuario_rol" hidden="">
+						<div class="col-md-12">
+							<div class="col-md-5">
+								<label class="form-inline">Mostrar&nbsp;&nbsp;
+									<select id="entries_usuariorol" class="form-control input-sm">
+										<option value="5">5</option>
+										<option value="10">10</option>
+										<option value="15">15</option>
+										<option value="20">20</option>
+									</select>
+								&nbsp;&nbsp;registros </label>
+							</div>
+							<div class="col-md-6">
+								<button class="btn btn-primary btn-sm fa fa-plus" data-toggle="modal" data-target="#mAsignarRol" title="Asignar Rol" id="btnAsignarRol" onclick="MostrarUsuarioRol(); ">&nbsp;Asignar Rol</button>
+							</div>
+						</div>
+						<div class="table-responsive">
+							<table id="tblusuariorol" class="table toggle-circle table-hover table-MML" data-page-size="5">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th data-sort-ignore="true">USUARIO</th>
+										<th data-sort-ignore="true">ROL</th>
+										<th data-sort-ignore="true">ESTADO</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="4">
+											<div class="text-right">
+												<ul class="pagination pagination-split m-t-30"> </ul>
+											</div>
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="btn-cancelar-ver-usuario-rol" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- MODAL ASIGNAR ROL A UN USUARIO -->
+	<div class="modal fade" id="mAsignarRol" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">ASIGNAR ROL</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">Usuario</label>
+								<input type="text" id="id_usuario_asignar" hidden="">
+
+								<input type="text" class="form-control" id="mostrar_usuario_rol" style="width: 100%;">
+								<!--<select class="form-control select2" name="usuario_asignar_idusuario" id="usuario_asignar_idusuario" style="width: 100%;" disabled="">
+									<option value="">-- SELECCIONE --</option>
+								</select>-->
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">Rol</label></label>&nbsp;<button class="btn btn-primary btn-xs" title="Nuevo Rol" id="btnVerRoles">&nbsp;Adm. Rol</button>
+								<select class="form-control select2" name="usuario_asignar_idrol" id="usuario_asignar_idrol" style="width: 100%;">
+									<option value="">-- SELECCIONE --</option>
+								</select>
+							</div>
+						</div>						
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="btnGuardarAsignarRol">Guardar</button>
+					<button type="button" class="btn btn-default" id="btn-cancelar-asignar-rol" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

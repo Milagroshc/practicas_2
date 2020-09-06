@@ -1,0 +1,950 @@
+{% extends 'plantilla.twig' %}
+
+{% block javascriptAPP %}
+	<script src="{{ base_url() }}/js/aplicativo/usuarios/usuarios.js"></script>
+	<script src="{{ base_url() }}/js/aplicativo/inicio.js"></script>
+	<script src="{{ base_url() }}/js/aplicativo/inicio-mapa.js"></script>
+	<script>
+		$('#selec_vista').val("CD").trigger("change");
+	</script>
+{% endblock %}
+
+{% block contenido %}
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">PERSONAS &nbsp;
+					<select class="form-control select2" name="selec_vista" id="selec_vista" style="width: 15%;">
+						<option value="CD">CON USUARIO</option>
+						<option value="SU">SIN USUARIO</option>
+						<option value="EMP">EMPLEADOS</option>
+						<option value="NOEMP">NO EMPLEADOS</option>
+						<option value="TODOS">TODOS</option>
+					</select>
+				</div>
+				<!-- *********************************************************************************************************************** -->
+				<!-- VISTA PERSONAS - USUARIOS -->
+				<div class="panel-wrapper collapse in" aria-expanded="true" id="vista_centros_deportivos">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="control-label">Nombre</label>
+									<input type="text" name="nombre_buscador" id="nombre_buscador" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+								</div>
+							</div>							
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label">Dirección</label>
+									<input type="text" name="direccion_buscador" id="direccion_buscador" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">Distrito</label>
+									<select class="form-control select2" name="distrito_buscador" id="distrito_buscador">
+										<option value="">-- SELECCIONE --</option>
+									{% for dist in distritos.data %}
+										<option value="{{dist.IDDISTRITO}}">{{dist.NOMBRE}}</option>
+									{% endfor %}
+									</select>
+								</div>
+							</div>
+<!-- 							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">Tipo</label>
+									<select class="form-control select2" name="tipocentro_buscador" id="tipocentro_buscador" style="width: 100%;">
+										<option value="">-- SELECCIONE --</option>
+										<option value="CD">CD | Centro Deportivo</option>
+										<option value="PZ">PZ | Parque Zonal</option>
+										<option value="LO">LO | Local</option>
+										<option value="DG">DG | División Geográfica</option>
+									</select>
+								</div>
+							</div> -->
+							<div class="col-md-1">
+								<div class="form-group">
+									<br>
+									<button type="button" id="btnBuscarCentro" class="btn btn-default"> <i class="fa fa-search"></i> Buscar</button>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="col-md-2">
+									<label class="form-inline">Mostrar&nbsp;&nbsp;
+										<select id="entries_centros" class="form-control input-sm">
+											<option value="5">5</option>
+											<option value="10">10</option>
+											<option value="15">15</option>
+											<option value="20">20</option>
+										</select>
+									&nbsp;&nbsp;registros </label>
+								</div>
+								<div class="col-md-2">
+									<button class="btn btn-primary btn-sm fa fa-plus" data-toggle="modal" data-target="#mNuevoCentro" title="Crear Nuevo Centro" onclick="LimpiarDatosNuevoCentro();">&nbsp;Nuevo Centro</button>
+								</div>
+							</div>
+							<div class="table-responsive">
+								<table id="tblcentros" class="table toggle-circle table-hover table-MML" data-page-size="5">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th data-sort-ignore="true">NOMBRE</th>
+											<th data-sort-ignore="true">DIRECCIÓN</th>
+											<th data-sort-ignore="true">DISTRITO</th>
+											<!-- <th data-sort-ignore="true">TIPO CENTRO</th> -->
+											<th data-sort-ignore="true">ÁREA (m2)</th>
+											<th data-sort-ignore="true">MAPA</th>
+											<th data-sort-ignore="true">ESPACIOS</th>
+											<th data-sort-ignore="true">SERVICIOS</th>
+											<th data-sort-ignore="true">FOTO</th>
+											<th data-sort-ignore="true">EDITAR</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+									<tfoot>
+										<tr>
+											<td colspan="11">
+												<div class="text-right">
+													<ul class="pagination pagination-split m-t-30"> </ul>
+												</div>
+											</td>
+										</tr>
+									</tfoot>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END VISTA CENTROS DEPORTIVOS -->
+				<!-- ************************************************************************************************************************************************************ -->
+				<!-- VISTA CATALOGO DE SERVICIOS -->
+				<div class="panel-wrapper collapse in" aria-expanded="true" id="vista_catalogoservicios">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="control-label">Nombre</label>
+									<input type="text" name="catalogo_nombre_buscador" id="catalogo_nombre_buscador" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label class="control-label">Área</label>
+									<select class="form-control select2" name="catalogo_area_buscador" id="catalogo_area_buscador" style="width: 100%">
+										<option value="">-- SELECCIONE --</option>
+									{% for item in areas.data %}
+										<option value="{{item.IDAREASERVICIO}}">{{item.NOMBRE}}</option>
+									{% endfor %}
+									</select>
+								</div>
+							</div>
+							<div class="col-md-1">
+								<div class="form-group">
+									<br>
+									<button type="button" id="btnBuscarCatalogo" class="btn btn-default"> <i class="fa fa-search"></i> Buscar</button>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="col-md-2">
+									<label class="form-inline">Mostrar&nbsp;&nbsp;
+										<select id="entries_catalogo" class="form-control input-sm">
+											<option value="5">5</option>
+											<option value="10">10</option>
+											<option value="15">15</option>
+											<option value="20">20</option>
+										</select>
+									&nbsp;&nbsp;registros </label>
+								</div>
+								<div class="col-md-2">
+									<button class="btn btn-primary btn-sm fa fa-plus" data-toggle="modal" data-target="#mNuevoCatalogo" title="Crear Nuevo Catalogo" onclick="LimpiarDatosNuevoCatalogo();">&nbsp;Nuevo Catalogo</button>
+								</div>
+							</div>
+							<div class="table-responsive">
+								<table id="tblcatalogo" class="table toggle-circle table-hover table-MML" data-page-size="5">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th data-sort-ignore="true">NOMBRE</th>
+											<th data-sort-ignore="true">AREA DE SERVICIO</th>
+											<th data-sort-ignore="true">SERVICIOS</th>
+											<th data-sort-ignore="true">EDITAR</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+									<tfoot>
+										<tr>
+											<td colspan="5">
+												<div class="text-right">
+													<ul class="pagination pagination-split m-t-30"> </ul>
+												</div>
+											</td>
+										</tr>
+									</tfoot>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END VISTA CATALOGO DE SERVICIOS -->
+			</div>
+		</div>
+	</div>
+
+<!-- ***************************************************************** MODALES DE CENTROS DEPORTIVOS ********************************************************************** -->
+	<!-- MODAL NUEVO CENTRO -->
+	<div class="modal fade" id="mNuevoCentro" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">NUEVO CENTRO</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">Nombre</label>
+								<input type="text" name="nombre_nuevo" id="nombre_nuevo" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">Dirección</label>
+								<input type="text" name="direccion_nuevo" id="direccion_nuevo" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Área Total</label>
+								<input type="text" name="areatotal_nuevo" id="areatotal_nuevo" class="form-control" onkeypress="return validarDec(event)">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Distrito</label>
+								<select class="form-control select2" name="distrito_nuevo" id="distrito_nuevo" style="width: 100%;">
+									<option value="">-- SELECCIONE --</option>
+								{% for dist in distritos.data %}
+									<option value="{{dist.IDDISTRITO}}">{{dist.NOMBRE}}</option>
+								{% endfor %}
+								</select>
+							</div>
+						</div>
+<!-- 						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Tipo</label>
+								<select class="form-control select2" name="tipocentro_nuevo" id="tipocentro_nuevo" style="width: 100%;">
+									<option value="">-- SELECCIONE --</option>
+									<option value="CD">CD | Centro Deportivo</option>
+									<option value="PZ">PZ | Parque Zonal</option>
+									<option value="LO">LO | Local</option>
+									<option value="DG">DG | División Geográfica</option>
+								</select>
+							</div>
+						</div> -->
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Longitud</label>
+								<input type="text" name="longitud" id="longitud" class="form-control" disabled="">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Latitud</label>
+								<input type="text" name="latitud" id="latitud" class="form-control" disabled="">
+							</div>
+						</div>						
+						<div class="col-md-4">
+							<div class="form-group">
+								<br>
+								<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalMapa"><i class="fas fa-map" aria-hidden="true"></i>&nbsp;Mapa</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="btnGuardarNuevoCentro">Guardar</button>
+					<button type="button" class="btn btn-default" id="btn-cancelar-nuevo-centro" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- MODAL EDITAR CENTRO -->
+	<div class="modal fade" id="mEditarCentro" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">EDITAR CENTRO</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="idcentro_editar" hidden="">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">Nombre</label>
+								<input type="text" name="nombre_editar" id="nombre_editar" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">Dirección</label>
+								<input type="text" name="direccion_editar" id="direccion_editar" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Área Total</label>
+								<input type="text" name="areatotal_editar" id="areatotal_editar" class="form-control" onkeypress="return validarDec(event)">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Distrito</label>
+								<select class="form-control select2" name="distrito_editar" id="distrito_editar" style="width: 100%;">
+									<option value="">-- SELECCIONE --</option>
+								{% for dist in distritos.data %}
+									<option value="{{dist.IDDISTRITO}}">{{dist.NOMBRE}}</option>
+								{% endfor %}
+								</select>
+							</div>
+						</div>					
+<!-- 						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Tipo</label>
+								<select class="form-control select2" name="tipocentro_editar" id="tipocentro_editar" style="width: 100%;">
+									<option value="">-- SELECCIONE --</option>
+									<option value="CD">CD | Centro Deportivo</option>
+									<option value="PZ">PZ | Parque Zonal</option>
+									<option value="LO">LO | Local</option>
+									<option value="DG">DG | División Geográfica</option>
+								</select>
+							</div>
+						</div> -->
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Longitud</label>
+								<input type="text" name="longitud_editar" id="longitud_editar" class="form-control" disabled="">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Latitud</label>
+								<input type="text" name="latitud_editar" id="latitud_editar" class="form-control" disabled="">
+							</div>
+						</div>						
+						<div class="col-md-4">
+							<div class="form-group">
+								<br>
+								<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalMapa"><i class="fas fa-map" aria-hidden="true"></i>&nbsp;Mapa</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="btnEditarCentro">Guardar</button>
+					<button type="button" class="btn btn-default" id="btn-cancelar-editar-centro" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- MODAL VER ESPACIOS -->
+	<div class="modal fade" id="mVerEspacios" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">ESPACIOS</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<input type="text" id="idcentro_ver_espacios" hidden="">
+						<div class="col-md-12">
+							<div class="col-md-4">
+								<label class="form-inline">Mostrar&nbsp;&nbsp;
+									<select id="entries_espaciocentro" class="form-control input-sm">
+										<option value="5">5</option>
+										<option value="10">10</option>
+										<option value="15">15</option>
+										<option value="20">20</option>
+									</select>
+								&nbsp;&nbsp;registros </label>
+							</div>
+							<div class="col-md-6">
+								<button class="btn btn-primary btn-sm fa fa-plus" data-toggle="modal" data-target="#mNuevoEspacio" onclick="LimpiarDatosNuevoEspacio();" title="Nuevo Espacio">&nbsp;Nuevo Espacio</button>
+							</div>
+						</div>
+						<div class="table-responsive">
+							<table id="tblespaciocentro" class="table toggle-circle table-hover table-MML" data-page-size="5">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th data-sort-ignore="true">ESPACIO</th>
+										<th data-sort-ignore="true">AFORO</th>
+										<th data-sort-ignore="true">TIPO ESPACIO</th>
+										<th data-sort-ignore="true">CENTRO</th>
+										<th data-sort-ignore="true">EDITAR</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="6">
+											<div class="text-right">
+												<ul class="pagination pagination-split m-t-30"> </ul>
+											</div>
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="btn-cancelar-ver-espacio-centro" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- MODAL VER SERVICIOS - CENTRO -->
+	<div class="modal fade" id="mVerServiciosCentro" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">SERVICIOS - CENTRO</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="col-md-5">
+								<label class="form-inline">Mostrar&nbsp;&nbsp;
+									<select id="entries_serviciocentro" class="form-control input-sm">
+										<option value="5">5</option>
+										<option value="10">10</option>
+										<option value="15">15</option>
+										<option value="20">20</option>
+									</select>
+								&nbsp;&nbsp;registros </label>
+							</div>
+							<div class="col-md-6">
+								<button class="btn btn-primary btn-sm fa fa-plus" data-toggle="modal" data-target="#mAsignarServicio" title="Asignar Servicio">&nbsp;Asignar Servicio</button>
+							</div>
+						</div>
+						<div class="table-responsive">
+							<table id="tblserviciocentro" class="table toggle-circle table-hover table-MML" data-page-size="5">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th data-sort-ignore="true">SERVICIO</th>
+										<th data-sort-ignore="true">CENTRO</th>
+										<th data-sort-ignore="true">ESTADO</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="4">
+											<div class="text-right">
+												<ul class="pagination pagination-split m-t-30"> </ul>
+											</div>
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="btn-cancelar-ver-servicio-centro" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- MODAL ASIGNAR SERVICIO A UN CENTRO -->
+	<div class="modal fade" id="mAsignarServicio" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">ASIGNAR SERVICIO</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">Centro</label>
+								<select class="form-control select2" name="centro_asignar_idcentro" id="centro_asignar_idcentro" style="width: 100%;" disabled="">
+									<option value="">-- SELECCIONE --</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">Servicio</label>
+								<select class="form-control select2" name="centro_asignar_idservicio" id="centro_asignar_idservicio" style="width: 100%;">
+									<option value="">-- SELECCIONE --</option>
+								</select>
+							</div>
+						</div>						
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="btnGuardarAsignarServicio">Guardar</button>
+					<button type="button" class="btn btn-default" id="btn-cancelar-asignar-centro" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- MODAL MAPA -->
+	<div class="modal fade" id="modalMapa" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">Mapa</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="row col-md-12" style="height: 800px;">   
+							<div class="col-md-12" style="border-style: solid;">
+								<div id="map"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="btn-cancelar-mapa" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- ******************************************************************* MODALES DE ESPACIOS ********************************************************************************** -->
+	<!-- MODAL NUEVO ESPACIO -->
+	<div class="modal fade" id="mNuevoEspacio" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">NUEVO ESPACIO</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Nombre</label>
+								<input type="text" name="espacio_nombre_nuevo" id="espacio_nombre_nuevo" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Descripcion</label>
+								<input type="text" name="espacio_descripcion_nuevo" id="espacio_descripcion_nuevo" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Aforo</label>
+								<input type="text" name="espacio_aforo_nuevo" id="espacio_aforo_nuevo" class="form-control" onkeypress="return validarnu(event)">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">Tipo</label>
+								<select class="form-control select2" name="espacio_tipo_nuevo" id="espacio_tipo_nuevo" style="width: 100%;">
+									<option value="">-- SELECCIONE --</option>
+								{% for item in tipoespacio.data %}
+									<option value="{{item.IDTIPOESPACIO}}">{{item.NOMBRE}}</option>
+								{% endfor %}
+								</select>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">Centro Deportivo</label>
+								<select class="form-control select2" name="espacio_tipocentro_nuevo" id="espacio_tipocentro_nuevo" style="width: 100%;" disabled="">
+									<option value="">-- SELECCIONE --</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="btnGuardarNuevoEspacio">Guardar</button>
+					<button type="button" class="btn btn-default" id="btn-cancelar-nuevo-espacio" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- MODAL EDITAR ESPACIO -->
+	<div class="modal fade" id="mEditarEspacio" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">EDITAR ESPACIO</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="idespacio_editar" hidden="">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Nombre</label>
+								<input type="text" name="espacio_nombre_editar" id="espacio_nombre_editar" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Descripcion</label>
+								<input type="text" name="espacio_descripcion_editar" id="espacio_descripcion_editar" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Aforo</label>
+								<input type="text" name="espacio_aforo_editar" id="espacio_aforo_editar" class="form-control" onkeypress="return validarnu(event)">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">Tipo</label>
+								<select class="form-control select2" name="espacio_tipo_editar" id="espacio_tipo_editar" style="width: 100%;">
+									<option value="">-- SELECCIONE --</option>
+								{% for item in tipoespacio.data %}
+									<option value="{{item.IDTIPOESPACIO}}">{{item.NOMBRE}}</option>
+								{% endfor %}
+								</select>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">Centro Deportivo</label>
+								<select class="form-control select2" name="espacio_tipocentro_editar" id="espacio_tipocentro_editar" style="width: 100%;">
+									<option value="">-- SELECCIONE --</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="btnEditarEspacio">Guardar</button>
+					<button type="button" class="btn btn-default" id="btn-cancelar-editar-espacio" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- ***************************************************************** MODALES DE CATALOGOS DE SERVICIO ********************************************************************** -->
+<!-- MODAL NUEVO CATALOGO -->
+	<div class="modal fade" id="mNuevoCatalogo" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">NUEVO CATALOGO</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">Nombre</label>
+								<input type="text" name="catalogo_nombre_nuevo" id="catalogo_nombre_nuevo" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">Área</label>
+								<select class="form-control select2" name="catalogo_area_nuevo" id="catalogo_area_nuevo" style="width: 100%;">
+									<option value="">-- SELECCIONE --</option>
+								{% for item in areas.data %}
+									<option value="{{item.IDAREASERVICIO}}">{{item.NOMBRE}}</option>
+								{% endfor %}
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="btnGuardarNuevoCatalogo">Guardar</button>
+					<button type="button" class="btn btn-default" id="btn-cancelar-nuevo-catalogo" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- MODAL EDITAR CATALOGO -->
+	<div class="modal fade" id="mEditarCatalogo" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">EDITAR CATÁLOGO</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="idcatalogo_editar" hidden="">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">Nombre</label>
+								<input type="text" name="catalogo_nombre_editar" id="catalogo_nombre_editar" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">Área</label>
+								<select class="form-control select2" name="catalogo_area_editar" id="catalogo_area_editar" style="width: 100%;">
+									<option value="">-- SELECCIONE --</option>
+								{% for item in areas.data %}
+									<option value="{{item.IDAREASERVICIO}}">{{item.NOMBRE}}</option>
+								{% endfor %}
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="btnEditarCatalogo">Guardar</button>
+					<button type="button" class="btn btn-default" id="btn-cancelar-editar-catalogo" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- MODAL VER ESPACIOS -->
+	<div class="modal fade" id="mVerServicios" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">SERVICIOS</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<input type="text" id="idcatalogo_ver_servicio" hidden="">
+						<div class="col-md-12">
+							<div class="col-md-4">
+								<label class="form-inline">Mostrar&nbsp;&nbsp;
+									<select id="entries_catalogoservicio" class="form-control input-sm">
+										<option value="5">5</option>
+										<option value="10">10</option>
+										<option value="15">15</option>
+										<option value="20">20</option>
+									</select>
+								&nbsp;&nbsp;registros </label>
+							</div>
+							<div class="col-md-6">
+								<button class="btn btn-primary btn-sm fa fa-plus" data-toggle="modal" data-target="#mNuevoServicio" onclick="LimpiarDatosNuevoServicio();" title="Nuevo Servicio">&nbsp;Nuevo Servicio</button>
+							</div>
+						</div>
+						<div class="table-responsive">
+							<table id="tblcatalogoservicio" class="table toggle-circle table-hover table-MML" data-page-size="5">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th data-sort-ignore="true">NOMBRE</th>
+										<th data-sort-ignore="true">DESCRIPCIÓN</th>
+										<th data-sort-ignore="true">CATÁLOGO</th>
+										<th data-sort-ignore="true">EDITAR</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="5">
+											<div class="text-right">
+												<ul class="pagination pagination-split m-t-30"> </ul>
+											</div>
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="btn-cancelar-ver-catalogo-servicio" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- ***************************************************************** MODALES DE SERVICIOS ********************************************************************** -->
+	<!-- MODAL NUEVO SERVICIO -->
+	<div class="modal fade" id="mNuevoServicio" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">NUEVO SERVICIO</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Nombre</label>
+								<input type="text" name="servicio_nombre_nuevo" id="servicio_nombre_nuevo" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Descripción</label>
+								<input type="text" name="servicio_descripcion_nuevo" id="servicio_descripcion_nuevo" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Catálogo</label>
+								<select class="form-control select2" name="servicio_catalogo_nuevo" id="servicio_catalogo_nuevo" style="width: 100%;" disabled="">
+									<option value="">-- SELECCIONE --</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="btnGuardarNuevoServicio">Guardar</button>
+					<button type="button" class="btn btn-default" id="btn-cancelar-nuevo-servicio" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- MODAL EDITAR SERVICIO -->
+	<div class="modal fade" id="mEditarServicio" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">EDITAR SERVICIO</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="idservicio_editar" hidden="">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Nombre</label>
+								<input type="text" name="servicio_nombre_editar" id="servicio_nombre_editar" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Descripción</label>
+								<input type="text" name="servicio_descripcion_editar" id="servicio_descripcion_editar" class="form-control" onkeypress="return validarle(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label class="control-label">Catálogo</label>
+								<select class="form-control select2" name="servicio_catalogo_editar" id="servicio_catalogo_editar" style="width: 100%;">
+									<option value="">-- SELECCIONE --</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="btnEditarServicio">Guardar</button>
+					<button type="button" class="btn btn-default" id="btn-cancelar-editar-servicio" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- MODAL PARA AGREGAR FOTO DE UN CENTRO DEPORTIVO -->
+	<div class="modal fade" id="mAgregarFoto" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">Adjuntar</h4>
+				</div>
+				<form id="FormSubirFotoCentro" action="guardar-foto-centro" method="post" data-toggle="validator" enctype="multipart/form-data">
+					<div class="modal-body">
+						<input type="hidden" name="idCentro_foto" id="idCentro_foto"> 
+						<div class="form-body">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label class="control-label">Nombre del Archivo</label>
+										<div class="input-group">
+											<input name="foto_nombre" id="foto_nombre" type="text" class="form-control" placeholder="Nombre del archivo" required="" data-error="Ingrese el nombre del archivo.">
+										</div>
+									</div>
+									<div class="help-block with-errors"></div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label class="control-label">Adjuntar Imagen (Tam. Máx.: 20 MB)</label>
+										<input name="foto_file" type="file" id="input-file-max-fs" class="dropify" data-max-file-size="20M"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-success" id="btnGuardarFoto"><i class="fa fa-check"></i> Guardar</button>
+						<button type="button" class="btn btn-default" id="btn-cancelar-guardar-foto-centro" data-dismiss="modal">Cerrar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- MODAL PARA VER LA FOTO DE UN CENTRO DEPORTIVO -->
+	<div class="modal fade" id="mVerFoto" role="dialog" aria-labelledby="exampleModalLabel1">
+		<div class="modal-dialog modal-MML-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="exampleModalLabel1">Foto</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="white-box">
+									<div id="div_ver_foto_central"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="btn-cancelar-ver-foto-centro" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+            
+<div class="page-heading" style="background-image: url({{contenido['data'].icono}}) !important;">
+  <div class="breadcrumbs">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <ul>
+          <li class="home"> <a href="{{base_url()}}/" title="Ir a la página de Inicio">Inicio</a> <span>&rsaquo; </span> </li>
+          {% set ruta = "" %}
+                                {% for navHead in navBanner %}
+                                {% set ruta = ruta ~ "/" ~ navHead.url %}
+                                
+<li class="category1601"> <a href="{{base_url()}}{{ruta}}" title="{{navHead.titulo}}">{{navHead.titulo}}</a> <span>&rsaquo; </span> </li>
+                                   
+                                {% endfor %}
+            
+          </ul>
+        </div>
+        <!--col-xs-12--> 
+      </div>
+      <!--row--> 
+    </div>
+    <!--container--> 
+  </div>
+  <div class="page-title">
+    <h2>{{contenido["data"].titulo}}</h2>
+  </div>
+</div>
+

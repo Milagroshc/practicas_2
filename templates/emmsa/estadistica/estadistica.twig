@@ -1,0 +1,15 @@
+{% extends 'emmsa/plantilla-interna.twig' %}
+{% block seccionContenido %}
+<div class="col-md-12 col-sm-12 m-b-50 product-detail">
+{{contenido["data"].contenido|convert_encoding('UTF-8', 'UTF-8')|raw}}
+weeee
+</div>
+{% endblock %}
+
+{% block pie %}
+    {% for plantilla in plantillas.data %}
+        {% if plantilla.tipo == "pie" %}
+            {% include plantilla.archivo_portal_web %}
+        {% endif %}
+    {% endfor %}
+{% endblock %}
